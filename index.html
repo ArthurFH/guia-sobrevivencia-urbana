@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guia de Sobrevivência Urbana</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:        #0d0d0d;
+    --bg2:       #141414;
+    --bg3:       #1a1a1a;
+    --border:    #2a2a2a;
+    --text:      #d4cfc8;
+    --text-dim:  #6b6560;
+    --accent:    #e8c547;
+    --accent2:   #c0392b;
+    --accent3:   #2ecc71;
+    --mono:      'IBM Plex Mono', monospace;
+    --sans:      'IBM Plex Sans', sans-serif;
+    --display:   'Bebas Neue', sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-weight: 300;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.4;
+  }
+
+  .topbar {
+    background: var(--accent2);
+    padding: 8px 0;
+    text-align: center;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    color: #fff;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .topbar span { opacity: 0.7; margin: 0 8px; }
+
+  nav {
+    border-bottom: 1px solid var(--border);
+    padding: 0 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+    background: var(--bg);
+    position: sticky;
+    top: 37px;
+    z-index: 99;
+  }
+  .nav-logo { font-family: var(--display); font-size: 22px; letter-spacing: 0.08em; color: var(--accent); }
+  .nav-links { display: flex; gap: 32px; list-style: none; }
+  .nav-links a {
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em;
+    color: var(--text-dim); text-decoration: none; text-transform: uppercase; transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+  .nav-update { font-family: var(--mono); font-size: 10px; color: var(--text-dim); letter-spacing: 0.08em; }
+
+  /* HERO */
+  .hero {
+    padding: 100px 40px 80px;
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    gap: 80px;
+    align-items: start;
+    animation: fadeUp 0.8s ease 0.1s both;
+  }
+  .hero-tag {
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.2em;
+    color: var(--accent); text-transform: uppercase; margin-bottom: 20px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .hero-tag::before { content: ''; display: block; width: 32px; height: 1px; background: var(--accent); }
+  h1 {
+    font-family: var(--display); font-size: clamp(56px, 8vw, 96px);
+    line-height: 0.92; letter-spacing: 0.02em; color: #fff; margin-bottom: 32px;
+  }
+  h1 em { font-style: normal; color: var(--accent); display: block; }
+  .hero-desc { font-size: 16px; line-height: 1.8; color: var(--text); max-width: 520px; margin-bottom: 40px; font-weight: 300; }
+  .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--accent); color: #0d0d0d; padding: 14px 28px;
+    font-family: var(--mono); font-size: 12px; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; text-decoration: none; border: none; cursor: pointer;
+    transition: all 0.2s; display: inline-block;
+  }
+  .btn-primary:hover { background: #f5d55a; transform: translateY(-2px); }
+  .btn-ghost {
+    background: transparent; color: var(--text-dim); padding: 14px 28px;
+    font-family: var(--mono); font-size: 12px; letter-spacing: 0.1em;
+    text-transform: uppercase; text-decoration: none; border: 1px solid var(--border);
+    transition: all 0.2s; display: inline-block;
+  }
+  .btn-ghost:hover { border-color: var(--text-dim); color: var(--text); }
+
+  /* ALERT SIDEBAR */
+  .hero-side { border: 1px solid var(--border); padding: 28px; background: var(--bg2); }
+  .alert-header {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid var(--border);
+  }
+  .alert-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent2); animation: pulse 2s infinite; }
+  .alert-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent2); }
+
+  /* ALERT CARD com votos */
+  .alert-item {
+    padding: 16px 0;
+    border-bottom: 1px solid var(--border);
+    animation: fadeUp 0.5s ease both;
+  }
+  .alert-item:last-child { border-bottom: none; padding-bottom: 0; }
+  .alert-date {
+    font-family: var(--mono); font-size: 10px; color: var(--text-dim);
+    margin-bottom: 6px; display: flex; gap: 8px; align-items: center;
+  }
+  .flag { font-size: 13px; }
+  .alert-title { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 4px; line-height: 1.4; }
+  .alert-body { font-size: 12px; color: var(--text-dim); line-height: 1.6; }
+  .alert-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 10px; }
+  .alert-tag {
+    display: inline-block; font-family: var(--mono); font-size: 9px;
+    letter-spacing: 0.15em; padding: 2px 8px; text-transform: uppercase;
+  }
+  .alert-tag.danger { background: #1f0e0e; color: var(--accent2); }
+  .alert-tag.safe   { background: #0e1f12; color: var(--accent3); }
+  .alert-tag.info   { background: #1f1a0e; color: var(--accent); }
+
+  /* VOTE BUTTONS */
+  .vote-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .vote-btn {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    padding: 4px 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+    line-height: 1;
+  }
+  .vote-btn:hover { border-color: var(--text-dim); color: var(--text); }
+  .vote-btn.voted-up   { border-color: var(--accent3); color: var(--accent3); background: #0e1f12; }
+  .vote-btn.voted-down { border-color: var(--accent2); color: var(--accent2); background: #1f0e0e; }
+  .vote-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+  .vote-score {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text-dim);
+    min-width: 24px;
+    text-align: center;
+  }
+  .vote-loading { font-family: var(--mono); font-size: 9px; color: var(--text-dim); letter-spacing: 0.1em; }
+
+  /* LOADING SKELETON */
+  .skeleton {
+    background: linear-gradient(90deg, var(--bg2) 25%, var(--bg3) 50%, var(--bg2) 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    height: 12px;
+    border-radius: 2px;
+    margin-bottom: 8px;
+  }
+  .skeleton.short { width: 60%; }
+  .skeleton.tall  { height: 32px; }
+
+  /* STATS */
+  .stats-bar { background: var(--bg3); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .stats-inner {
+    max-width: 1100px; margin: 0 auto; padding: 40px;
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 1px; background: var(--border);
+  }
+  .stat { background: var(--bg3); padding: 24px 32px; text-align: center; }
+  .stat-num { font-family: var(--display); font-size: 48px; color: var(--accent); line-height: 1; margin-bottom: 8px; }
+  .stat-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.15em; color: var(--text-dim); text-transform: uppercase; }
+
+  /* CHAPTERS */
+  .section { max-width: 1100px; margin: 0 auto; padding: 80px 40px; animation: fadeUp 0.8s ease 0.3s both; }
+  .section-label {
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.25em;
+    color: var(--text-dim); text-transform: uppercase; margin-bottom: 48px;
+    display: flex; align-items: center; gap: 16px;
+  }
+  .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+  .chapters-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); }
+  .chapter-card {
+    background: var(--bg); padding: 32px 28px; text-decoration: none;
+    display: block; transition: background 0.2s; position: relative; overflow: hidden;
+  }
+  .chapter-card::before {
+    content: ''; position: absolute; bottom: 0; left: 0;
+    width: 0; height: 2px; background: var(--accent); transition: width 0.3s ease;
+  }
+  .chapter-card:hover { background: var(--bg2); }
+  .chapter-card:hover::before { width: 100%; }
+  .chapter-num { font-family: var(--display); font-size: 48px; color: var(--border); line-height: 1; margin-bottom: 16px; transition: color 0.2s; }
+  .chapter-card:hover .chapter-num { color: var(--accent); opacity: 0.4; }
+  .chapter-title { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 10px; line-height: 1.3; }
+  .chapter-desc { font-size: 12px; color: var(--text-dim); line-height: 1.6; }
+  .chapter-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 16px; }
+  .ctag { font-family: var(--mono); font-size: 9px; letter-spacing: 0.1em; padding: 3px 8px; border: 1px solid var(--border); color: var(--text-dim); text-transform: uppercase; }
+
+  /* CHANGELOG com votos */
+  .changelog-section { background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .changelog-inner { max-width: 1100px; margin: 0 auto; padding: 80px 40px; animation: fadeUp 0.8s ease 0.4s both; }
+  h2 { font-family: var(--display); font-size: clamp(36px, 5vw, 64px); letter-spacing: 0.03em; line-height: 0.95; color: #fff; margin-bottom: 24px; }
+  h2 span { color: var(--accent); }
+  .changelog-desc { font-size: 14px; color: var(--text-dim); line-height: 1.8; margin-bottom: 40px; max-width: 560px; }
+
+  .changelog-list { display: flex; flex-direction: column; gap: 1px; background: var(--border); border: 1px solid var(--border); }
+  .changelog-entry {
+    background: var(--bg); padding: 24px 28px;
+    display: grid; grid-template-columns: 140px 1fr auto;
+    gap: 24px; align-items: center;
+    transition: background 0.2s;
+  }
+  .changelog-entry:hover { background: var(--bg2); }
+  .changelog-meta { display: flex; flex-direction: column; gap: 6px; }
+  .changelog-date { font-family: var(--mono); font-size: 11px; color: var(--text-dim); letter-spacing: 0.1em; }
+  .changelog-flags { display: flex; gap: 4px; font-size: 14px; }
+  .changelog-content { }
+  .changelog-title { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+  .changelog-body { font-size: 12px; color: var(--text-dim); line-height: 1.6; }
+  .changelog-badge {
+    font-family: var(--mono); font-size: 9px; letter-spacing: 0.12em;
+    padding: 3px 10px; text-transform: uppercase; white-space: nowrap;
+    align-self: flex-start; margin-top: 4px;
+  }
+  .badge-golpe  { background: #1f0e0e; color: var(--accent2); }
+  .badge-lei    { background: #0e1218; color: #5dade2; }
+  .badge-tool   { background: #0e1f12; color: var(--accent3); }
+  .badge-update { background: #1f1a0e; color: var(--accent); }
+
+  /* VOTE inline no changelog */
+  .changelog-votes {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    min-width: 72px;
+  }
+
+  /* CHECKLISTS */
+  .checklist-section { max-width: 1100px; margin: 0 auto; padding: 80px 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 48px; animation: fadeUp 0.8s ease 0.5s both; }
+  .checklist-box { border: 1px solid var(--border); padding: 32px; }
+  .checklist-title { font-family: var(--display); font-size: 28px; letter-spacing: 0.05em; color: var(--accent); margin-bottom: 8px; }
+  .checklist-sub { font-family: var(--mono); font-size: 10px; letter-spacing: 0.15em; color: var(--text-dim); text-transform: uppercase; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
+  .check-item { display: flex; gap: 14px; padding: 10px 0; border-bottom: 1px solid #1e1e1e; align-items: flex-start; cursor: pointer; transition: all 0.15s; }
+  .check-item:hover { padding-left: 6px; }
+  .check-box { width: 16px; height: 16px; border: 1px solid var(--border); flex-shrink: 0; margin-top: 3px; transition: all 0.2s; position: relative; }
+  .check-item.done .check-box { background: var(--accent3); border-color: var(--accent3); }
+  .check-item.done .check-box::after { content: '✓'; position: absolute; top: -2px; left: 2px; font-size: 11px; color: #0d0d0d; font-weight: bold; }
+  .check-item.done .check-text { text-decoration: line-through; color: var(--text-dim); }
+  .check-text { font-size: 13px; color: var(--text); line-height: 1.5; }
+  .check-priority { font-family: var(--mono); font-size: 9px; color: var(--accent2); letter-spacing: 0.1em; margin-top: 2px; }
+
+  /* LANG */
+  .lang-strip { max-width: 1100px; margin: 0 auto; padding: 0 40px 80px; }
+  .lang-box { border: 1px solid var(--border); display: grid; grid-template-columns: 1fr 1fr; }
+  .lang-panel { padding: 32px; }
+  .lang-panel:first-child { border-right: 1px solid var(--border); }
+  .lang-flag-title { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+  .lang-flag-title span:first-child { font-size: 24px; }
+  .lang-flag-title strong { font-family: var(--mono); font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-dim); }
+  .lang-note { font-size: 13px; color: var(--text); line-height: 1.7; border-left: 2px solid var(--accent); padding-left: 16px; }
+  .lang-note strong { color: var(--accent); font-weight: 600; }
+
+  /* TOAST */
+  .toast {
+    position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(80px);
+    background: var(--bg3); border: 1px solid var(--border);
+    color: var(--text); font-family: var(--mono); font-size: 11px;
+    letter-spacing: 0.1em; padding: 12px 24px;
+    transition: transform 0.3s ease; z-index: 9998;
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+  .toast.up   { border-color: var(--accent3); color: var(--accent3); }
+  .toast.down { border-color: var(--accent2); color: var(--accent2); }
+
+  /* FOOTER */
+  .divider { max-width: 1100px; margin: 0 auto; padding: 0 40px; border-top: 1px solid var(--border); }
+  footer { border-top: 1px solid var(--border); padding: 40px; max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+  .footer-logo { font-family: var(--display); font-size: 18px; letter-spacing: 0.08em; color: var(--text-dim); }
+  .footer-meta { font-family: var(--mono); font-size: 10px; color: var(--text-dim); letter-spacing: 0.1em; text-align: right; line-height: 1.8; }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(1.3); } }
+  @keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+
+  @media (max-width: 900px) {
+    nav { padding: 0 20px; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; gap: 40px; padding: 60px 20px 40px; }
+    .chapters-grid { grid-template-columns: 1fr; }
+    .changelog-entry { grid-template-columns: 1fr; gap: 12px; }
+    .changelog-votes { flex-direction: row; justify-content: flex-start; }
+    .checklist-section { grid-template-columns: 1fr; padding: 40px 20px; }
+    .stats-inner { grid-template-columns: repeat(2, 1fr); }
+    .lang-box { grid-template-columns: 1fr; }
+    .lang-panel:first-child { border-right: none; border-bottom: 1px solid var(--border); }
+    .lang-strip { padding: 0 20px 60px; }
+    footer { flex-direction: column; gap: 20px; text-align: center; padding: 40px 20px; }
+    .footer-meta { text-align: center; }
+    .section { padding: 60px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- ALERT BAR -->
+<div class="topbar">
+  ⚠ ALERTA ATIVO <span>|</span> Phishing IRS 2026 e golpe Pix com CPF — ver Capítulo 2 <span>|</span> Última revisão: Abril 2026
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">GSU</div>
+  <ul class="nav-links">
+    <li><a href="#capitulos">Capítulos</a></li>
+    <li><a href="#changelog">O que mudou</a></li>
+    <li><a href="#protocolos">Protocolos</a></li>
+    <li><a href="#recursos">Recursos</a></li>
+  </ul>
+  <div class="nav-update">Rev. Abr/2026</div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-left">
+    <div class="hero-tag">Guia de Sobrevivência Urbana</div>
+    <h1>Conhecimento<em>que não falha</em></h1>
+    <p class="hero-desc">
+      Um guia prático e denso para Portugal e Brasil. Sem floreio. Sem produtos a vender.
+      Dinheiro, carreira, saúde, burocracia, golpes e lei — o que precisas de saber
+      quando o mundo aperta.
+    </p>
+    <div class="hero-actions">
+      <a href="#capitulos" class="btn-primary">Ver Capítulos →</a>
+      <a href="#protocolos" class="btn-ghost">Protocolos de Emergência</a>
+    </div>
+  </div>
+
+  <!-- ALERTAS COM VOTOS -->
+  <div class="hero-side">
+    <div class="alert-header">
+      <div class="alert-dot"></div>
+      <div class="alert-label">Alertas Recentes</div>
+    </div>
+    <div id="alerts-container">
+      <!-- Skeleton loading -->
+      <div class="alert-item">
+        <div class="skeleton short"></div>
+        <div class="skeleton"></div>
+        <div class="skeleton"></div>
+        <div class="skeleton short"></div>
+      </div>
+      <div class="alert-item">
+        <div class="skeleton short"></div>
+        <div class="skeleton"></div>
+        <div class="skeleton short"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div class="stat"><div class="stat-num">10</div><div class="stat-label">Capítulos</div></div>
+    <div class="stat"><div class="stat-num">2</div><div class="stat-label">Países</div></div>
+    <div class="stat"><div class="stat-num">47</div><div class="stat-label">Protocolos</div></div>
+    <div class="stat"><div class="stat-num">0€</div><div class="stat-label">Custo</div></div>
+  </div>
+</div>
+
+<!-- CHAPTERS -->
+<div class="section" id="capitulos">
+  <div class="section-label">Capítulos</div>
+  <div class="chapters-grid">
+    <a href="#" class="chapter-card">
+      <div class="chapter-num">01</div>
+      <div class="chapter-title">Dinheiro sob Pressão</div>
+      <div class="chapter-desc">Inflação, orçamento de crise, fundo de emergência, dívida boa vs. má.</div>
+      <div class="chapter-tags"><span class="ctag">Finanças</span><span class="ctag">🇵🇹 🇧🇷</span></div>
+    </a>
+    <a href="#" class="chapter-card">
+      <div class="chapter-num">02</div>
+      <div class="chapter-title">Segurança Digital e Golpes</div>
+      <div class="chapter-desc">Os 10 golpes mais comuns explicados por dentro. O que fazer se já fores vítima.</div>
+      <div class="chapter-tags"><span class="ctag">Atualizado</span><span class="ctag">🇵🇹 🇧🇷</span></div>
+    </a>
+    <a href="#" class="chapter-card">
+      <div class="chapter-num">03</div>
+      <div class="chapter-title">Planejamento Financeiro</div>
+      <div class="chapter-desc">Regra 50/30/20 adaptada, seguro de saúde, imóvel em contexto instável.</div>
+      <div class="chapter-tags"><span class="ctag">Finanças</span><span class="ctag">Longo Prazo</span></div>
+    </a>
+    <a href="#" class="chapter-card">
+      <div class="chapter-num">04</div>
+      <div class="chapter-title">Carreira em Mercado Difícil</div>
+      <div class="chapter-desc">Skills transferíveis, freelance, reputação online, trabalho remoto internacional.</div>
+      <div class="chapter-tags"><span class="ctag">Carreira</span><span class="ctag">Freelance</span></div>
+    </a>
+    <a href="#" class="chapter-card">
+      <div class="chapter-num">05</div>
+      <div class="chapter-title">Conhecimento que Não se Perde</div>
+      <div class="chapter-desc">Línguas, skills duráveis, onde estudar de graça ou quase.</div>
+      <div class="chapter-tags"><span class="ctag">Educação</span><span class="ctag">Línguas</span></div>
+    </a>
+    <a href="#" class="chapter-card">
+      <div class="chapter-num">06</div>
+      <div class="chapter-title">Noções Jurídicas de Sobrevivência</div>
+      <div class="chapter-desc">Direitos do trabalhador, contratos, despejo, execução fiscal, apoio gratuito.</div>
+      <div class="chapter-tags"><span class="ctag">Direito</span><span class="ctag">🇵🇹 🇧🇷</span></div>
+    </a>
+    <a href="#" class="chapter-card">
+      <div class="chapter-num">07</div>
+      <div class="chapter-title">Casa e Vida Doméstica</div>
+      <div class="chapter-desc">Negociar renda, cozinha de crise, reparos básicos, documentos digitalizados.</div>
+      <div class="chapter-tags"><span class="ctag">Casa</span><span class="ctag">Prático</span></div>
+    </a>
+    <a href="#" class="chapter-card">
+      <div class="chapter-num">08</div>
+      <div class="chapter-title">Saúde quando o Sistema Aperta</div>
+      <div class="chapter-desc">SNS e SUS na prática, genéricos, saúde mental em crise, primeiros socorros.</div>
+      <div class="chapter-tags"><span class="ctag">Saúde</span><span class="ctag">🇵🇹 🇧🇷</span></div>
+    </a>
+    <a href="#" class="chapter-card">
+      <div class="chapter-num">09</div>
+      <div class="chapter-title">Empreender Pequeno</div>
+      <div class="chapter-desc">Side hustle realista, recibo verde / MEI, precificação, plataformas sem investimento.</div>
+      <div class="chapter-tags"><span class="ctag">Negócio</span><span class="ctag">Freelance</span></div>
+    </a>
+    <a href="#protocolos" class="chapter-card" style="grid-column: span 3; display: flex; align-items: center; justify-content: space-between; padding: 28px;">
+      <div>
+        <div class="chapter-num" style="font-size: 32px; margin-bottom: 4px;">10</div>
+        <div class="chapter-title" style="font-size: 17px;">Protocolos de Emergência — Checklists por Cenário</div>
+        <div class="chapter-desc">Demissão, fraude, bloqueio bancário, saída do país.</div>
+      </div>
+      <span style="font-family: var(--display); font-size: 40px; color: var(--accent); opacity: 0.4;">→</span>
+    </a>
+  </div>
+</div>
+
+<!-- CHANGELOG COM VOTOS -->
+<div class="changelog-section" id="changelog">
+  <div class="changelog-inner">
+    <h2>O que <span>mudou</span></h2>
+    <p class="changelog-desc">
+      Registo cronológico de atualizações. Vota em cada entrada para nos ajudar a perceber
+      o que é relevante para a tua realidade — sem login, sem rastreio.
+    </p>
+    <div class="changelog-list" id="changelog-container">
+      <!-- preenchido por JS -->
+      <div class="changelog-entry">
+        <div><div class="skeleton short"></div></div>
+        <div><div class="skeleton"></div><div class="skeleton short" style="margin-top:8px"></div></div>
+        <div><div class="skeleton tall" style="width:72px"></div></div>
+      </div>
+      <div class="changelog-entry">
+        <div><div class="skeleton short"></div></div>
+        <div><div class="skeleton"></div><div class="skeleton short" style="margin-top:8px"></div></div>
+        <div><div class="skeleton tall" style="width:72px"></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CHECKLISTS -->
+<div class="checklist-section" id="protocolos">
+  <div class="checklist-box">
+    <div class="checklist-title">Demissão</div>
+    <div class="checklist-sub">Primeiras 72 horas — clica para marcar</div>
+    <div class="check-item" onclick="this.classList.toggle('done')">
+      <div class="check-box"></div>
+      <div><div class="check-text">Confirmar por escrito a data oficial de saída e motivo</div><div class="check-priority">URGENTE</div></div>
+    </div>
+    <div class="check-item" onclick="this.classList.toggle('done')">
+      <div class="check-box"></div>
+      <div><div class="check-text">Calcular montante exato de rescisão / indemnização devida</div><div class="check-priority">URGENTE</div></div>
+    </div>
+    <div class="check-item" onclick="this.classList.toggle('done')">
+      <div class="check-box"></div>
+      <div><div class="check-text">Registar como desempregado no IEFP (PT) ou SINE (BR) nas primeiras 72h</div></div>
+    </div>
+    <div class="check-item" onclick="this.classList.toggle('done')">
+      <div class="check-box"></div>
+      <div><div class="check-text">Guardar cópias de contratos, folhas de vencimento e emails</div></div>
+    </div>
+    <div class="check-item" onclick="this.classList.toggle('done')">
+      <div class="check-box"></div>
+      <div><div class="check-text">Calcular fundo de emergência atual — quantos meses tens cobertos?</div></div>
+    </div>
+    <div class="check-item" onclick="this.classList.toggle('done')">
+      <div class="check-box"></div>
+      <div><div class="check-text">Identificar 3 despesas que podes cortar esta semana</div></div>
+    </div>
+    <div class="check-item" onclick="this.classList.toggle('done')">
+      <div class="check-box"></div>
+      <div><div class="check-text">Atualizar LinkedIn antes de contactar a rede</div></div>
+    </div>
+  </div>
+  <div class="checklist-box">
+    <div class="checklist-title">Fraude</div>
+    <div class="checklist-sub">Se foste vítima — primeiras horas</div>
+    <div class="check-item" onclick="this.classList.toggle('done')">
+      <div class="check-box"></div>
+      <div><div class="check-text">Bloquear imediatamente cartões e transferências no app do banco</div><div class="check-priority">URGENTE</div></div>
+    </div>
+    <div class="check-item" onclick="this.classList.toggle('done')">
+      <div class="check-box"></div>
+      <div><div class="check-text">Ligar para a linha de fraudes do banco — registar número do caso</div><div class="check-priority">URGENTE</div></div>
+    </div>
+    <div class="check-item" onclick="this.classList.toggle('done')">
+      <div class="check-box"></div>
+      <div><div class="check-text">Guardar prints de tudo: mensagens, emails, páginas, transferências</div><div class="check-priority">URGENTE</div></div>
+    </div>
+    <div class="check-item" onclick="this.classList.toggle('done')">
+      <div class="check-box"></div>
+      <div><div class="check-text">Apresentar queixa na PSP / Polícia Civil</div></div>
+    </div>
+    <div class="check-item" onclick="this.classList.toggle('done')">
+      <div class="check-box"></div>
+      <div><div class="check-text">Reportar ao CNCS / cert.pt (PT) ou BACEN (BR)</div></div>
+    </div>
+    <div class="check-item" onclick="this.classList.toggle('done')">
+      <div class="check-box"></div>
+      <div><div class="check-text">Mudar passwords de email e banco em dispositivo limpo</div></div>
+    </div>
+    <div class="check-item" onclick="this.classList.toggle('done')">
+      <div class="check-box"></div>
+      <div><div class="check-text">Informar família próxima — o golpe pode tentar atacar a tua rede</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- LANG -->
+<div class="lang-strip">
+  <div class="lang-box">
+    <div class="lang-panel">
+      <div class="lang-flag-title"><span>🇵🇹</span><strong>Versão Portugal</strong></div>
+      <div class="lang-note">Conteúdo legal e fiscal referente a Portugal usa: <strong>Código do Trabalho, NRAU, IRS, SNS, IEFP, CNCS</strong>. Quando a lei muda, esta página é atualizada com data visível.</div>
+    </div>
+    <div class="lang-panel">
+      <div class="lang-flag-title"><span>🇧🇷</span><strong>Versão Brasil</strong></div>
+      <div class="lang-note">Conteúdo para o Brasil referencia: <strong>CLT, Código Civil, SUS, MEI, Procon, BACEN e Defensoria Pública</strong>. Diferenças entre estados assinaladas quando relevantes.</div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-logo">GUIA DE SOBREVIVÊNCIA URBANA</div>
+  <div class="footer-meta">
+    Sem publicidade · Sem afiliados · Sem agenda<br>
+    Conteúdo licenciado sob CC BY-SA 4.0<br>
+    Última revisão: Abril 2025
+  </div>
+</footer>
+
+<script>
+// ============================================================
+// CONFIGURAÇÃO SUPABASE
+// Substitui pelos teus valores reais do projecto Supabase
+// ============================================================
+const SUPABASE_URL = 'https://bktsmktrvsjcarjxmpub.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJrdHNta3RydnNqY2FyanhtcHViIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY0NTI5MjgsImV4cCI6MjA5MjAyODkyOH0.WRxyX0hOs-gSEEvV5u76ZqvSWMorH5mH1bpQAha2nTY';
+
+// ============================================================
+// DADOS DO SITE (gerados pelo Cowork e colados aqui)
+// Cada entrada tem um id único e estável
+// ============================================================
+const ALERTS = [
+  {
+    id: 'alert-irs-phishing-abr26',
+    date: 'Abr 2026',
+    flags: ['🇵🇹'],
+    title: 'Phishing IRS 2026 — SMS e emails falsos da Autoridade Tributária',
+    body: 'Criminosos enviam SMS e emails a imitar o Fisco, alegando reembolsos ou dívidas, com links para páginas falsas que roubam dados e credenciais. O Fisco nunca envia links por SMS ou email a pedir dados pessoais.',
+    tag: 'danger',
+    tagLabel: 'Golpe Ativo'
+  },
+  {
+    id: 'alert-pix-cpf-ir-abr26',
+    date: 'Abr 2026',
+    flags: ['🇧🇷'],
+    title: 'Golpe Pix: CPF usado como chave para desviar restituição do IR',
+    body: 'Criminosos abrem contas em nomes de terceiros e registam o CPF da vítima como chave Pix. A restituição do Imposto de Renda vai parar na conta do golpista. Verifique a sua chave Pix no app do banco antes da restituição.',
+    tag: 'danger',
+    tagLabel: 'Golpe Ativo'
+  },
+  {
+    id: 'alert-mbway-sms-abr25',
+    date: 'Abr 2025',
+    flags: ['🇵🇹'],
+    title: 'Golpe MB Way com SMS falso do CTT',
+    body: 'Mensagem pede confirmação de entrega com link que redireciona para página falsa do banco.',
+    tag: 'danger',
+    tagLabel: 'Golpe Ativo'
+  },
+];
+
+const CHANGELOG = [
+  {
+    id: 'log-irs-phishing-abr26',
+    date: 'Abr 2026',
+    flags: ['🇵🇹'],
+    title: 'Alerta IRS 2026 — phishing e smishing fiscal em alta',
+    body: 'Adicionado ao Capítulo 2. SMS e emails falsos a imitar o Fisco aumentam na época de entrega do IRS.',
+    badge: 'badge-golpe',
+    badgeLabel: 'Golpe'
+  },
+  {
+    id: 'log-pix-cpf-ir-abr26',
+    date: 'Abr 2026',
+    flags: ['🇧🇷'],
+    title: 'Golpe Pix + CPF a desviar restituição do IR 2026',
+    body: 'Adicionado ao Capítulo 2. Criminosos registam CPF de vítimas como chave Pix para interceptar reembolso do Imposto de Renda.',
+    badge: 'badge-golpe',
+    badgeLabel: 'Golpe'
+  },
+  {
+    id: 'log-pix-med-fev26',
+    date: 'Fev 2026',
+    flags: ['🇧🇷'],
+    title: 'Novas regras Pix — MED 2.0 em vigor desde fevereiro',
+    body: 'Banco Central lançou mecanismo que rastreia dinheiro após múltiplas transferências. Bancos podem bloquear contas suspeitas por 72h e devolver valores em até 11 dias.',
+    badge: 'badge-tool',
+    badgeLabel: 'Ferramenta'
+  },
+  {
+    id: 'log-mbway-abr25',
+    date: 'Abr 2025',
+    flags: ['🇵🇹'],
+    title: 'Novo golpe do MB Way via SMS do CTT',
+    body: 'Adicionado ao Capítulo 2. Link na mensagem vai para domínio falso do BCP/CGD.',
+    badge: 'badge-golpe',
+    badgeLabel: 'Golpe'
+  },
+  {
+    id: 'log-nrau-mar25',
+    date: 'Mar 2025',
+    flags: ['🇵🇹'],
+    title: 'Atualização Capítulo 6 — Nova lei de arrendamento',
+    body: 'Limites de atualização de renda revistos. Novas regras para contratos a partir de 2025.',
+    badge: 'badge-lei',
+    badgeLabel: 'Lei'
+  },
+  {
+    id: 'log-pix-mar25',
+    date: 'Mar 2025',
+    flags: ['🇧🇷'],
+    title: 'Golpe do Pix com comprovante falso',
+    body: 'Técnica em alta em grupos de Facebook Marketplace e OLX. Adicionado ao Capítulo 2.',
+    badge: 'badge-golpe',
+    badgeLabel: 'Golpe'
+  },
+  {
+    id: 'log-anki-fev25',
+    date: 'Fev 2025',
+    flags: ['🇵🇹', '🇧🇷'],
+    title: 'Ferramenta adicionada — Anki para aprendizagem de línguas',
+    body: 'Capítulo 5 atualizado com guia de uso do Anki com decks gratuitos por idioma.',
+    badge: 'badge-tool',
+    badgeLabel: 'Ferramenta'
+  },
+  {
+    id: 'log-iefp-jan25',
+    date: 'Jan 2025',
+    flags: ['🇵🇹'],
+    title: 'Prazo IEFP — atualização do prazo para registo',
+    body: 'Prazo confirmado em 90 dias após demissão para não perder subsídio. Checklist atualizada.',
+    badge: 'badge-update',
+    badgeLabel: 'Actualização'
+  }
+];
+
+// ============================================================
+// SUPABASE CLIENT (fetch directo, sem SDK)
+// ============================================================
+async function supabaseQuery(method, table, body = null, params = '') {
+  const url = `${SUPABASE_URL}/rest/v1/${table}${params}`;
+  const opts = {
+    method,
+    headers: {
+      'apikey': SUPABASE_ANON_KEY,
+      'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+      'Content-Type': 'application/json',
+      'Prefer': method === 'POST' ? 'resolution=merge-duplicates' : ''
+    }
+  };
+  if (body) opts.body = JSON.stringify(body);
+  const res = await fetch(url, opts);
+  if (!res.ok) throw new Error(`Supabase ${res.status}`);
+  return res.json().catch(() => []);
+}
+
+// Busca contagem de votos para uma lista de IDs
+async function fetchVoteCounts(ids) {
+  try {
+    const idList = ids.map(id => `"${id}"`).join(',');
+    const data = await supabaseQuery('GET', 'votes', null,
+      `?select=entry_id,vote_type&entry_id=in.(${idList})`
+    );
+    const counts = {};
+    ids.forEach(id => { counts[id] = { up: 0, down: 0 }; });
+    data.forEach(row => {
+      if (counts[row.entry_id]) counts[row.entry_id][row.vote_type]++;
+    });
+    return counts;
+  } catch {
+    return null; // Supabase não configurado ainda
+  }
+}
+
+// Regista um voto (upsert por fingerprint anónimo)
+async function castVote(entryId, voteType) {
+  const fp = await getFingerprint();
+  try {
+    await supabaseQuery('POST', 'votes', {
+      entry_id: entryId,
+      vote_type: voteType,
+      fingerprint: fp
+    });
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+// Fingerprint anónimo simples (sem cookies, sem localStorage)
+async function getFingerprint() {
+  const raw = [
+    navigator.language,
+    navigator.platform,
+    screen.width,
+    screen.colorDepth,
+    Intl.DateTimeFormat().resolvedOptions().timeZone
+  ].join('|');
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(raw));
+  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('').slice(0, 16);
+}
+
+// ============================================================
+// VOTOS JÁ DADOS (sessão — sem localStorage)
+// ============================================================
+const sessionVotes = {};
+
+// ============================================================
+// TOAST
+// ============================================================
+function showToast(msg, type = '') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = `toast ${type} show`;
+  setTimeout(() => { t.className = 'toast'; }, 2800);
+}
+
+// ============================================================
+// RENDER VOTE BUTTONS
+// ============================================================
+function renderVoteButtons(entryId, counts, container) {
+  const up   = counts ? counts.up   : '—';
+  const down = counts ? counts.down : '—';
+  const voted = sessionVotes[entryId];
+
+  container.innerHTML = `
+    <button class="vote-btn ${voted === 'up' ? 'voted-up' : ''}"
+            onclick="handleVote('${entryId}', 'up', this)"
+            ${voted ? 'disabled' : ''}>
+      👍 <span class="up-count">${up}</span>
+    </button>
+    <button class="vote-btn ${voted === 'down' ? 'voted-down' : ''}"
+            onclick="handleVote('${entryId}', 'down', this)"
+            ${voted ? 'disabled' : ''}>
+      👎 <span class="dn-count">${down}</span>
+    </button>
+  `;
+}
+
+async function handleVote(entryId, type, btn) {
+  if (sessionVotes[entryId]) return;
+  sessionVotes[entryId] = type;
+
+  // UI otimista
+  const row = btn.closest('.vote-row, .changelog-votes');
+  const btns = row.querySelectorAll('.vote-btn');
+  btns.forEach(b => { b.disabled = true; });
+  btn.classList.add(type === 'up' ? 'voted-up' : 'voted-down');
+
+  // Incrementa contador visualmente
+  const countEl = btn.querySelector(type === 'up' ? '.up-count' : '.dn-count');
+  const current = parseInt(countEl.textContent) || 0;
+  countEl.textContent = current + 1;
+
+  const ok = await castVote(entryId, type);
+  const msgs = {
+    up:   ['✓ Obrigado — marcado como útil', 'up'],
+    down: ['✓ Obrigado — vamos avaliar a relevância', 'down']
+  };
+  showToast(...msgs[type]);
+
+  if (!ok) {
+    // Supabase não configurado — funciona só na sessão
+    console.warn('Voto registado apenas em sessão. Configura o Supabase para persistir.');
+  }
+}
+
+// ============================================================
+// RENDER ALERTAS
+// ============================================================
+async function renderAlerts() {
+  const container = document.getElementById('alerts-container');
+  const ids = ALERTS.map(a => a.id);
+  const counts = await fetchVoteCounts(ids);
+
+  container.innerHTML = ALERTS.map(alert => `
+    <div class="alert-item">
+      <div class="alert-date">
+        ${alert.flags.map(f => `<span class="flag">${f}</span>`).join('')}
+        ${alert.date}
+      </div>
+      <div class="alert-title">${alert.title}</div>
+      <div class="alert-body">${alert.body}</div>
+      <div class="alert-footer">
+        <span class="alert-tag ${alert.tag}">${alert.tagLabel}</span>
+        <div class="vote-row" id="vr-${alert.id}">
+          <span class="vote-loading">a carregar...</span>
+        </div>
+      </div>
+    </div>
+  `).join('');
+
+  ALERTS.forEach(alert => {
+    const vr = document.getElementById(`vr-${alert.id}`);
+    if (vr) renderVoteButtons(alert.id, counts ? counts[alert.id] : null, vr);
+  });
+}
+
+// ============================================================
+// RENDER CHANGELOG
+// ============================================================
+async function renderChangelog() {
+  const container = document.getElementById('changelog-container');
+  const ids = CHANGELOG.map(e => e.id);
+  const counts = await fetchVoteCounts(ids);
+
+  container.innerHTML = CHANGELOG.map(entry => `
+    <div class="changelog-entry">
+      <div class="changelog-meta">
+        <div class="changelog-date">${entry.date}</div>
+        <div class="changelog-flags">${entry.flags.join(' ')}</div>
+        <span class="changelog-badge ${entry.badge}">${entry.badgeLabel}</span>
+      </div>
+      <div class="changelog-content">
+        <div class="changelog-title">${entry.title}</div>
+        <div class="changelog-body">${entry.body}</div>
+      </div>
+      <div class="changelog-votes" id="cv-${entry.id}">
+        <span class="vote-loading">...</span>
+      </div>
+    </div>
+  `).join('');
+
+  CHANGELOG.forEach(entry => {
+    const cv = document.getElementById(`cv-${entry.id}`);
+    if (cv) renderVoteButtons(entry.id, counts ? counts[entry.id] : null, cv);
+  });
+}
+
+// ============================================================
+// INIT
+// ============================================================
+document.addEventListener('DOMContentLoaded', () => {
+  renderAlerts();
+  renderChangelog();
+});
+</script>
+
+</body>
+</html>
