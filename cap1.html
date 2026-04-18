@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cap. 1 — Dinheiro sob Pressão | Guia de Sobrevivência Urbana</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:        #0d0d0d;
+    --bg2:       #141414;
+    --bg3:       #1a1a1a;
+    --border:    #2a2a2a;
+    --text:      #d4cfc8;
+    --text-dim:  #6b6560;
+    --accent:    #e8c547;
+    --accent2:   #c0392b;
+    --accent3:   #2ecc71;
+    --mono:      'IBM Plex Mono', monospace;
+    --sans:      'IBM Plex Sans', sans-serif;
+    --display:   'Bebas Neue', sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-weight: 300;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.4;
+  }
+
+  /* ── TOPBAR ── */
+  .topbar {
+    background: var(--accent2);
+    padding: 8px 0;
+    text-align: center;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    color: #fff;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .topbar span { opacity: 0.7; margin: 0 8px; }
+
+  /* ── NAV ── */
+  nav {
+    border-bottom: 1px solid var(--border);
+    padding: 0 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+    background: var(--bg);
+    position: sticky;
+    top: 37px;
+    z-index: 99;
+  }
+  .nav-logo { font-family: var(--display); font-size: 22px; letter-spacing: 0.08em; color: var(--accent); text-decoration: none; }
+  .nav-chapter { font-family: var(--mono); font-size: 11px; color: var(--text-dim); letter-spacing: 0.12em; display: flex; align-items: center; gap: 12px; }
+  .nav-chapter::before { content: ''; display: block; width: 1px; height: 20px; background: var(--border); }
+  .nav-back {
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em;
+    color: var(--text-dim); text-decoration: none; text-transform: uppercase;
+    transition: color 0.2s; display: flex; align-items: center; gap: 6px;
+  }
+  .nav-back:hover { color: var(--accent); }
+
+  /* ── PROGRESS BAR ── */
+  #progress-bar {
+    position: fixed;
+    top: 97px;
+    left: 0;
+    height: 2px;
+    background: var(--accent);
+    width: 0%;
+    z-index: 98;
+    transition: width 0.1s linear;
+  }
+
+  /* ── CHAPTER HEADER ── */
+  .chapter-header {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 80px 40px 60px;
+    animation: fadeUp 0.7s ease both;
+  }
+  .ch-tag {
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.25em;
+    color: var(--text-dim); text-transform: uppercase;
+    display: flex; align-items: center; gap: 12px; margin-bottom: 24px;
+  }
+  .ch-tag::before { content: '01'; font-size: 11px; color: var(--accent); }
+  .ch-tag::after { content: ''; flex: 0 0 32px; height: 1px; background: var(--border); }
+  h1 {
+    font-family: var(--display);
+    font-size: clamp(52px, 7vw, 88px);
+    line-height: 0.92; letter-spacing: 0.02em;
+    color: #fff; margin-bottom: 24px;
+  }
+  h1 em { font-style: normal; color: var(--accent); display: block; }
+  .ch-intro {
+    font-size: 16px; line-height: 1.85; color: var(--text);
+    max-width: 680px; margin-bottom: 40px;
+  }
+  .ch-toc {
+    border: 1px solid var(--border);
+    background: var(--bg2);
+    padding: 24px 28px;
+    display: inline-block;
+    min-width: 340px;
+  }
+  .ch-toc-title { font-family: var(--mono); font-size: 9px; letter-spacing: 0.2em; color: var(--text-dim); text-transform: uppercase; margin-bottom: 14px; }
+  .ch-toc ol { list-style: none; counter-reset: toc; }
+  .ch-toc ol li { counter-increment: toc; display: flex; gap: 10px; align-items: baseline; padding: 5px 0; border-bottom: 1px solid #1e1e1e; }
+  .ch-toc ol li:last-child { border-bottom: none; }
+  .ch-toc ol li::before { content: counter(toc, decimal-leading-zero); font-family: var(--mono); font-size: 9px; color: var(--accent); flex-shrink: 0; }
+  .ch-toc ol li a { font-size: 12px; color: var(--text-dim); text-decoration: none; transition: color 0.2s; }
+  .ch-toc ol li a:hover { color: var(--accent); }
+
+  /* ── SECTIONS ── */
+  .content-wrap { max-width: 900px; margin: 0 auto; padding: 0 40px 120px; }
+
+  .section-block {
+    padding: 72px 0;
+    border-top: 1px solid var(--border);
+    animation: fadeUp 0.6s ease both;
+  }
+  .section-block:first-child { border-top: none; }
+
+  .s-label {
+    font-family: var(--mono); font-size: 9px; letter-spacing: 0.25em;
+    color: var(--accent); text-transform: uppercase; margin-bottom: 16px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .s-num { font-size: 11px; color: var(--text-dim); }
+
+  h2 {
+    font-family: var(--display);
+    font-size: clamp(28px, 4vw, 44px);
+    letter-spacing: 0.03em; color: #fff;
+    line-height: 1.05; margin-bottom: 24px;
+  }
+  h2 span { color: var(--accent); }
+
+  h3 {
+    font-family: var(--sans);
+    font-size: 16px; font-weight: 600;
+    color: var(--text); margin: 32px 0 12px;
+  }
+
+  p { font-size: 15px; color: var(--text); line-height: 1.85; margin-bottom: 16px; }
+  p strong { color: #fff; font-weight: 600; }
+  p em { color: var(--accent); font-style: normal; }
+
+  .callout {
+    border-left: 3px solid var(--accent);
+    background: var(--bg2);
+    padding: 16px 20px;
+    margin: 24px 0;
+    font-size: 14px;
+    color: var(--text);
+    line-height: 1.7;
+  }
+  .callout strong { color: var(--accent); }
+
+  .callout-danger {
+    border-left-color: var(--accent2);
+    background: #180d0d;
+  }
+  .callout-danger strong { color: var(--accent2); }
+
+  .callout-ok {
+    border-left-color: var(--accent3);
+    background: #0b180e;
+  }
+  .callout-ok strong { color: var(--accent3); }
+
+  /* ── DIAGRAMS ── */
+  .diagram-wrap {
+    margin: 40px 0;
+    border: 1px solid var(--border);
+    background: var(--bg2);
+    padding: 32px 24px;
+  }
+  .diagram-title {
+    font-family: var(--mono); font-size: 9px; letter-spacing: 0.2em;
+    color: var(--text-dim); text-transform: uppercase;
+    margin-bottom: 28px; padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* ── COMPARISON TABLE ── */
+  .compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    margin: 24px 0;
+  }
+  .compare-table th {
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.15em;
+    text-transform: uppercase; padding: 12px 16px;
+    text-align: left; border-bottom: 2px solid var(--border);
+    color: var(--text-dim);
+  }
+  .compare-table th.pt { color: #5b9bd5; }
+  .compare-table th.br { color: #4cba72; }
+  .compare-table td {
+    padding: 11px 16px; border-bottom: 1px solid #1e1e1e;
+    vertical-align: top; line-height: 1.6;
+  }
+  .compare-table tr:last-child td { border-bottom: none; }
+  .compare-table tr:hover td { background: var(--bg3); }
+  .compare-table td:first-child { color: var(--text-dim); font-size: 12px; font-weight: 600; }
+
+  /* ── DEBT CARDS ── */
+  .debt-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); border: 1px solid var(--border); margin: 24px 0; }
+  .debt-card { padding: 24px; background: var(--bg); }
+  .debt-type { font-family: var(--mono); font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 12px; }
+  .debt-type.good { color: var(--accent3); }
+  .debt-type.bad  { color: var(--accent2); }
+  .debt-card ul { list-style: none; }
+  .debt-card ul li { padding: 6px 0; border-bottom: 1px solid #1e1e1e; font-size: 13px; display: flex; gap: 10px; align-items: baseline; }
+  .debt-card ul li:last-child { border-bottom: none; }
+  .debt-card ul li::before { font-size: 10px; flex-shrink: 0; }
+  .debt-card.good-debt ul li::before { content: '✓'; color: var(--accent3); }
+  .debt-card.bad-debt  ul li::before { content: '✕'; color: var(--accent2); }
+
+  /* ── FUND LADDER ── */
+  .fund-ladder { display: flex; flex-direction: column; gap: 1px; margin: 24px 0; }
+  .fund-step {
+    display: grid; grid-template-columns: 80px 1fr auto;
+    align-items: center; gap: 20px;
+    padding: 16px 20px; background: var(--bg);
+    border: 1px solid var(--border);
+    transition: background 0.2s;
+  }
+  .fund-step:hover { background: var(--bg2); }
+  .fund-level { font-family: var(--display); font-size: 36px; line-height: 1; }
+  .fund-level.l1 { color: #5b9bd5; }
+  .fund-level.l2 { color: var(--accent); }
+  .fund-level.l3 { color: var(--accent3); }
+  .fund-level.l4 { color: #c39bd3; }
+  .fund-detail h4 { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+  .fund-detail p { font-size: 12px; color: var(--text-dim); margin: 0; }
+  .fund-tag { font-family: var(--mono); font-size: 9px; letter-spacing: 0.12em; padding: 4px 10px; white-space: nowrap; }
+  .fund-tag.start  { background: #0e1218; color: #5b9bd5; }
+  .fund-tag.target { background: #1f1a0e; color: var(--accent); }
+  .fund-tag.ideal  { background: #0b180e; color: var(--accent3); }
+  .fund-tag.zen    { background: #1a0e1f; color: #c39bd3; }
+
+  /* ── ENVELOPE BUDGET ── */
+  .envelope-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 24px 0; }
+  .envelope {
+    border: 1px solid var(--border); padding: 20px 16px;
+    background: var(--bg); text-align: center;
+  }
+  .env-pct { font-family: var(--display); font-size: 40px; line-height: 1; margin-bottom: 8px; }
+  .env-label { font-family: var(--mono); font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 10px; }
+  .env-items { font-size: 11px; color: var(--text-dim); line-height: 1.8; }
+  .env-pct.needs  { color: #5b9bd5; }
+  .env-pct.wants  { color: var(--accent); }
+  .env-pct.future { color: var(--accent3); }
+
+  /* ── SMART CUTS ── */
+  .cuts-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); border: 1px solid var(--border); margin: 24px 0; }
+  .cut-col { background: var(--bg); padding: 20px 24px; }
+  .cut-col-title { font-family: var(--mono); font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+  .cut-col-title.smart { color: var(--accent3); }
+  .cut-col-title.dumb  { color: var(--accent2); }
+  .cut-col ul { list-style: none; }
+  .cut-col ul li { padding: 8px 0; border-bottom: 1px solid #1e1e1e; font-size: 13px; line-height: 1.5; }
+  .cut-col ul li:last-child { border-bottom: none; }
+  .cut-col.smart-col ul li::before { content: '→ '; color: var(--accent3); font-weight: 600; }
+  .cut-col.dumb-col  ul li::before { content: '✕ '; color: var(--accent2); font-weight: 600; }
+
+  /* ── FOOTER ── */
+  .ch-footer {
+    border-top: 1px solid var(--border);
+    padding: 40px;
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+  }
+  .ch-footer-back a {
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em;
+    color: var(--text-dim); text-decoration: none; text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .ch-footer-back a:hover { color: var(--accent); }
+  .ch-footer-next {
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em;
+    color: var(--text-dim); text-align: right;
+  }
+  .ch-footer-next span { display: block; color: var(--text); font-size: 13px; margin-top: 4px; }
+  .ch-disclaimer {
+    max-width: 900px; margin: 0 auto; padding: 0 40px 60px;
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.08em;
+    color: var(--text-dim); line-height: 1.8;
+    border-top: 1px solid var(--border); padding-top: 24px;
+  }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+
+  @media (max-width: 760px) {
+    nav { padding: 0 20px; }
+    .chapter-header, .content-wrap { padding-left: 20px; padding-right: 20px; }
+    .envelope-grid { grid-template-columns: 1fr; }
+    .debt-grid, .cuts-grid { grid-template-columns: 1fr; }
+    .compare-table { font-size: 12px; }
+    .fund-step { grid-template-columns: 60px 1fr; }
+    .fund-tag { display: none; }
+    h1 { font-size: 52px; }
+    .ch-footer { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  ⚠ ALERTA ATIVO <span>|</span> Phishing IRS 2026 e golpe Pix com CPF — ver Capítulo 2 <span>|</span> Última revisão: Abril 2026
+</div>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">GSU</a>
+  <div class="nav-chapter">CAP. 01 — DINHEIRO SOB PRESSÃO</div>
+  <a href="index.html" class="nav-back">← Índice</a>
+</nav>
+
+<!-- CHAPTER HEADER -->
+<div class="chapter-header">
+  <div class="ch-tag">Capítulo 1</div>
+  <h1>Dinheiro<em>sob Pressão</em></h1>
+  <p class="ch-intro">
+    Inflação, crise e instabilidade mudam o comportamento racional. Este capítulo explica o que muda,
+    o que fazer primeiro, e como construir defesas financeiras sem ser especialista.
+    Sem produtos a vender. Sem promessas.
+  </p>
+  <div class="ch-toc">
+    <div class="ch-toc-title">Neste capítulo</div>
+    <ol>
+      <li><a href="#inflacao">Como a inflação muda o teu comportamento</a></li>
+      <li><a href="#comprar">O que comprar antes — e o que evitar</a></li>
+      <li><a href="#poupar">Como indexar poupanças sem ser investidor</a></li>
+      <li><a href="#orcamento">Orçamento de crise: envelope e zero-based</a></li>
+      <li><a href="#cortes">Cortes inteligentes vs. cortes que saem caros</a></li>
+      <li><a href="#divida">Dívida boa vs. dívida má</a></li>
+      <li><a href="#fundo">Fundo de emergência realista</a></li>
+      <li><a href="#ptvsbr">Portugal vs. Brasil — produtos específicos</a></li>
+    </ol>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════
+     CONTENT
+     ════════════════════════════════════════════ -->
+<div class="content-wrap">
+
+  <!-- ── 1. INFLAÇÃO ── -->
+  <div class="section-block" id="inflacao">
+    <div class="s-label"><span class="s-num">01 /</span> Comportamento</div>
+    <h2>Como a inflação muda o teu <span>comportamento</span></h2>
+
+    <p>
+      Inflação alta não é só um número no noticiário. É uma pressão psicológica que altera decisões
+      de forma previsível — e muitas vezes irracional. Perceber o padrão é o primeiro passo para
+      não cair nos erros mais comuns.
+    </p>
+
+    <!-- DIAGRAM: inflation cycle -->
+    <div class="diagram-wrap">
+      <div class="diagram-title">Diagrama — O ciclo de comportamentos em inflação alta</div>
+      <svg viewBox="0 0 680 320" width="100%" xmlns="http://www.w3.org/2000/svg" font-family="'IBM Plex Mono', monospace">
+        <!-- Background -->
+        <rect width="680" height="320" fill="#141414"/>
+
+        <!-- Center label -->
+        <circle cx="340" cy="160" r="52" fill="#1a1a1a" stroke="#2a2a2a" stroke-width="1.5"/>
+        <text x="340" y="154" text-anchor="middle" fill="#e8c547" font-size="11" font-weight="500" letter-spacing="1">INFLAÇÃO</text>
+        <text x="340" y="170" text-anchor="middle" fill="#e8c547" font-size="11" font-weight="500" letter-spacing="1">ALTA</text>
+
+        <!-- Node 1: top -->
+        <rect x="260" y="14" width="160" height="46" rx="0" fill="#1a1a1a" stroke="#2a2a2a" stroke-width="1"/>
+        <text x="340" y="34" text-anchor="middle" fill="#d4cfc8" font-size="10" letter-spacing="0.5">Poder de compra</text>
+        <text x="340" y="50" text-anchor="middle" fill="#c0392b" font-size="10" letter-spacing="0.5">cai mês a mês</text>
+
+        <!-- Node 2: right -->
+        <rect x="530" y="108" width="138" height="46" rx="0" fill="#1a1a1a" stroke="#2a2a2a" stroke-width="1"/>
+        <text x="599" y="128" text-anchor="middle" fill="#d4cfc8" font-size="10" letter-spacing="0.5">Urgência de</text>
+        <text x="599" y="144" text-anchor="middle" fill="#e8c547" font-size="10" letter-spacing="0.5">gastar agora</text>
+
+        <!-- Node 3: bottom-right -->
+        <rect x="430" y="248" width="160" height="46" rx="0" fill="#1a1a1a" stroke="#2a2a2a" stroke-width="1"/>
+        <text x="510" y="268" text-anchor="middle" fill="#d4cfc8" font-size="10" letter-spacing="0.5">Compras</text>
+        <text x="510" y="284" text-anchor="middle" fill="#d4cfc8" font-size="10" letter-spacing="0.5">impulsivas / em stock</text>
+
+        <!-- Node 4: bottom-left -->
+        <rect x="90" y="248" width="160" height="46" rx="0" fill="#1a1a1a" stroke="#2a2a2a" stroke-width="1"/>
+        <text x="170" y="268" text-anchor="middle" fill="#d4cfc8" font-size="10" letter-spacing="0.5">Poupança perde</text>
+        <text x="170" y="284" text-anchor="middle" fill="#c0392b" font-size="10" letter-spacing="0.5">valor em conta</text>
+
+        <!-- Node 5: left -->
+        <rect x="12" y="108" width="138" height="46" rx="0" fill="#1a1a1a" stroke="#2a2a2a" stroke-width="1"/>
+        <text x="81" y="128" text-anchor="middle" fill="#d4cfc8" font-size="10" letter-spacing="0.5">Ansiedade</text>
+        <text x="81" y="144" text-anchor="middle" fill="#d4cfc8" font-size="10" letter-spacing="0.5">financeira sobe</text>
+
+        <!-- Arrows (curved paths) -->
+        <!-- top → center -->
+        <path d="M340 60 L340 108" stroke="#2a2a2a" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
+        <!-- center → right -->
+        <path d="M390 148 L530 131" stroke="#2a2a2a" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
+        <!-- right → bottom-right -->
+        <path d="M590 154 L535 248" stroke="#2a2a2a" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
+        <!-- bottom-right → bottom-left -->
+        <path d="M430 275 L250 275" stroke="#2a2a2a" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
+        <!-- bottom-left → left -->
+        <path d="M130 248 L95 154" stroke="#2a2a2a" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
+        <!-- left → top -->
+        <path d="M100 108 L270 37" stroke="#2a2a2a" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
+
+        <!-- Break indicator (accent line) -->
+        <line x1="250" y1="275" x2="260" y2="265" stroke="#e8c547" stroke-width="2"/>
+        <text x="248" y="302" text-anchor="middle" fill="#e8c547" font-size="9" letter-spacing="0.5">↑ podes</text>
+        <text x="248" y="314" text-anchor="middle" fill="#e8c547" font-size="9" letter-spacing="0.5">quebrar aqui</text>
+
+        <defs>
+          <marker id="arr" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
+            <path d="M0,0 L6,3 L0,6 Z" fill="#2a2a2a"/>
+          </marker>
+        </defs>
+      </svg>
+    </div>
+
+    <h3>Os erros mais comuns em inflação alta</h3>
+    <p>
+      <strong>Comprar em pânico</strong> — antecipar compras grandes com dinheiro que ainda não tens
+      (crédito ao consumo) na esperança de "pagar a preço de hoje" raramente compensa os juros.
+    </p>
+    <p>
+      <strong>Não ajustar o orçamento</strong> — manter os mesmos hábitos de consumo enquanto os preços sobem
+      é um buraco que cresce devagar e surpreende de repente.
+    </p>
+    <p>
+      <strong>Deixar dinheiro parado em conta à ordem</strong> — em Portugal e Brasil, contas à ordem e correntes
+      rendem zero ou quase. Em inflação de 5–10%, perdes valor a cada mês que passa.
+    </p>
+
+    <div class="callout">
+      <strong>Regra prática:</strong> Em inflação acima de 4%, cada mês que tens dinheiro parado
+      numa conta sem rendimento, perdes poder de compra. Não é teoria — é matemática simples.
+      1.000 € a 6% de inflação valem ~943 € um ano depois.
+    </div>
+  </div>
+
+  <!-- ── 2. O QUE COMPRAR ── -->
+  <div class="section-block" id="comprar">
+    <div class="s-label"><span class="s-num">02 /</span> Consumo</div>
+    <h2>O que comprar <span>antes</span> — e o que evitar</h2>
+
+    <p>
+      Em inflação alta, há ativos que preservam valor e consumo que faz sentido antecipar.
+      Mas o critério não é "comprar tudo antes que fique mais caro" — é comprar <strong>o que precisas
+      de qualquer modo</strong>, quando o preço ainda está razoável.
+    </p>
+
+    <div class="cuts-grid">
+      <div class="cut-col smart-col">
+        <div class="cut-col-title smart">✓ Faz sentido antecipar</div>
+        <ul>
+          <li>Bens de consumo não perecível com desconto de quantidade (arroz, massa, enlatados)</li>
+          <li>Renovar contrato de internet/telemóvel antes de subida anunciada</li>
+          <li>Reparar em vez de comprar novo (especialmente eletrodomésticos)</li>
+          <li>Amortizar parte de crédito habitação se taxa for variável e estiver a subir</li>
+          <li>Comprar seguro anual antes da renovação com aumento</li>
+        </ul>
+      </div>
+      <div class="cut-col dumb-col">
+        <div class="cut-col-title dumb">✕ Evitar em inflação alta</div>
+        <ul>
+          <li>Crédito ao consumo para "pagar a preço de hoje" — os juros superam a inflação</li>
+          <li>Stock excessivo de bens que podem deteriorar ou que não uses</li>
+          <li>Investimentos imobiliários com financiamento variável a 100%</li>
+          <li>Troca de carro financiada por impulso ("vai ficar mais caro")</li>
+          <li>Produtos de investimento com comissões altas vendidos como "proteção contra inflação"</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>Bens de valor estável — o que resiste à inflação</h3>
+    <p>
+      Não precisas de comprar ouro. Os bens que historicamente preservam valor em crises são mais mundanos:
+      <strong>imóvel próprio com prestação fixa</strong> (a prestação não sobe, os preços à volta sim),
+      <strong>skills profissionais</strong> (o teu valor no mercado não inflaciona para baixo se te tornares
+      mais capaz), e <strong>poupança em instrumentos indexados à inflação</strong> (ver secção seguinte).
+    </p>
+  </div>
+
+  <!-- ── 3. INDEXAR POUPANÇAS ── -->
+  <div class="section-block" id="poupar">
+    <div class="s-label"><span class="s-num">03 /</span> Poupança</div>
+    <h2>Indexar poupanças sem ser <span>investidor</span></h2>
+
+    <p>
+      "Indexar à inflação" significa que o teu dinheiro cresce pelo menos tanto quanto os preços sobem.
+      Não precisas de bolsa de valores nem de produtos complexos. Há opções simples e seguras.
+    </p>
+
+    <div class="callout-danger callout">
+      <strong>Atenção:</strong> Qualquer produto que prometa rendimentos muito acima da inflação
+      sem risco aparente é sinal de alerta. Não existe rendimento elevado sem risco.
+      Desconfia sempre — e verifica com a fonte oficial (Banco de Portugal / Banco Central do Brasil).
+    </div>
+
+    <!-- PT vs BR comparison -->
+    <div class="diagram-wrap" style="padding: 0;">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>Instrumento</th>
+            <th class="pt">🇵🇹 Portugal</th>
+            <th class="br">🇧🇷 Brasil</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Depósito bancário simples</td>
+            <td>Conta poupança CGD / BPI / BCP — taxas variam, verifica TANB atual</td>
+            <td>CDB (Certificado de Depósito Bancário) — rende % do CDI, verifica taxa atual</td>
+          </tr>
+          <tr>
+            <td>Dívida pública segura</td>
+            <td>Certificados de Aforro e do Tesouro (IGCP) — taxa indexada à Euribor + spread</td>
+            <td>Tesouro Direto — Tesouro IPCA+ indexado à inflação oficial (IPCA)</td>
+          </tr>
+          <tr>
+            <td>Poupança reforma / previdência</td>
+            <td>PPR (Plano Poupança Reforma) — benefício fiscal no IRS; atenção às comissões</td>
+            <td>FGTS (fundo vinculado ao emprego) + Previdência Privada (PGBL/VGBL)</td>
+          </tr>
+          <tr>
+            <td>Fundo de investimento simples</td>
+            <td>Fundos de obrigações de baixo risco em bancos — verifica comissões de gestão</td>
+            <td>Fundos DI (referenciados ao CDI) em corretoras como XP, Nubank, Rico</td>
+          </tr>
+          <tr>
+            <td>Liquidez imediata</td>
+            <td>Conta remunerada ActivoBank, Moey, N26 — verifica condições atuais</td>
+            <td>Conta remunerada Nubank, Picpay, Mercado Pago (rende 100% CDI)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout">
+      <strong>Nota:</strong> Taxas e condições mudam. Os nomes acima são exemplos de categorias —
+      verifica sempre os valores atuais nas fontes oficiais ou no simulador do teu banco
+      antes de tomar qualquer decisão. Esta informação é educacional.
+    </div>
+  </div>
+
+  <!-- ── 4. ORÇAMENTO ── -->
+  <div class="section-block" id="orcamento">
+    <div class="s-label"><span class="s-num">04 /</span> Orçamento</div>
+    <h2>Orçamento de crise: <span>envelope</span> e zero-based</h2>
+
+    <p>
+      Em situação normal, um orçamento é uma ferramenta. Em crise, é um instrumento de sobrevivência.
+      Dois métodos simples que não precisam de app nem de spreadsheet complexa.
+    </p>
+
+    <h3>Método Envelope (regra 50/30/20 adaptada)</h3>
+    <p>
+      Divide o rendimento líquido mensal em três "envelopes" antes de gastar qualquer coisa.
+      Em crise, a proporção muda — necessidades sobem, desejos descem.
+    </p>
+
+    <div class="envelope-grid">
+      <div class="envelope">
+        <div class="env-pct needs">50–60%</div>
+        <div class="env-label">Necessidades</div>
+        <div class="env-items">Renda/prestação<br>Alimentação<br>Água, luz, gás<br>Transporte trabalho<br>Saúde básica</div>
+      </div>
+      <div class="envelope">
+        <div class="env-pct wants">10–20%</div>
+        <div class="env-label">Desejos</div>
+        <div class="env-items">Restaurantes<br>Lazer<br>Roupa não essencial<br>Subscrições<br>(corta aqui primeiro)</div>
+      </div>
+      <div class="envelope">
+        <div class="env-pct future">20–30%</div>
+        <div class="env-label">Futuro</div>
+        <div class="env-items">Fundo emergência<br>Amortizar dívida<br>Poupança indexada<br>Investimento mínimo</div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <strong>Em crise intensa:</strong> Se o rendimento não chega para cobrir os 50% de necessidades,
+      o problema não é o método — é estrutural. Precisa de aumentar rendimento ou cortar custos fixos
+      (ver secção de cortes inteligentes). O envelope não resolve equações impossíveis.
+    </div>
+
+    <h3>Zero-Based Budgeting (orçamento base zero)</h3>
+    <p>
+      Cada euro do rendimento tem uma destinação antes do mês começar.
+      <strong>Rendimento − Despesas − Poupança = 0.</strong>
+      Não sobra nada "à solta" — o que sobrava antes ia para consumo sem intenção.
+    </p>
+    <p>
+      <strong>Como fazer:</strong> Lista todas as despesas previstas para o mês. Aloca o rendimento
+      a cada categoria. Se a soma exceder o rendimento, corta categorias por ordem de prioridade
+      (desejos → confortos → necessidades secundárias). Ajusta mensalmente.
+    </p>
+
+    <div class="callout-ok callout">
+      <strong>Regra de ouro:</strong> O orçamento serve-te a ti. Se um método é demasiado rígido
+      para a tua vida, não funciona. Simplifica até funcionar — mesmo que seja só "gasto fixo + envelope
+      de despesas variáveis". O melhor orçamento é o que consegues manter.
+    </div>
+  </div>
+
+  <!-- ── 5. CORTES ── -->
+  <div class="section-block" id="cortes">
+    <div class="s-label"><span class="s-num">05 /</span> Cortes</div>
+    <h2>Cortes inteligentes vs. cortes que <span>saem caros</span></h2>
+
+    <p>
+      Cortar despesas parece simples. O problema é que alguns cortes geram custos maiores a prazo,
+      e outros libertam dinheiro sem consecuências negativas. A distinção importa.
+    </p>
+
+    <!-- SVG diagram: cortes spectrum -->
+    <div class="diagram-wrap">
+      <div class="diagram-title">Espectro de decisões de corte — custo-benefício a médio prazo</div>
+      <svg viewBox="0 0 660 180" width="100%" xmlns="http://www.w3.org/2000/svg" font-family="'IBM Plex Mono', monospace">
+        <rect width="660" height="180" fill="#141414"/>
+
+        <!-- Axis -->
+        <line x1="40" y1="100" x2="620" y2="100" stroke="#2a2a2a" stroke-width="1.5"/>
+        <!-- Gradient zones -->
+        <rect x="40" y="70" width="190" height="30" fill="#0b180e" opacity="0.8"/>
+        <rect x="230" y="70" width="190" height="30" fill="#1f1a0e" opacity="0.5"/>
+        <rect x="420" y="70" width="200" height="30" fill="#180d0d" opacity="0.8"/>
+
+        <!-- Zone labels -->
+        <text x="135" y="90" text-anchor="middle" fill="#2ecc71" font-size="9" letter-spacing="0.5">CORTAR SEM PENSAR</text>
+        <text x="325" y="90" text-anchor="middle" fill="#e8c547" font-size="9" letter-spacing="0.5">AVALIAR CASO A CASO</text>
+        <text x="520" y="90" text-anchor="middle" fill="#c0392b" font-size="9" letter-spacing="0.5">CUIDADO — CUSTO ESCONDIDO</text>
+
+        <!-- Arrow labels left side -->
+        <text x="40" y="65" fill="#2ecc71" font-size="8" letter-spacing="0.3">Fácil de cortar</text>
+        <text x="500" y="65" fill="#c0392b" font-size="8" letter-spacing="0.3">Custa mais depois</text>
+
+        <!-- Examples below axis -->
+        <text x="65" y="120" fill="#6b6560" font-size="8">Subscrições</text>
+        <text x="65" y="132" fill="#6b6560" font-size="8">não usadas</text>
+
+        <text x="155" y="120" fill="#6b6560" font-size="8">Refeições</text>
+        <text x="155" y="132" fill="#6b6560" font-size="8">fora</text>
+
+        <text x="270" y="120" fill="#6b6560" font-size="8">Seguro de</text>
+        <text x="270" y="132" fill="#6b6560" font-size="8">saúde extra</text>
+
+        <text x="355" y="120" fill="#6b6560" font-size="8">Ginásio</text>
+
+        <text x="435" y="120" fill="#6b6560" font-size="8">Manutenção</text>
+        <text x="435" y="132" fill="#6b6560" font-size="8">carro/casa</text>
+
+        <text x="540" y="120" fill="#6b6560" font-size="8">Consultas</text>
+        <text x="540" y="132" fill="#6b6560" font-size="8">preventivas</text>
+
+        <!-- Dots on axis -->
+        <circle cx="95" cy="100" r="4" fill="#2ecc71"/>
+        <circle cx="185" cy="100" r="4" fill="#2ecc71"/>
+        <circle cx="295" cy="100" r="4" fill="#e8c547"/>
+        <circle cx="375" cy="100" r="4" fill="#e8c547"/>
+        <circle cx="460" cy="100" r="4" fill="#c0392b"/>
+        <circle cx="560" cy="100" r="4" fill="#c0392b"/>
+
+        <!-- Connecting lines -->
+        <line x1="95" y1="100" x2="95" y2="116" stroke="#2a2a2a" stroke-width="1"/>
+        <line x1="185" y1="100" x2="185" y2="116" stroke="#2a2a2a" stroke-width="1"/>
+        <line x1="295" y1="100" x2="295" y2="116" stroke="#2a2a2a" stroke-width="1"/>
+        <line x1="375" y1="100" x2="375" y2="116" stroke="#2a2a2a" stroke-width="1"/>
+        <line x1="460" y1="100" x2="460" y2="116" stroke="#2a2a2a" stroke-width="1"/>
+        <line x1="560" y1="100" x2="560" y2="116" stroke="#2a2a2a" stroke-width="1"/>
+      </svg>
+    </div>
+
+    <div class="cuts-grid">
+      <div class="cut-col smart-col">
+        <div class="cut-col-title smart">Cortes inteligentes</div>
+        <ul>
+          <li>Subscrições que não usas (audit mensal: lista tudo o que debita)</li>
+          <li>Refeições fora — cozinhar em casa poupa 50–70% no mesmo nutriente</li>
+          <li>Pacotes de telecomunicações — renegociar com a operadora poupa 20–40%</li>
+          <li>Marcas supérfluas — genérico de qualidade equivalente custa 30–50% menos</li>
+          <li>Seguros duplicados (verificar o que já estás coberto por outro seguro)</li>
+        </ul>
+      </div>
+      <div class="cut-col dumb-col">
+        <div class="cut-col-title dumb">Cortes que saem caros depois</div>
+        <ul>
+          <li>Manutenção preventiva do carro — problema pequeno vira avaria cara</li>
+          <li>Consultas médicas de rotina — diagnóstico tardio = tratamento mais caro</li>
+          <li>Seguro de saúde se tiveres risco elevado — a conta do hospital não poupa</li>
+          <li>Formação profissional — as skills que não adquires ficam a faltar mais tarde</li>
+          <li>Revisão da habitação — goteira ignorada vira obra em 2 anos</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 6. DÍVIDA ── -->
+  <div class="section-block" id="divida">
+    <div class="s-label"><span class="s-num">06 /</span> Dívida</div>
+    <h2>Dívida boa <span>vs.</span> dívida má</h2>
+
+    <p>
+      Nem toda a dívida é inimiga. A distinção é simples: dívida boa cria valor que supera o custo
+      do juro. Dívida má consome valor e só serve a quem a vende.
+    </p>
+
+    <!-- SVG scale diagram -->
+    <div class="diagram-wrap">
+      <div class="diagram-title">Critério de avaliação de dívida — o que pesa em cada lado da balança</div>
+      <svg viewBox="0 0 660 200" width="100%" xmlns="http://www.w3.org/2000/svg" font-family="'IBM Plex Mono', monospace">
+        <rect width="660" height="200" fill="#141414"/>
+        <!-- Scale base -->
+        <line x1="330" y1="40" x2="330" y2="130" stroke="#2a2a2a" stroke-width="2"/>
+        <line x1="310" y1="130" x2="350" y2="130" stroke="#2a2a2a" stroke-width="2"/>
+        <!-- Left arm (tilted up = bad debt is heavy) -->
+        <line x1="120" y1="60" x2="330" y2="42" stroke="#2a2a2a" stroke-width="1.5"/>
+        <!-- Right arm -->
+        <line x1="540" y1="25" x2="330" y2="42" stroke="#2a2a2a" stroke-width="1.5"/>
+        <!-- Left pan -->
+        <rect x="60" y="60" width="120" height="80" rx="0" fill="#0b180e" stroke="#2ecc71" stroke-width="1"/>
+        <text x="120" y="82" text-anchor="middle" fill="#2ecc71" font-size="9" letter-spacing="0.5">DÍVIDA BOA</text>
+        <text x="120" y="100" text-anchor="middle" fill="#6b6560" font-size="8.5">Taxa baixa ou fixa</text>
+        <text x="120" y="114" text-anchor="middle" fill="#6b6560" font-size="8.5">Cria ativo / rendimento</text>
+        <text x="120" y="128" text-anchor="middle" fill="#6b6560" font-size="8.5">Crédito habitação, MEI</text>
+        <!-- Right pan (heavier, lower) -->
+        <rect x="480" y="25" width="120" height="90" rx="0" fill="#180d0d" stroke="#c0392b" stroke-width="1"/>
+        <text x="540" y="47" text-anchor="middle" fill="#c0392b" font-size="9" letter-spacing="0.5">DÍVIDA MÁ</text>
+        <text x="540" y="65" text-anchor="middle" fill="#6b6560" font-size="8.5">Taxa alta / variável</text>
+        <text x="540" y="79" text-anchor="middle" fill="#6b6560" font-size="8.5">Consome valor</text>
+        <text x="540" y="93" text-anchor="middle" fill="#6b6560" font-size="8.5">Cartão giratório</text>
+        <text x="540" y="107" text-anchor="middle" fill="#6b6560" font-size="8.5">Crédito pessoal consumo</text>
+        <!-- Pivot point -->
+        <circle cx="330" cy="42" r="5" fill="#e8c547"/>
+        <!-- Bottom text -->
+        <text x="330" y="165" text-anchor="middle" fill="#6b6560" font-size="9" letter-spacing="0.5">A dívida má pesa mais porque cresce mais depressa do que o ativo que financiou</text>
+      </svg>
+    </div>
+
+    <div class="debt-grid">
+      <div class="debt-card good-debt">
+        <div class="debt-type good">✓ Dívida boa — quando faz sentido</div>
+        <ul>
+          <li>Crédito habitação a taxa fixa — a prestação não muda, o ativo valoriza</li>
+          <li>Crédito para formação profissional com retorno previsível (ex: curso com empregabilidade documentada)</li>
+          <li>Empréstimo para equipamento de trabalho que gera rendimento (ex: ferramentas de freelancer)</li>
+          <li>🇧🇷 Crédito consignado — taxa mais baixa, descontado no salário</li>
+          <li>Refinanciamento de dívida cara por dívida mais barata (juro menor, mesmo montante)</li>
+        </ul>
+      </div>
+      <div class="debt-card bad-debt">
+        <div class="debt-type bad">✕ Dívida má — evitar ou sair o mais rápido possível</div>
+        <ul>
+          <li>Cartão de crédito em modo rotativo (juro mensal de 2–20% conforme país)</li>
+          <li>Crédito pessoal para consumo (férias, eletrodomésticos desnecessários, roupa)</li>
+          <li>🇧🇷 Cheque especial — taxa altíssima, fácil de entrar, difícil de sair</li>
+          <li>Empréstimos de apps de crédito rápido sem regulação bancária</li>
+          <li>Compras a crédito de bens que depreciam rápido (gadgets, veículos de luxo)</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>Como sair da dívida má — dois métodos</h3>
+    <p>
+      <strong>Método avalanche</strong> — paga o mínimo em todas as dívidas e direciona qualquer excedente
+      para a que tem a taxa de juro mais alta. Matematicamente ótimo — poupa mais dinheiro.
+    </p>
+    <p>
+      <strong>Método bola de neve</strong> — paga o mínimo em todas e ataca a dívida mais pequena primeiro,
+      independentemente da taxa. Psicologicamente mais eficaz — a sensação de eliminar uma dívida
+      mantém a motivação. Funciona melhor se tens várias dívidas pequenas.
+    </p>
+    <div class="callout">
+      <strong>Qual escolher?</strong> Se és disciplinado e o spread entre taxas é grande → avalanche.
+      Se precisas de vitórias rápidas para não desistir → bola de neve. Ambos funcionam.
+      O que não funciona é não escolher nenhum.
+    </div>
+  </div>
+
+  <!-- ── 7. FUNDO EMERGÊNCIA ── -->
+  <div class="section-block" id="fundo">
+    <div class="s-label"><span class="s-num">07 /</span> Fundo de Emergência</div>
+    <h2>Fundo de emergência <span>realista</span></h2>
+
+    <p>
+      Um fundo de emergência é dinheiro acessível em menos de 24 horas, para situações que não
+      estavam previstas no orçamento. Não é poupança para férias. Não é investimento.
+      É o colchão que evita que uma avaria do carro vire crédito ao consumo.
+    </p>
+    <p>
+      <strong>Quanto:</strong> 3 a 6 meses de despesas essenciais (não de rendimento — de despesas).
+      Se és trabalhador independente, freelancer, ou o teu setor é instável → 6 a 12 meses.
+    </p>
+    <p>
+      <strong>Onde:</strong> Conta poupança com liquidez imediata. Não em ações, não em imóvel,
+      não em criptomoedas. O critério é acesso rápido, não rendimento máximo.
+    </p>
+
+    <div class="fund-ladder">
+      <div class="fund-step">
+        <div class="fund-level l1">1M</div>
+        <div class="fund-detail">
+          <h4>Nível 1 — Arranque</h4>
+          <p>1 mês de despesas essenciais. Meta mínima para quem parte do zero. Protege de imprevistos pequenos.</p>
+        </div>
+        <span class="fund-tag start">Começar aqui</span>
+      </div>
+      <div class="fund-step">
+        <div class="fund-level l2">3M</div>
+        <div class="fund-detail">
+          <h4>Nível 2 — Estabilidade</h4>
+          <p>3 meses de despesas. Protege de demissão inesperada ou doença de curta duração.</p>
+        </div>
+        <span class="fund-tag target">Meta padrão</span>
+      </div>
+      <div class="fund-step">
+        <div class="fund-level l3">6M</div>
+        <div class="fund-detail">
+          <h4>Nível 3 — Segurança real</h4>
+          <p>6 meses. Ideal para a maioria das situações. Cobre reconversão de carreira, crise familiar ou mudança de país.</p>
+        </div>
+        <span class="fund-tag ideal">Meta ideal</span>
+      </div>
+      <div class="fund-step">
+        <div class="fund-level l4">12M</div>
+        <div class="fund-detail">
+          <h4>Nível 4 — Independência operacional</h4>
+          <p>12 meses. Recomendado para freelancers, trabalhadores independentes, ou em contextos de crise económica grave.</p>
+        </div>
+        <span class="fund-tag zen">Autónomo / freelancer</span>
+      </div>
+    </div>
+
+    <div class="callout-danger callout">
+      <strong>Erro comum:</strong> Usar o fundo de emergência para despesas que podiam ser previstas
+      (revisão anual do carro, matrícula dos filhos, seguro anual). Estas devem ter uma conta separada —
+      "fundo de despesas irregulares" — para não delapidar a reserva de verdadeiro imprevisto.
+    </div>
+
+    <h3>Como construir o fundo se o orçamento está apertado</h3>
+    <p>
+      Automatiza uma transferência pequena no dia a seguir ao pagamento do salário — mesmo que
+      sejam 20€ ou R$50 por mês. O montante importa menos do que o hábito. Em crise, até uma
+      reserva de 2–3 semanas de despesas já é a diferença entre pagar com dívida ou sem ela.
+    </p>
+  </div>
+
+  <!-- ── 8. PT vs BR ── -->
+  <div class="section-block" id="ptvsbr">
+    <div class="s-label"><span class="s-num">08 /</span> Portugal vs. Brasil</div>
+    <h2>Produtos e realidades <span>específicas</span></h2>
+
+    <p>
+      O contexto legal e financeiro de Portugal e Brasil difere o suficiente para exigir notas separadas.
+      Aqui estão os instrumentos e regras mais relevantes para cada país.
+    </p>
+
+    <!-- PT section -->
+    <div style="border: 1px solid #2a2a2a; margin: 28px 0;">
+      <div style="background: #0e1218; padding: 16px 20px; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid #2a2a2a;">
+        <span style="font-size: 22px;">🇵🇹</span>
+        <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.15em; color: #5b9bd5; text-transform: uppercase;">Portugal — Instrumentos-chave</span>
+      </div>
+      <div style="padding: 24px 20px;">
+        <p><strong>Certificados de Aforro (IGCP)</strong> — emitidos pelo Estado português. Sem risco de crédito, subscrição online em igcp.pt. Taxa variável, indexada à Euribor. Ideal para poupança de médio prazo.</p>
+        <p><strong>PPR — Plano Poupança Reforma</strong> — deduções fiscais no IRS (até 20% do valor aplicado, com limites por escalão). Atenção às comissões de gestão e à taxa de rentabilidade real. Não confundir produto com benefício fiscal — há PPRs bons e maus.</p>
+        <p><strong>CTT Crédito / Correios</strong> — produto de aforro postal com rede de balcões em zonas rurais. Alternativa para quem não tem relação com banco digital.</p>
+        <p><strong>Conta poupança CGD, BPI, Santander</strong> — taxa varia significativamente. Em 2025–2026, havia spreads de 1–3% entre os melhores e piores. Compara sempre em comparadores como ComparaJá ou DECO ProTeste.</p>
+        <div class="callout" style="margin-top: 16px;">
+          <strong>IRS e poupança:</strong> Rendimentos de aplicações financeiras em PT são tributados
+          a 28% (taxa liberatória) ou englobados na declaração — o que for mais favorável.
+          Verifica com contabilista ou simulador da AT se o valor for relevante.
+        </div>
+      </div>
+    </div>
+
+    <!-- BR section -->
+    <div style="border: 1px solid #2a2a2a; margin: 28px 0;">
+      <div style="background: #0b180e; padding: 16px 20px; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid #2a2a2a;">
+        <span style="font-size: 22px;">🇧🇷</span>
+        <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.15em; color: #4cba72; text-transform: uppercase;">Brasil — Instrumentos-chave</span>
+      </div>
+      <div style="padding: 24px 20px;">
+        <p><strong>Tesouro Direto</strong> — plataforma do governo federal (tesourodireto.gov.br). Opções: Tesouro Selic (liquidez diária, ideal para reserva de emergência), Tesouro IPCA+ (indexado à inflação oficial, ideal para prazo longo), Tesouro Prefixado (taxa fixa, risco de mercado se resgatar antes do vencimento).</p>
+        <p><strong>CDB (Certificado de Depósito Bancário)</strong> — emitido por bancos, rende % do CDI. Garantido pelo FGC até R$250.000 por CPF por instituição. Em corretoras como Nubank, XP, Rico encontras CDBs de 100–110% do CDI com liquidez diária.</p>
+        <p><strong>FGTS (Fundo de Garantia do Tempo de Serviço)</strong> — não é investimento, é direito trabalhista. Rende TR + 3% ao ano (abaixo da inflação). Saque permitido em demissão sem justa causa, compra de imóvel, doenças graves. Não conta como fundo de emergência — acesso é restrito.</p>
+        <p><strong>Poupança da Caixa</strong> — ainda muito usada, mas rende menos que Tesouro Selic ou CDB de 100% CDI. Mantê-la só faz sentido pela praticidade se os valores forem baixos.</p>
+        <div class="callout" style="margin-top: 16px;">
+          <strong>Imposto de Renda sobre investimentos (BR):</strong> Rendimentos financeiros têm
+          IR regressivo (22,5% para prazos &lt;6 meses até 15% para prazos &gt;2 anos).
+          Tesouro Direto e CDB já recolhem na fonte. Consulta a Receita Federal para detalhes.
+        </div>
+      </div>
+    </div>
+
+    <div class="callout-danger callout">
+      <strong>Lembra sempre:</strong> Este capítulo é educacional. Taxas, limites fiscais e regras
+      mudam. Antes de tomar qualquer decisão financeira relevante, verifica nas fontes oficiais:
+      🇵🇹 igcp.pt, bportugal.pt, portaldasfinancas.gov.pt &nbsp;|&nbsp;
+      🇧🇷 tesourodireto.gov.br, bcb.gov.br, receita.fazenda.gov.br
+    </div>
+  </div>
+
+</div><!-- /content-wrap -->
+
+<!-- CHAPTER FOOTER -->
+<div class="ch-footer">
+  <div class="ch-footer-back">
+    <a href="index.html">← Voltar ao Índice</a>
+  </div>
+  <div class="ch-footer-next">
+    PRÓXIMO CAPÍTULO
+    <span>02 — Segurança Digital e Golpes</span>
+  </div>
+</div>
+
+<div class="ch-disclaimer">
+  Última revisão: Abril 2026 &nbsp;|&nbsp; Conteúdo educacional — não constitui aconselhamento financeiro &nbsp;|&nbsp; CC BY-SA 4.0
+</div>
+
+<script>
+  // Progress bar
+  window.addEventListener('scroll', () => {
+    const doc = document.documentElement;
+    const scrollTop = doc.scrollTop || document.body.scrollTop;
+    const scrollHeight = doc.scrollHeight - doc.clientHeight;
+    const pct = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+    document.getElementById('progress-bar').style.width = pct + '%';
+  });
+</script>
+</body>
+</html>
