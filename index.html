@@ -230,42 +230,6 @@
   .chapter-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 16px; }
   .ctag { font-family: var(--mono); font-size: 9px; letter-spacing: 0.1em; padding: 3px 8px; border: 1px solid var(--border); color: var(--text-dim); text-transform: uppercase; }
 
-  /* LOCKED CHAPTER CARDS */
-  .chapter-card-locked {
-    position: relative;
-    cursor: default;
-    pointer-events: none;
-  }
-  .chapter-card-locked .chapter-title,
-  .chapter-card-locked .chapter-desc,
-  .chapter-card-locked .chapter-tags {
-    filter: blur(3.5px);
-    user-select: none;
-  }
-  .chapter-card-locked .chapter-num {
-    filter: blur(1.5px);
-    opacity: 0.25;
-  }
-  .lock-overlay {
-    position: absolute;
-    bottom: 12px;
-    right: 14px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 4px;
-    opacity: 0.32;
-    pointer-events: none;
-  }
-  .lock-overlay svg { display: block; }
-  .lock-overlay span {
-    font-family: var(--mono);
-    font-size: 8px;
-    letter-spacing: 0.15em;
-    color: var(--text-dim);
-    text-transform: uppercase;
-  }
-
   /* CHANGELOG com votos */
   .changelog-section { background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
   .changelog-inner { max-width: 1100px; margin: 0 auto; padding: 80px 40px; animation: fadeUp 0.8s ease 0.4s both; }
@@ -448,144 +412,68 @@
 <div class="section" id="capitulos">
   <div class="section-label">Capítulos</div>
   <div class="chapters-grid">
-    <!-- CAP 1 — DISPONÍVEL -->
-    <a href="cap1.html" class="chapter-card">
+    <a href="cap01.html" class="chapter-card">
       <div class="chapter-num">01</div>
       <div class="chapter-title">Dinheiro sob Pressão</div>
       <div class="chapter-desc">Inflação, orçamento de crise, fundo de emergência, dívida boa vs. má.</div>
       <div class="chapter-tags"><span class="ctag">Finanças</span><span class="ctag">🇵🇹 🇧🇷</span></div>
     </a>
-
-    <!-- CAP 2–9 — BLOQUEADOS -->
-    <div class="chapter-card chapter-card-locked">
+    <a href="cap02.html" class="chapter-card">
       <div class="chapter-num">02</div>
       <div class="chapter-title">Segurança Digital e Golpes</div>
       <div class="chapter-desc">Os 10 golpes mais comuns explicados por dentro. O que fazer se já fores vítima.</div>
       <div class="chapter-tags"><span class="ctag">Atualizado</span><span class="ctag">🇵🇹 🇧🇷</span></div>
-      <div class="lock-overlay">
-        <svg width="22" height="26" viewBox="0 0 22 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="1" y="11" width="20" height="14" rx="1" stroke="#d4cfc8" stroke-width="1.5"/>
-          <path d="M6 11V7a5 5 0 0110 0v4" stroke="#d4cfc8" stroke-width="1.5" stroke-linecap="square"/>
-          <circle cx="11" cy="18" r="2" fill="#d4cfc8"/>
-        </svg>
-        <span>Em breve</span>
-      </div>
-    </div>
-    <div class="chapter-card chapter-card-locked">
+    </a>
+    <a href="cap03.html" class="chapter-card">
       <div class="chapter-num">03</div>
       <div class="chapter-title">Planejamento Financeiro</div>
       <div class="chapter-desc">Regra 50/30/20 adaptada, seguro de saúde, imóvel em contexto instável.</div>
       <div class="chapter-tags"><span class="ctag">Finanças</span><span class="ctag">Longo Prazo</span></div>
-      <div class="lock-overlay">
-        <svg width="22" height="26" viewBox="0 0 22 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="1" y="11" width="20" height="14" rx="1" stroke="#d4cfc8" stroke-width="1.5"/>
-          <path d="M6 11V7a5 5 0 0110 0v4" stroke="#d4cfc8" stroke-width="1.5" stroke-linecap="square"/>
-          <circle cx="11" cy="18" r="2" fill="#d4cfc8"/>
-        </svg>
-        <span>Em breve</span>
-      </div>
-    </div>
-    <div class="chapter-card chapter-card-locked">
+    </a>
+    <a href="cap04.html" class="chapter-card">
       <div class="chapter-num">04</div>
       <div class="chapter-title">Carreira em Mercado Difícil</div>
       <div class="chapter-desc">Skills transferíveis, freelance, reputação online, trabalho remoto internacional.</div>
       <div class="chapter-tags"><span class="ctag">Carreira</span><span class="ctag">Freelance</span></div>
-      <div class="lock-overlay">
-        <svg width="22" height="26" viewBox="0 0 22 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="1" y="11" width="20" height="14" rx="1" stroke="#d4cfc8" stroke-width="1.5"/>
-          <path d="M6 11V7a5 5 0 0110 0v4" stroke="#d4cfc8" stroke-width="1.5" stroke-linecap="square"/>
-          <circle cx="11" cy="18" r="2" fill="#d4cfc8"/>
-        </svg>
-        <span>Em breve</span>
-      </div>
-    </div>
-    <div class="chapter-card chapter-card-locked">
+    </a>
+    <a href="cap05.html" class="chapter-card">
       <div class="chapter-num">05</div>
       <div class="chapter-title">Conhecimento que Não se Perde</div>
       <div class="chapter-desc">Línguas, skills duráveis, onde estudar de graça ou quase.</div>
       <div class="chapter-tags"><span class="ctag">Educação</span><span class="ctag">Línguas</span></div>
-      <div class="lock-overlay">
-        <svg width="22" height="26" viewBox="0 0 22 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="1" y="11" width="20" height="14" rx="1" stroke="#d4cfc8" stroke-width="1.5"/>
-          <path d="M6 11V7a5 5 0 0110 0v4" stroke="#d4cfc8" stroke-width="1.5" stroke-linecap="square"/>
-          <circle cx="11" cy="18" r="2" fill="#d4cfc8"/>
-        </svg>
-        <span>Em breve</span>
-      </div>
-    </div>
-    <div class="chapter-card chapter-card-locked">
+    </a>
+    <a href="cap06.html" class="chapter-card">
       <div class="chapter-num">06</div>
       <div class="chapter-title">Noções Jurídicas de Sobrevivência</div>
       <div class="chapter-desc">Direitos do trabalhador, contratos, despejo, execução fiscal, apoio gratuito.</div>
       <div class="chapter-tags"><span class="ctag">Direito</span><span class="ctag">🇵🇹 🇧🇷</span></div>
-      <div class="lock-overlay">
-        <svg width="22" height="26" viewBox="0 0 22 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="1" y="11" width="20" height="14" rx="1" stroke="#d4cfc8" stroke-width="1.5"/>
-          <path d="M6 11V7a5 5 0 0110 0v4" stroke="#d4cfc8" stroke-width="1.5" stroke-linecap="square"/>
-          <circle cx="11" cy="18" r="2" fill="#d4cfc8"/>
-        </svg>
-        <span>Em breve</span>
-      </div>
-    </div>
-    <div class="chapter-card chapter-card-locked">
+    </a>
+    <a href="cap07.html" class="chapter-card">
       <div class="chapter-num">07</div>
       <div class="chapter-title">Casa e Vida Doméstica</div>
       <div class="chapter-desc">Negociar renda, cozinha de crise, reparos básicos, documentos digitalizados.</div>
       <div class="chapter-tags"><span class="ctag">Casa</span><span class="ctag">Prático</span></div>
-      <div class="lock-overlay">
-        <svg width="22" height="26" viewBox="0 0 22 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="1" y="11" width="20" height="14" rx="1" stroke="#d4cfc8" stroke-width="1.5"/>
-          <path d="M6 11V7a5 5 0 0110 0v4" stroke="#d4cfc8" stroke-width="1.5" stroke-linecap="square"/>
-          <circle cx="11" cy="18" r="2" fill="#d4cfc8"/>
-        </svg>
-        <span>Em breve</span>
-      </div>
-    </div>
-    <div class="chapter-card chapter-card-locked">
+    </a>
+    <a href="cap08.html" class="chapter-card">
       <div class="chapter-num">08</div>
       <div class="chapter-title">Saúde quando o Sistema Aperta</div>
       <div class="chapter-desc">SNS e SUS na prática, genéricos, saúde mental em crise, primeiros socorros.</div>
       <div class="chapter-tags"><span class="ctag">Saúde</span><span class="ctag">🇵🇹 🇧🇷</span></div>
-      <div class="lock-overlay">
-        <svg width="22" height="26" viewBox="0 0 22 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="1" y="11" width="20" height="14" rx="1" stroke="#d4cfc8" stroke-width="1.5"/>
-          <path d="M6 11V7a5 5 0 0110 0v4" stroke="#d4cfc8" stroke-width="1.5" stroke-linecap="square"/>
-          <circle cx="11" cy="18" r="2" fill="#d4cfc8"/>
-        </svg>
-        <span>Em breve</span>
-      </div>
-    </div>
-    <div class="chapter-card chapter-card-locked">
+    </a>
+    <a href="cap09.html" class="chapter-card">
       <div class="chapter-num">09</div>
       <div class="chapter-title">Empreender Pequeno</div>
       <div class="chapter-desc">Side hustle realista, recibo verde / MEI, precificação, plataformas sem investimento.</div>
       <div class="chapter-tags"><span class="ctag">Negócio</span><span class="ctag">Freelance</span></div>
-      <div class="lock-overlay">
-        <svg width="22" height="26" viewBox="0 0 22 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="1" y="11" width="20" height="14" rx="1" stroke="#d4cfc8" stroke-width="1.5"/>
-          <path d="M6 11V7a5 5 0 0110 0v4" stroke="#d4cfc8" stroke-width="1.5" stroke-linecap="square"/>
-          <circle cx="11" cy="18" r="2" fill="#d4cfc8"/>
-        </svg>
-        <span>Em breve</span>
-      </div>
-    </div>
-
-    <!-- CAP 10 — BLOQUEADO (span 3) -->
-    <div class="chapter-card chapter-card-locked" style="grid-column: span 3; display: flex; align-items: center; justify-content: space-between; padding: 28px;">
+    </a>
+    <a href="cap10.html" class="chapter-card" style="grid-column: span 3; display: flex; align-items: center; justify-content: space-between; padding: 28px;">
       <div>
         <div class="chapter-num" style="font-size: 32px; margin-bottom: 4px;">10</div>
         <div class="chapter-title" style="font-size: 17px;">Protocolos de Emergência — Checklists por Cenário</div>
         <div class="chapter-desc">Demissão, fraude, bloqueio bancário, saída do país.</div>
       </div>
-      <div class="lock-overlay" style="position: relative; bottom: auto; right: auto; opacity: 0.32; display: flex; flex-direction: column; align-items: center; gap: 4px;">
-        <svg width="22" height="26" viewBox="0 0 22 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="1" y="11" width="20" height="14" rx="1" stroke="#d4cfc8" stroke-width="1.5"/>
-          <path d="M6 11V7a5 5 0 0110 0v4" stroke="#d4cfc8" stroke-width="1.5" stroke-linecap="square"/>
-          <circle cx="11" cy="18" r="2" fill="#d4cfc8"/>
-        </svg>
-        <span style="font-family: 'IBM Plex Mono', monospace; font-size: 8px; letter-spacing: 0.15em; color: #6b6560; text-transform: uppercase;">Em breve</span>
-      </div>
-    </div>
+      <span style="font-family: var(--display); font-size: 40px; color: var(--accent); opacity: 0.4;">→</span>
+    </a>
   </div>
 </div>
 
@@ -695,12 +583,92 @@
   </div>
 </div>
 
+<!-- RECURSOS -->
+<div class="section" id="recursos">
+  <div class="section-label">Recursos</div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border)">
+
+    <!-- Finanças -->
+    <div style="background:var(--bg);padding:28px">
+      <div style="font-family:var(--mono);font-size:9px;letter-spacing:0.2em;color:var(--accent);text-transform:uppercase;margin-bottom:16px">💰 Finanças</div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <a href="https://www.ccconsumidor.pt" target="_blank" rel="noopener" style="font-size:13px;color:var(--text);text-decoration:none;border-left:2px solid var(--border);padding-left:12px;transition:border-color 0.2s" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)')">🇵🇹 Centro de Conciliação Bancária — mediação gratuita com bancos</a>
+        <a href="https://www.bcb.gov.br/meubc" target="_blank" rel="noopener" style="font-size:13px;color:var(--text);text-decoration:none;border-left:2px solid var(--border);padding-left:12px" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)')">🇧🇷 Meu BC — portal de serviços do Banco Central</a>
+        <a href="https://www.portaldascomplaint.pt" target="_blank" rel="noopener" style="font-size:13px;color:var(--text);text-decoration:none;border-left:2px solid var(--border);padding-left:12px" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)')">🇵🇹 Portal da Queixa — reclamações a empresas portuguesas</a>
+        <a href="https://www.consumidor.gov.br" target="_blank" rel="noopener" style="font-size:13px;color:var(--text);text-decoration:none;border-left:2px solid var(--border);padding-left:12px" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)')">🇧🇷 Consumidor.gov.br — reclamações e mediação Procon</a>
+        <a href="https://www.wise.com" target="_blank" rel="noopener" style="font-size:13px;color:var(--text);text-decoration:none;border-left:2px solid var(--border);padding-left:12px" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)')">🌍 Wise — transferências internacionais a baixo custo</a>
+      </div>
+    </div>
+
+    <!-- Direito e apoio legal -->
+    <div style="background:var(--bg);padding:28px">
+      <div style="font-family:var(--mono);font-size:9px;letter-spacing:0.2em;color:var(--accent);text-transform:uppercase;margin-bottom:16px">⚖️ Direito e Apoio Legal</div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <a href="https://www.dgaj.mj.pt/apoio-judiciario" target="_blank" rel="noopener" style="font-size:13px;color:var(--text);text-decoration:none;border-left:2px solid var(--border);padding-left:12px" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)')">🇵🇹 Apoio Judiciário — advogado gratuito por rendimentos baixos (DGRSP)</a>
+        <a href="https://www.defensoria.sp.def.br" target="_blank" rel="noopener" style="font-size:13px;color:var(--text);text-decoration:none;border-left:2px solid var(--border);padding-left:12px" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)')">🇧🇷 Defensoria Pública — assistência jurídica gratuita</a>
+        <a href="https://dre.pt" target="_blank" rel="noopener" style="font-size:13px;color:var(--text);text-decoration:none;border-left:2px solid var(--border);padding-left:12px" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)')">🇵🇹 Diário da República Electrónico — legislação actualizada</a>
+        <a href="https://www.planalto.gov.br/ccivil_03" target="_blank" rel="noopener" style="font-size:13px;color:var(--text);text-decoration:none;border-left:2px solid var(--border);padding-left:12px" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)')">🇧🇷 Planalto — Legislação Federal Brasileira</a>
+        <a href="https://www.apav.pt" target="_blank" rel="noopener" style="font-size:13px;color:var(--text);text-decoration:none;border-left:2px solid var(--border);padding-left:12px" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)')">🇵🇹 APAV — Apoio a vítimas de crime e violência</a>
+      </div>
+    </div>
+
+    <!-- Segurança Digital -->
+    <div style="background:var(--bg);padding:28px">
+      <div style="font-family:var(--mono);font-size:9px;letter-spacing:0.2em;color:var(--accent);text-transform:uppercase;margin-bottom:16px">🔒 Segurança Digital</div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <a href="https://www.cncs.gov.pt" target="_blank" rel="noopener" style="font-size:13px;color:var(--text);text-decoration:none;border-left:2px solid var(--border);padding-left:12px" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)')">🇵🇹 CNCS — Centro Nacional de Cibersegurança</a>
+        <a href="https://cert.pt" target="_blank" rel="noopener" style="font-size:13px;color:var(--text);text-decoration:none;border-left:2px solid var(--border);padding-left:12px" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)')">🇵🇹 CERT.PT — resposta a incidentes de segurança</a>
+        <a href="https://www.haveibeenpwned.com" target="_blank" rel="noopener" style="font-size:13px;color:var(--text);text-decoration:none;border-left:2px solid var(--border);padding-left:12px" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)')">🌍 HaveIBeenPwned — verifica se o teu email foi comprometido</a>
+        <a href="https://bitwarden.com" target="_blank" rel="noopener" style="font-size:13px;color:var(--text);text-decoration:none;border-left:2px solid var(--border);padding-left:12px" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)')">🌍 Bitwarden — gestor de passwords open source e gratuito</a>
+        <a href="https://www.safernet.org.br" target="_blank" rel="noopener" style="font-size:13px;color:var(--text);text-decoration:none;border-left:2px solid var(--border);padding-left:12px" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)')">🇧🇷 SaferNet — denúncias de crimes online no Brasil</a>
+      </div>
+    </div>
+
+    <!-- Saúde -->
+    <div style="background:var(--bg);padding:28px">
+      <div style="font-family:var(--mono);font-size:9px;letter-spacing:0.2em;color:var(--accent);text-transform:uppercase;margin-bottom:16px">🏥 Saúde</div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <a href="https://www.sns24.gov.pt" target="_blank" rel="noopener" style="font-size:13px;color:var(--text);text-decoration:none;border-left:2px solid var(--border);padding-left:12px" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)')">🇵🇹 SNS 24 — triagem telefónica 808 24 24 24</a>
+        <a href="https://www.saude.gov.br/sus" target="_blank" rel="noopener" style="font-size:13px;color:var(--text);text-decoration:none;border-left:2px solid var(--border);padding-left:12px" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)')">🇧🇷 Portal SUS — informação sobre serviços de saúde pública</a>
+        <a href="https://www.infarmed.pt/genericos" target="_blank" rel="noopener" style="font-size:13px;color:var(--text);text-decoration:none;border-left:2px solid var(--border);padding-left:12px" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)')">🇵🇹 INFARMED — pesquisa de medicamentos genéricos</a>
+        <a href="https://www.cvv.org.br" target="_blank" rel="noopener" style="font-size:13px;color:var(--text);text-decoration:none;border-left:2px solid var(--border);padding-left:12px" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)')">🇧🇷 CVV — Centro de Valorização da Vida (linha 188)</a>
+        <a href="https://sosvozeamiga.pt" target="_blank" rel="noopener" style="font-size:13px;color:var(--text);text-decoration:none;border-left:2px solid var(--border);padding-left:12px" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)')">🇵🇹 SOS Voz Amiga — apoio emocional 213 544 545</a>
+      </div>
+    </div>
+
+    <!-- Carreira e Emprego -->
+    <div style="background:var(--bg);padding:28px">
+      <div style="font-family:var(--mono);font-size:9px;letter-spacing:0.2em;color:var(--accent);text-transform:uppercase;margin-bottom:16px">💼 Carreira e Emprego</div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <a href="https://www.iefp.pt" target="_blank" rel="noopener" style="font-size:13px;color:var(--text);text-decoration:none;border-left:2px solid var(--border);padding-left:12px" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)')">🇵🇹 IEFP — registo de desemprego e bolsas de emprego</a>
+        <a href="https://www.sine.mte.gov.br" target="_blank" rel="noopener" style="font-size:13px;color:var(--text);text-decoration:none;border-left:2px solid var(--border);padding-left:12px" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)')">🇧🇷 SINE — Sistema Nacional de Emprego</a>
+        <a href="https://www.upwork.com" target="_blank" rel="noopener" style="font-size:13px;color:var(--text);text-decoration:none;border-left:2px solid var(--border);padding-left:12px" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)')">🌍 Upwork — freelance internacional</a>
+        <a href="https://www.workana.com" target="_blank" rel="noopener" style="font-size:13px;color:var(--text);text-decoration:none;border-left:2px solid var(--border);padding-left:12px" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)')">🌍 Workana — freelance PT/BR</a>
+        <a href="https://mei.gov.br" target="_blank" rel="noopener" style="font-size:13px;color:var(--text);text-decoration:none;border-left:2px solid var(--border);padding-left:12px" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)')">🇧🇷 Portal MEI — abrir e gerir MEI</a>
+      </div>
+    </div>
+
+    <!-- Aprendizagem Gratuita -->
+    <div style="background:var(--bg);padding:28px">
+      <div style="font-family:var(--mono);font-size:9px;letter-spacing:0.2em;color:var(--accent);text-transform:uppercase;margin-bottom:16px">📚 Aprendizagem Gratuita</div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <a href="https://www.coursera.org/courses?query=free" target="_blank" rel="noopener" style="font-size:13px;color:var(--text);text-decoration:none;border-left:2px solid var(--border);padding-left:12px" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)')">🌍 Coursera — cursos gratuitos (auditoria) de universidades top</a>
+        <a href="https://www.khanacademy.org" target="_blank" rel="noopener" style="font-size:13px;color:var(--text);text-decoration:none;border-left:2px solid var(--border);padding-left:12px" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)')">🌍 Khan Academy — matemática, ciências e economia gratuitos</a>
+        <a href="https://apps.ankiweb.net" target="_blank" rel="noopener" style="font-size:13px;color:var(--text);text-decoration:none;border-left:2px solid var(--border);padding-left:12px" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)')">🌍 Anki — memorização por repetição espaçada (línguas)</a>
+        <a href="https://www.duolingo.com" target="_blank" rel="noopener" style="font-size:13px;color:var(--text);text-decoration:none;border-left:2px solid var(--border);padding-left:12px" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)')">🌍 Duolingo — aprendizagem de línguas gamificada</a>
+        <a href="https://developer.mozilla.org/pt-PT" target="_blank" rel="noopener" style="font-size:13px;color:var(--text);text-decoration:none;border-left:2px solid var(--border);padding-left:12px" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)')">🌍 MDN Web Docs — referência técnica gratuita (web/programação)</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
 <footer>
   <div class="footer-logo">GUIA DE SOBREVIVÊNCIA URBANA</div>
   <div class="footer-meta">
     Sem publicidade · Sem afiliados · Sem agenda<br>
     Conteúdo licenciado sob CC BY-SA 4.0<br>
-    Última revisão: Abril 2025
+    Última revisão: Abril 2026
   </div>
 </footer>
 

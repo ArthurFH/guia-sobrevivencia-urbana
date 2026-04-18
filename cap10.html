@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cap. 10 — Protocolos de Emergência | GSU</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0d0d0d;--bg2:#141414;--bg3:#1a1a1a;--border:#2a2a2a;--text:#d4cfc8;--text-dim:#6b6560;--accent:#e8c547;--accent2:#c0392b;--accent3:#2ecc71;--mono:'IBM Plex Mono',monospace;--sans:'IBM Plex Sans',sans-serif;--display:'Bebas Neue',sans-serif}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-weight:300;line-height:1.7;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:9999;opacity:0.4}
+.topbar{background:var(--accent2);padding:8px 0;text-align:center;font-family:var(--mono);font-size:11px;letter-spacing:0.15em;color:#fff;position:sticky;top:0;z-index:100}
+.topbar span{opacity:0.7;margin:0 8px}
+nav{border-bottom:1px solid var(--border);padding:0 40px;display:flex;align-items:center;justify-content:space-between;height:60px;background:var(--bg);position:sticky;top:37px;z-index:99}
+.nav-logo{font-family:var(--display);font-size:22px;letter-spacing:0.08em;color:var(--accent);text-decoration:none}
+.nav-links{display:flex;gap:32px;list-style:none}
+.nav-links a{font-family:var(--mono);font-size:11px;letter-spacing:0.12em;color:var(--text-dim);text-decoration:none;text-transform:uppercase;transition:color 0.2s}
+.nav-links a:hover{color:var(--accent)}
+.nav-update{font-family:var(--mono);font-size:10px;color:var(--text-dim);letter-spacing:0.08em}
+.ch-hero{max-width:1100px;margin:0 auto;padding:80px 40px 60px;border-bottom:1px solid var(--border)}
+.ch-num{font-family:var(--display);font-size:120px;line-height:0.9;color:var(--border);margin-bottom:8px;user-select:none}
+.ch-tag{font-family:var(--mono);font-size:10px;letter-spacing:0.25em;color:var(--accent);text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:12px}
+.ch-tag::before{content:'';display:block;width:32px;height:1px;background:var(--accent)}
+.ch-title{font-family:var(--display);font-size:clamp(48px,7vw,88px);line-height:0.92;letter-spacing:0.02em;color:#fff;margin-bottom:24px}
+.ch-desc{font-size:17px;line-height:1.8;color:var(--text);max-width:640px;font-weight:300}
+.ch-badges{display:flex;gap:8px;margin-top:20px;flex-wrap:wrap}
+.badge{font-family:var(--mono);font-size:9px;letter-spacing:0.12em;padding:4px 10px;text-transform:uppercase;border:1px solid var(--border);color:var(--text-dim)}
+.badge.pt{border-color:#2a4a6e;color:#5dade2}.badge.br{border-color:#1a4a26;color:var(--accent3)}.badge.warn{border-color:#4a1a1a;color:var(--accent2)}.badge.new{border-color:#4a3a1a;color:var(--accent)}
+.ch-content{max-width:800px;margin:0 auto;padding:60px 40px}
+.ch-section{margin-bottom:64px}
+.section-title{font-family:var(--display);font-size:40px;letter-spacing:0.04em;color:#fff;margin-bottom:4px}
+.section-label{font-family:var(--mono);font-size:10px;letter-spacing:0.2em;color:var(--text-dim);text-transform:uppercase;margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid var(--border)}
+.prose{font-size:15px;line-height:1.85;color:var(--text);margin-bottom:16px}
+.prose strong{color:#fff;font-weight:600}.prose em{color:var(--accent);font-style:normal;font-weight:600}
+.protocol{border:1px solid var(--border);background:var(--bg2);margin:24px 0}
+.protocol-header{padding:14px 24px;border-bottom:1px solid var(--border);font-family:var(--mono);font-size:10px;letter-spacing:0.2em;color:var(--accent);text-transform:uppercase}
+.protocol-header.red{color:var(--accent2);border-bottom-color:var(--border)}
+.protocol-step{display:flex;gap:20px;padding:16px 24px;border-bottom:1px solid var(--border);align-items:flex-start}
+.protocol-step:last-child{border-bottom:none}
+.step-num{font-family:var(--display);font-size:28px;color:var(--accent);opacity:0.5;line-height:1;flex-shrink:0;width:32px}
+.step-title{font-size:14px;font-weight:600;color:#fff;margin-bottom:4px}
+.step-body{font-size:13px;color:var(--text-dim);line-height:1.65}
+.step-urgent{font-family:var(--mono);font-size:9px;color:var(--accent2);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:4px}
+.callout{border-left:3px solid var(--border);padding:20px 24px;margin:24px 0;background:var(--bg2)}
+.callout.warn{border-color:var(--accent2);background:#150c0c}
+.callout.tip{border-color:var(--accent3);background:#0c150e}
+.callout.info{border-color:var(--accent);background:#15120c}
+.callout-label{font-family:var(--mono);font-size:9px;letter-spacing:0.2em;text-transform:uppercase;margin-bottom:8px}
+.callout.warn .callout-label{color:var(--accent2)}.callout.tip .callout-label{color:var(--accent3)}.callout.info .callout-label{color:var(--accent)}
+.callout-text{font-size:14px;color:var(--text);line-height:1.7}
+.checklist-box{border:1px solid var(--border);padding:32px;margin:24px 0}
+.checklist-title{font-family:var(--display);font-size:28px;letter-spacing:0.05em;color:var(--accent);margin-bottom:8px}
+.checklist-sub{font-family:var(--mono);font-size:10px;letter-spacing:0.15em;color:var(--text-dim);text-transform:uppercase;margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid var(--border)}
+.check-item{display:flex;gap:14px;padding:10px 0;border-bottom:1px solid #1e1e1e;align-items:flex-start;cursor:pointer;transition:all 0.15s}
+.check-item:hover{padding-left:6px}
+.check-box{width:16px;height:16px;border:1px solid var(--border);flex-shrink:0;margin-top:3px;transition:all 0.2s;position:relative}
+.check-item.done .check-box{background:var(--accent3);border-color:var(--accent3)}
+.check-item.done .check-box::after{content:'✓';position:absolute;top:-2px;left:2px;font-size:11px;color:#0d0d0d;font-weight:bold}
+.check-item.done .check-text{text-decoration:line-through;color:var(--text-dim)}
+.check-text{font-size:13px;color:var(--text);line-height:1.5}
+.check-priority{font-family:var(--mono);font-size:9px;color:var(--accent2);letter-spacing:0.1em;margin-top:2px}
+.scenarios-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border:1px solid var(--border);margin:32px 0}
+.scenario-card{background:var(--bg);padding:24px}
+.scenario-icon{font-size:28px;margin-bottom:12px}
+.scenario-title{font-size:14px;font-weight:600;color:#fff;margin-bottom:8px}
+.scenario-items{list-style:none;display:flex;flex-direction:column;gap:6px}
+.scenario-items li{font-size:12px;color:var(--text-dim);line-height:1.5;padding-left:14px;position:relative}
+.scenario-items li::before{content:'—';position:absolute;left:0;color:var(--accent);font-family:var(--mono)}
+.ch-nav{border-top:1px solid var(--border);background:var(--bg2)}
+.ch-nav-inner{max-width:1100px;margin:0 auto;padding:32px 40px;display:flex;justify-content:space-between;align-items:center;gap:24px}
+.ch-nav-link{font-family:var(--mono);font-size:11px;letter-spacing:0.1em;color:var(--text-dim);text-decoration:none;text-transform:uppercase;transition:color 0.2s;display:flex;flex-direction:column;gap:4px}
+.ch-nav-link:hover{color:var(--accent)}
+.ch-nav-link small{font-size:9px;letter-spacing:0.15em;opacity:0.6;display:block}
+.ch-nav-link.next{text-align:right}
+footer{border-top:1px solid var(--border);padding:40px;max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}
+.footer-logo{font-family:var(--display);font-size:18px;letter-spacing:0.08em;color:var(--text-dim)}
+.footer-meta{font-family:var(--mono);font-size:10px;color:var(--text-dim);letter-spacing:0.1em;text-align:right;line-height:1.8}
+@media(max-width:900px){nav{padding:0 20px}.nav-links{display:none}.ch-hero{padding:60px 20px 40px}.ch-num{font-size:80px}.ch-content{padding:40px 20px}.scenarios-grid{grid-template-columns:1fr}.ch-nav-inner{flex-direction:column;align-items:flex-start}.ch-nav-link.next{text-align:left}footer{flex-direction:column;gap:20px;text-align:center;padding:40px 20px}.footer-meta{text-align:center}}
+</style>
+</head>
+<body>
+
+<div class="topbar">⚠ ALERTA ATIVO <span>|</span> Phishing IRS 2026 e golpe Pix com CPF — ver Capítulo 2 <span>|</span> Última revisão: Abril 2026</div>
+
+<nav>
+  <a class="nav-logo" href="index.html">GSU</a>
+  <ul class="nav-links">
+    <li><a href="index.html#capitulos">← Capítulos</a></li>
+    <li><a href="index.html#changelog">O que mudou</a></li>
+    <li><a href="index.html#protocolos">Protocolos</a></li>
+    <li><a href="index.html#recursos">Recursos</a></li>
+  </ul>
+  <div class="nav-update">Cap. 10 / 10</div>
+</nav>
+
+<div class="ch-hero">
+  <div class="ch-num">10</div>
+  <div class="ch-tag">Guia de Sobrevivência Urbana</div>
+  <div class="ch-title">Protocolos de Emergência</div>
+  <div class="ch-desc">Checklists accionáveis para os cenários que ninguém quer mas toda a gente deve estar pronto a enfrentar: demissão, fraude, bloqueio bancário, crise de saúde e saída do país.</div>
+  <div class="ch-badges">
+    <span class="badge warn">Urgência</span>
+    <span class="badge new">Checklists</span>
+    <span class="badge pt">🇵🇹 Portugal</span>
+    <span class="badge br">🇧🇷 Brasil</span>
+  </div>
+</div>
+
+<div class="ch-content">
+
+  <div class="ch-section">
+    <div class="section-title">Como Usar Este Capítulo</div>
+    <div class="section-label">Antes que aconteça</div>
+    <p class="prose">Estes protocolos são mais úteis quando lidos <em>antes</em> de uma crise. Em modo de emergência, o stress cognitivo reduz a capacidade de decisão. Conhecer o protocolo de antemão significa que, quando acontecer, executes por memória muscular em vez de improvisar com a adrenalina ao máximo.</p>
+    <div class="callout info">
+      <div class="callout-label">Como usar</div>
+      <div class="callout-text">Clica em cada item para o marcar como feito. O estado não é guardado entre sessões — imprime ou guarda em PDF se quiseres uma checklist para levar contigo. Cada protocol inclui diferenças PT / BR quando relevante.</div>
+    </div>
+  </div>
+
+  <div class="ch-section">
+    <div class="section-title">Protocolo 01</div>
+    <div class="section-label">Demissão / Perda de emprego — primeiras 72h</div>
+
+    <div class="checklist-box">
+      <div class="checklist-title">Demissão</div>
+      <div class="checklist-sub">Clica para marcar cada passo — primeiras 72 horas</div>
+      <div class="check-item" onclick="this.classList.toggle('done')">
+        <div class="check-box"></div>
+        <div><div class="check-text">Confirmar por escrito a data oficial de saída e motivo (carta de demissão / rescisão)</div><div class="check-priority">URGENTE — define prazos e valores</div></div>
+      </div>
+      <div class="check-item" onclick="this.classList.toggle('done')">
+        <div class="check-box"></div>
+        <div><div class="check-text">Calcular montante exacto de rescisão: proporcionais de férias, subsídio de férias, aviso prévio, horas extra em dívida</div><div class="check-priority">URGENTE</div></div>
+      </div>
+      <div class="check-item" onclick="this.classList.toggle('done')">
+        <div class="check-box"></div>
+        <div><div class="check-text">🇵🇹 Inscrever como desempregado no IEFP em 90 dias — ou perdes o direito ao subsídio de desemprego</div></div>
+      </div>
+      <div class="check-item" onclick="this.classList.toggle('done')">
+        <div class="check-box"></div>
+        <div><div class="check-text">🇧🇷 Solicitar Seguro-Desemprego no prazo: 7 a 120 dias após demissão sem justa causa</div></div>
+      </div>
+      <div class="check-item" onclick="this.classList.toggle('done')">
+        <div class="check-box"></div>
+        <div><div class="check-text">🇧🇷 Verificar FGTS — sacar em caso de demissão sem justa causa (mais multa de 40%)</div></div>
+      </div>
+      <div class="check-item" onclick="this.classList.toggle('done')">
+        <div class="check-box"></div>
+        <div><div class="check-text">Guardar cópias digitalizadas de: contratos, folhas de vencimento dos últimos 12 meses, emails relevantes, avaliações de desempenho</div></div>
+      </div>
+      <div class="check-item" onclick="this.classList.toggle('done')">
+        <div class="check-box"></div>
+        <div><div class="check-text">Calcular runway financeiro: quantos meses o teu fundo de emergência cobre?</div></div>
+      </div>
+      <div class="check-item" onclick="this.classList.toggle('done')">
+        <div class="check-box"></div>
+        <div><div class="check-text">Identificar e suspender 3 despesas não essenciais ainda esta semana</div></div>
+      </div>
+      <div class="check-item" onclick="this.classList.toggle('done')">
+        <div class="check-box"></div>
+        <div><div class="check-text">Actualizar LinkedIn antes de contactar a rede — o perfil é a tua primeira impressão</div></div>
+      </div>
+      <div class="check-item" onclick="this.classList.toggle('done')">
+        <div class="check-box"></div>
+        <div><div class="check-text">Enviar 5 mensagens à rede de contactos (ex-colegas, clientes, parceiros) a informar que estás a explorar novas oportunidades</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ch-section">
+    <div class="section-title">Protocolo 02</div>
+    <div class="section-label">Fraude / Golpe financeiro — primeiras horas</div>
+
+    <div class="checklist-box">
+      <div class="checklist-title">Fraude</div>
+      <div class="checklist-sub">Cada minuto conta — segue esta ordem</div>
+      <div class="check-item" onclick="this.classList.toggle('done')">
+        <div class="check-box"></div>
+        <div><div class="check-text">Bloquear imediatamente todos os cartões no app do banco — não esperar pela linha telefónica</div><div class="check-priority">PRIMEIRO PASSO — faz agora</div></div>
+      </div>
+      <div class="check-item" onclick="this.classList.toggle('done')">
+        <div class="check-box"></div>
+        <div><div class="check-text">Ligar para a linha de fraudes do banco — pedir bloqueio de transferências pendentes e registar número do caso</div><div class="check-priority">URGENTE</div></div>
+      </div>
+      <div class="check-item" onclick="this.classList.toggle('done')">
+        <div class="check-box"></div>
+        <div><div class="check-text">Guardar prints de TUDO: mensagens, emails, páginas visitadas, transferências, conversas — antes de apagar qualquer coisa</div><div class="check-priority">URGENTE</div></div>
+      </div>
+      <div class="check-item" onclick="this.classList.toggle('done')">
+        <div class="check-box"></div>
+        <div><div class="check-text">Mudar password de email e banco — num dispositivo limpo que não tenha tido contacto com o golpe</div></div>
+      </div>
+      <div class="check-item" onclick="this.classList.toggle('done')">
+        <div class="check-box"></div>
+        <div><div class="check-text">Activar autenticação de dois factores (2FA) nos serviços financeiros e email</div></div>
+      </div>
+      <div class="check-item" onclick="this.classList.toggle('done')">
+        <div class="check-box"></div>
+        <div><div class="check-text">🇵🇹 Apresentar queixa na PSP/GNR ou online em denunciaonline.pt — inclui todos os prints</div></div>
+      </div>
+      <div class="check-item" onclick="this.classList.toggle('done')">
+        <div class="check-box"></div>
+        <div><div class="check-text">🇵🇹 Reportar ao CNCS (Centro Nacional de Cibersegurança): cncs.gov.pt / cert.pt</div></div>
+      </div>
+      <div class="check-item" onclick="this.classList.toggle('done')">
+        <div class="check-box"></div>
+        <div><div class="check-text">🇧🇷 Registar boletim de ocorrência na Polícia Civil — pode ser online em muitos estados</div></div>
+      </div>
+      <div class="check-item" onclick="this.classList.toggle('done')">
+        <div class="check-box"></div>
+        <div><div class="check-text">🇧🇷 Reportar ao BACEN (Banco Central) via canal de denúncias: bcb.gov.br</div></div>
+      </div>
+      <div class="check-item" onclick="this.classList.toggle('done')">
+        <div class="check-box"></div>
+        <div><div class="check-text">Avisar família e amigos próximos — o golpe pode tentar usar o teu contacto para atacar a tua rede</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ch-section">
+    <div class="section-title">Protocolo 03</div>
+    <div class="section-label">Bloqueio bancário ou conta congelada</div>
+
+    <div class="protocol">
+      <div class="protocol-header">O que fazer quando o banco bloqueia a conta</div>
+      <div class="protocol-step">
+        <div class="step-num">1</div>
+        <div>
+          <div class="step-title">Pede a fundamentação por escrito</div>
+          <div class="step-body">O banco é obrigado a explicar o motivo do bloqueio. Pede sempre por escrito (email) — não aceites apenas explicações verbais. Em PT: direito garantido pelo RGPD e legislação bancária. No BR: Código de Defesa do Consumidor.</div>
+        </div>
+      </div>
+      <div class="protocol-step">
+        <div class="step-num">2</div>
+        <div>
+          <div class="step-title">Identifica se é bloqueio preventivo ou judicial</div>
+          <div class="step-body">Bloqueio preventivo (suspeita de fraude ou LBCFT): o banco pode resolver internamente com documentação. Bloqueio judicial (penhora, execução fiscal): exige advogado ou contacto directo com entidade judicial. São situações muito diferentes.</div>
+        </div>
+      </div>
+      <div class="protocol-step">
+        <div class="step-num">3</div>
+        <div>
+          <div class="step-title">Apresenta documentação solicitada com urgência</div>
+          <div class="step-body">Bloqueios por KYC (Know Your Customer) são frequentes quando há movimentos invulgares. Documentos típicos: justificação da origem de fundos, declaração de IRS/IR, contrato de trabalho. Entrega em 24–48h se possível.</div>
+        </div>
+      </div>
+      <div class="protocol-step">
+        <div class="step-num">4</div>
+        <div>
+          <div class="step-title">Escala a reclamação se necessário</div>
+          <div class="step-body">🇵🇹 Banco de Portugal (www.bportugal.pt) — Portal do Cliente Bancário. Reclamação formal obriga o banco a responder em 15 dias úteis. 🇧🇷 Bacen Reclama (www.bcb.gov.br) — sistema federal de reclamações contra bancos.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout warn">
+      <div class="callout-label">⚠ Conta bloqueada com filhos menores ou idosos dependentes</div>
+      <div class="callout-text">Em Portugal, podes pedir ao Banco de Portugal intervenção de urgência quando o bloqueio afecta a subsistência básica. No Brasil, valores equivalentes ao salário mínimo são impenhoráveis por lei — o banco não pode bloquear o equivalente ao mínimo vital.</div>
+    </div>
+  </div>
+
+  <div class="ch-section">
+    <div class="section-title">Protocolo 04</div>
+    <div class="section-label">Saída do país em emergência ou emigração planeada</div>
+
+    <div class="checklist-box">
+      <div class="checklist-title">Saída do País</div>
+      <div class="checklist-sub">Documentação e finanças — antes de partir</div>
+      <div class="check-item" onclick="this.classList.toggle('done')">
+        <div class="check-box"></div>
+        <div><div class="check-text">Passaporte válido por pelo menos 6 meses a contar da data de regresso prevista</div><div class="check-priority">VERIFICAR COM ANTECEDÊNCIA</div></div>
+      </div>
+      <div class="check-item" onclick="this.classList.toggle('done')">
+        <div class="check-box"></div>
+        <div><div class="check-text">Digitalizar e guardar na cloud: passaporte, BI/CC, NIF/CPF, cartão de saúde, apólice de seguro de viagem</div></div>
+      </div>
+      <div class="check-item" onclick="this.classList.toggle('done')">
+        <div class="check-box"></div>
+        <div><div class="check-text">🇵🇹 Informar a Autoridade Tributária de ausência prolongada — declarar residência fiscal no destino se for o caso</div></div>
+      </div>
+      <div class="check-item" onclick="this.classList.toggle('done')">
+        <div class="check-box"></div>
+        <div><div class="check-text">🇧🇷 Declaração de Saída Definitiva do País (DSDP) — obrigatória para quem reside permanentemente no exterior e quer encerrar obrigações fiscais no Brasil</div></div>
+      </div>
+      <div class="check-item" onclick="this.classList.toggle('done')">
+        <div class="check-box"></div>
+        <div><div class="check-text">Abrir conta bancária que funcione internacionalmente ou com multibanco/cartão sem comissões no estrangeiro (ex: Revolut, N26, Wise)</div></div>
+      </div>
+      <div class="check-item" onclick="this.classList.toggle('done')">
+        <div class="check-box"></div>
+        <div><div class="check-text">Verificar cobertura do seguro de saúde no destino — o Cartão Europeu de Seguro de Doença (CESD) cobre dentro da UE</div></div>
+      </div>
+      <div class="check-item" onclick="this.classList.toggle('done')">
+        <div class="check-box"></div>
+        <div><div class="check-text">Guardar em papel (não apenas digital) o número de emergência da embaixada ou consulado no país de destino</div></div>
+      </div>
+      <div class="check-item" onclick="this.classList.toggle('done')">
+        <div class="check-box"></div>
+        <div><div class="check-text">Registar na embaixada/consulado se ficares mais de 3 meses — em emergência facilita assistência consular</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ch-section">
+    <div class="section-title">Cenários de Baixa Probabilidade</div>
+    <div class="section-label">Alta consequência — saber o essencial</div>
+    <p class="prose">Há cenários que raramente acontecem mas cujo impacto é tão alto que vale a pena saber o mínimo antes de os viver.</p>
+
+    <div class="scenarios-grid">
+      <div class="scenario-card">
+        <div class="scenario-icon">🏠</div>
+        <div class="scenario-title">Despejo / Execução hipotecária</div>
+        <ul class="scenario-items">
+          <li>Nunca ignores uma notificação legal — prazo de resposta é curto</li>
+          <li>PT: procura imediatamente o IHRU (habitação pública) e Segurança Social</li>
+          <li>BR: Defensoria Pública gratuita — tem prazo para contestar execução</li>
+          <li>Ver Capítulo 6 para direitos de arrendatários</li>
+        </ul>
+      </div>
+      <div class="scenario-card">
+        <div class="scenario-icon">⚡</div>
+        <div class="scenario-title">Corte de serviços essenciais</div>
+        <ul class="scenario-items">
+          <li>PT: Tarifa Social de energia eléctrica — pede à distribuidora com comprovativo de rendimentos</li>
+          <li>PT: Apoio Social à Água — câmara municipal ou ERSAR</li>
+          <li>BR: Tarifa Social de Energia cobre consumo até 220 kWh/mês</li>
+          <li>Nenhum fornecedor pode cortar sem aviso prévio legal</li>
+        </ul>
+      </div>
+      <div class="scenario-card">
+        <div class="scenario-icon">🏥</div>
+        <div class="scenario-title">Hospitalização de emergência</div>
+        <ul class="scenario-items">
+          <li>Designar contacto de emergência no registo hospitalar</li>
+          <li>Guarda lista de medicamentos actuais e alergias em formato papel</li>
+          <li>PT: Linha SNS24 (808 24 24 24) para orientação antes da urgência</li>
+          <li>BR: SAMU (192) ou UPA — sem necessidade de encaminhamento</li>
+        </ul>
+      </div>
+      <div class="scenario-card">
+        <div class="scenario-icon">⚖️</div>
+        <div class="scenario-title">Detenção ou problema legal</div>
+        <ul class="scenario-items">
+          <li>Não fales antes de falar com advogado — é um direito constitucional</li>
+          <li>PT: pede advogado officioso de imediato (gratuito por lei)</li>
+          <li>BR: pede Defensoria Pública ou advogado dativo</li>
+          <li>Contacta a embaixada se fores cidadão estrangeiro</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="callout tip">
+      <div class="callout-label">💡 Preparação preventiva</div>
+      <div class="callout-text">A única coisa melhor do que um bom protocolo de emergência é não precisar de o usar. Fundo de emergência de 3–6 meses, documentos digitalizados, passwords geridas com gestor seguro, e conhecer os teus direitos básicos de trabalho — estas quatro medidas resolvem 80% das emergências antes de se tornarem crises.</div>
+    </div>
+  </div>
+
+</div>
+
+<div class="ch-nav">
+  <div class="ch-nav-inner">
+    <a href="cap09.html" class="ch-nav-link">
+      <small>← Capítulo 09</small>
+      Empreender Pequeno
+    </a>
+    <a href="index.html" class="ch-nav-link next">
+      <small>Início →</small>
+      Guia de Sobrevivência Urbana
+    </a>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-logo">GUIA DE SOBREVIVÊNCIA URBANA</div>
+  <div class="footer-meta">Sem publicidade · Sem afiliados · Sem agenda<br>Conteúdo licenciado sob CC BY-SA 4.0<br>Última revisão: Abril 2026</div>
+</footer>
+</body>
+</html>

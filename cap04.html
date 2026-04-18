@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cap. 04 — Carreira em Mercado Difícil | GSU</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0d0d0d;--bg2:#141414;--bg3:#1a1a1a;--border:#2a2a2a;--text:#d4cfc8;--text-dim:#6b6560;--accent:#e8c547;--accent2:#c0392b;--accent3:#2ecc71;--mono:'IBM Plex Mono',monospace;--sans:'IBM Plex Sans',sans-serif;--display:'Bebas Neue',sans-serif}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-weight:300;line-height:1.7;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:9999;opacity:0.4}
+.topbar{background:var(--accent2);padding:8px 0;text-align:center;font-family:var(--mono);font-size:11px;letter-spacing:0.15em;color:#fff;position:sticky;top:0;z-index:100}
+.topbar span{opacity:0.7;margin:0 8px}
+nav{border-bottom:1px solid var(--border);padding:0 40px;display:flex;align-items:center;justify-content:space-between;height:60px;background:var(--bg);position:sticky;top:37px;z-index:99}
+.nav-logo{font-family:var(--display);font-size:22px;letter-spacing:0.08em;color:var(--accent);text-decoration:none}
+.nav-links{display:flex;gap:32px;list-style:none}
+.nav-links a{font-family:var(--mono);font-size:11px;letter-spacing:0.12em;color:var(--text-dim);text-decoration:none;text-transform:uppercase;transition:color 0.2s}
+.nav-links a:hover{color:var(--accent)}
+.nav-update{font-family:var(--mono);font-size:10px;color:var(--text-dim);letter-spacing:0.08em}
+.ch-hero{max-width:1100px;margin:0 auto;padding:80px 40px 60px;border-bottom:1px solid var(--border)}
+.ch-num{font-family:var(--display);font-size:120px;line-height:0.9;color:var(--border);margin-bottom:8px;user-select:none}
+.ch-tag{font-family:var(--mono);font-size:10px;letter-spacing:0.25em;color:var(--accent);text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:12px}
+.ch-tag::before{content:'';display:block;width:32px;height:1px;background:var(--accent)}
+.ch-title{font-family:var(--display);font-size:clamp(48px,7vw,88px);line-height:0.92;letter-spacing:0.02em;color:#fff;margin-bottom:24px}
+.ch-desc{font-size:17px;line-height:1.8;color:var(--text);max-width:640px;font-weight:300}
+.ch-badges{display:flex;gap:8px;margin-top:20px;flex-wrap:wrap}
+.badge{font-family:var(--mono);font-size:9px;letter-spacing:0.12em;padding:4px 10px;text-transform:uppercase;border:1px solid var(--border);color:var(--text-dim)}
+.badge.pt{border-color:#2a4a6e;color:#5dade2}.badge.br{border-color:#1a4a26;color:var(--accent3)}.badge.new{border-color:#4a3a1a;color:var(--accent)}
+.ch-content{max-width:800px;margin:0 auto;padding:60px 40px}
+.ch-section{margin-bottom:64px}
+.section-title{font-family:var(--display);font-size:40px;letter-spacing:0.04em;color:#fff;margin-bottom:4px}
+.section-label{font-family:var(--mono);font-size:10px;letter-spacing:0.2em;color:var(--text-dim);text-transform:uppercase;margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid var(--border)}
+.prose{font-size:15px;line-height:1.85;color:var(--text);margin-bottom:16px}
+.prose strong{color:#fff;font-weight:600}.prose em{color:var(--accent);font-style:normal;font-weight:600}
+.protocol{border:1px solid var(--border);background:var(--bg2);margin:24px 0}
+.protocol-header{padding:14px 24px;border-bottom:1px solid var(--border);font-family:var(--mono);font-size:10px;letter-spacing:0.2em;color:var(--accent);text-transform:uppercase}
+.protocol-step{display:flex;gap:20px;padding:16px 24px;border-bottom:1px solid var(--border);align-items:flex-start}
+.protocol-step:last-child{border-bottom:none}
+.step-num{font-family:var(--display);font-size:28px;color:var(--accent);opacity:0.5;line-height:1;flex-shrink:0;width:32px}
+.step-title{font-size:14px;font-weight:600;color:#fff;margin-bottom:4px}
+.step-body{font-size:13px;color:var(--text-dim);line-height:1.65}
+.callout{border-left:3px solid var(--border);padding:20px 24px;margin:24px 0;background:var(--bg2)}
+.callout.warn{border-color:var(--accent2);background:#150c0c}
+.callout.tip{border-color:var(--accent3);background:#0c150e}
+.callout.info{border-color:var(--accent);background:#15120c}
+.callout-label{font-family:var(--mono);font-size:9px;letter-spacing:0.2em;text-transform:uppercase;margin-bottom:8px}
+.callout.warn .callout-label{color:var(--accent2)}.callout.tip .callout-label{color:var(--accent3)}.callout.info .callout-label{color:var(--accent)}
+.callout-text{font-size:14px;color:var(--text);line-height:1.7}
+.skills-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border:1px solid var(--border);margin:24px 0}
+.skill-card{background:var(--bg);padding:20px 24px}
+.skill-name{font-size:14px;font-weight:600;color:#fff;margin-bottom:6px}
+.skill-value{font-family:var(--mono);font-size:10px;letter-spacing:0.1em;margin-bottom:8px}
+.skill-value.high{color:var(--accent3)}.skill-value.med{color:var(--accent)}.skill-value.low{color:var(--text-dim)}
+.skill-desc{font-size:12px;color:var(--text-dim);line-height:1.6}
+.compare{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--border);margin:32px 0}
+.compare-panel{padding:28px}.compare-panel:first-child{border-right:1px solid var(--border)}
+.compare-flag{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.compare-flag span:first-child{font-size:22px}
+.compare-flag strong{font-family:var(--mono);font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-dim)}
+.compare-item{font-size:13px;color:var(--text);line-height:1.7;margin-bottom:10px;padding-left:12px;border-left:2px solid var(--border)}
+.compare-item strong{color:var(--accent);font-weight:600}
+.ch-nav{border-top:1px solid var(--border);background:var(--bg2)}
+.ch-nav-inner{max-width:1100px;margin:0 auto;padding:32px 40px;display:flex;justify-content:space-between;align-items:center;gap:24px}
+.ch-nav-link{font-family:var(--mono);font-size:11px;letter-spacing:0.1em;color:var(--text-dim);text-decoration:none;text-transform:uppercase;transition:color 0.2s;display:flex;flex-direction:column;gap:4px}
+.ch-nav-link:hover{color:var(--accent)}
+.ch-nav-link small{font-size:9px;letter-spacing:0.15em;opacity:0.6;display:block}
+.ch-nav-link.next{text-align:right}
+footer{border-top:1px solid var(--border);padding:40px;max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}
+.footer-logo{font-family:var(--display);font-size:18px;letter-spacing:0.08em;color:var(--text-dim)}
+.footer-meta{font-family:var(--mono);font-size:10px;color:var(--text-dim);letter-spacing:0.1em;text-align:right;line-height:1.8}
+@media(max-width:900px){nav{padding:0 20px}.nav-links{display:none}.ch-hero{padding:60px 20px 40px}.ch-num{font-size:80px}.ch-content{padding:40px 20px}.skills-grid{grid-template-columns:1fr}.compare{grid-template-columns:1fr}.compare-panel:first-child{border-right:none;border-bottom:1px solid var(--border)}.ch-nav-inner{flex-direction:column;align-items:flex-start}.ch-nav-link.next{text-align:left}footer{flex-direction:column;gap:20px;text-align:center;padding:40px 20px}.footer-meta{text-align:center}}
+</style>
+</head>
+<body>
+
+<div class="topbar">⚠ ALERTA ATIVO <span>|</span> Phishing IRS 2026 e golpe Pix com CPF — ver Capítulo 2 <span>|</span> Última revisão: Abril 2026</div>
+
+<nav>
+  <a class="nav-logo" href="index.html">GSU</a>
+  <ul class="nav-links">
+    <li><a href="index.html#capitulos">← Capítulos</a></li>
+    <li><a href="index.html#changelog">O que mudou</a></li>
+    <li><a href="index.html#protocolos">Protocolos</a></li>
+    <li><a href="index.html#recursos">Recursos</a></li>
+  </ul>
+  <div class="nav-update">Cap. 04 / 10</div>
+</nav>
+
+<div class="ch-hero">
+  <div class="ch-num">04</div>
+  <div class="ch-tag">Guia de Sobrevivência Urbana</div>
+  <div class="ch-title">Carreira em Mercado Difícil</div>
+  <div class="ch-desc">Skills com valor real de mercado, como construir reputação profissional online, iniciar freelance sem se queimar, e conseguir trabalho remoto internacional.</div>
+  <div class="ch-badges">
+    <span class="badge new">Carreira</span>
+    <span class="badge new">Freelance</span>
+    <span class="badge pt">🇵🇹 Portugal</span>
+    <span class="badge br">🇧🇷 Brasil</span>
+  </div>
+</div>
+
+<div class="ch-content">
+
+  <div class="ch-section">
+    <div class="section-title">Skills que Sobrevivem</div>
+    <div class="section-label">Valor real de mercado em 2026</div>
+    <p class="prose">Nem todas as skills têm o mesmo valor. O critério de avaliação mais útil não é "está em alta agora" — é <em>qual a combinação de escassez, procura e dificuldade de automatizar</em>. Skills que satisfazem os três critérios têm valor duradouro.</p>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <div class="skill-name">Inglês profissional</div>
+        <div class="skill-value high">Valor: muito alto</div>
+        <div class="skill-desc">Abre acesso a mercados 10–50× maiores. Para profissionais lusófonos, é a skill com maior ROI individual — muda o mercado endereçável de 250 milhões para 1,5 mil milhões de falantes.</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-name">Análise de dados / SQL</div>
+        <div class="skill-value high">Valor: muito alto</div>
+        <div class="skill-desc">Presente em quase toda a área de negócio. SQL básico pode ser aprendido em 2–4 semanas. Combinado com uma área de domínio (finanças, marketing, saúde) é muito difícil de substituir.</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-name">Programação (Python / JS)</div>
+        <div class="skill-value high">Valor: alto</div>
+        <div class="skill-desc">Mais saturado que há 5 anos, mas ainda com forte procura. O diferencial agora é conseguir combinar código com domínio de negócio específico — programadores que entendem finanças ou saúde são escassos.</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-name">Escrita técnica / copywriting</div>
+        <div class="skill-value med">Valor: alto</div>
+        <div class="skill-desc">Conteúdo de qualidade continua a ter valor. Redactores que entendem SEO, estrutura e audiência são procurados. IA tornou o copywriting de baixa qualidade grátis — mas elevou o preço de quem faz bem.</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-name">Gestão de produto (PM)</div>
+        <div class="skill-value high">Valor: alto</div>
+        <div class="skill-desc">Conecta tecnologia com negócio. Não exige programação avançada mas exige pensamento estruturado, comunicação e entendimento de utilizador. Bem remunerado em empresas tech.</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-name">Cibersegurança</div>
+        <div class="skill-value high">Valor: muito alto</div>
+        <div class="skill-desc">Escassez estrutural de profissionais. Certificações como CompTIA Security+, CEH ou OSCP têm boa aceitação no mercado. Remote-friendly e com salários que crescem rapidamente.</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-name">Design UX/UI</div>
+        <div class="skill-value med">Valor: médio-alto</div>
+        <div class="skill-desc">Mais competitivo com o crescimento de ferramentas no-code. O diferencial é o processo de pesquisa e raciocínio — não só a estética. Portfólio é mais importante que diploma.</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-name">Automação com IA / LLMs</div>
+        <div class="skill-value high">Valor: emergente, alto</div>
+        <div class="skill-desc">Saber como integrar ferramentas de IA em processos de negócio é uma skill que ainda poucos dominam. Quem aprender a construir workflows com LLMs vai ter vantagem significativa nos próximos anos.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ch-section">
+    <div class="section-title">Reputação Online</div>
+    <div class="section-label">O que importa mesmo</div>
+    <p class="prose">A maioria das pessoas faz o LinkedIn mal — uma lista de empregos sem contexto. O que um recrutador ou potencial cliente quer ver é <strong>evidência de que sabes fazer o que dizes que sabes</strong>. Isso vem de trabalho publicado, não de títulos.</p>
+    <div class="protocol">
+      <div class="protocol-header">LinkedIn que funciona</div>
+      <div class="protocol-step">
+        <div class="step-num">1</div>
+        <div>
+          <div class="step-title">Foto profissional e título específico</div>
+          <div class="step-body">Foto clara, fundo neutro. Título não é o teu cargo actual — é o que fazes de valor: "Analista de dados | Python + SQL | sector financeiro" diz mais do que "Analista na Empresa X".</div>
+        </div>
+      </div>
+      <div class="protocol-step">
+        <div class="step-num">2</div>
+        <div>
+          <div class="step-title">Secção "Sobre" que conta o que resolves</div>
+          <div class="step-body">Não é uma biografia. É uma resposta a "porquê tu?". Menciona o tipo de problema que resolves, para que tipo de empresa ou cliente, e o teu método. 3–5 parágrafos curtos em primeiro parágrafo. Escreve para um recrutador que lê em 30 segundos.</div>
+        </div>
+      </div>
+      <div class="protocol-step">
+        <div class="step-num">3</div>
+        <div>
+          <div class="step-title">Experiências com resultados, não tarefas</div>
+          <div class="step-body">"Reduzi tempo de processamento de relatórios de 4h para 20min com automação Python" vale infinitamente mais do que "Responsável por relatórios mensais". Quantifica sempre que possível.</div>
+        </div>
+      </div>
+      <div class="protocol-step">
+        <div class="step-num">4</div>
+        <div>
+          <div class="step-title">Publica conteúdo de valor — regularmente</div>
+          <div class="step-body">1 post por semana sobre o teu campo coloca-te no top 1% dos utilizadores do LinkedIn em visibilidade. Não tem de ser uma análise épica — pode ser uma lição aprendida, uma ferramenta que descobriste, ou uma observação sobre o mercado.</div>
+        </div>
+      </div>
+    </div>
+    <div class="callout tip">
+      <div class="callout-label">💡 Portfólio público</div>
+      <div class="callout-text">Para áreas técnicas (código, design, escrita), um portfólio público vale mais que 10 anos de LinkedIn. GitHub para código, Behance ou Dribbble para design, Substack ou um blog simples para escrita. O trabalho que podes mostrar é o teu argumento mais forte.</div>
+    </div>
+  </div>
+
+  <div class="ch-section">
+    <div class="section-title">Freelance Realista</div>
+    <div class="section-label">Como começar sem se queimar</div>
+    <p class="prose">O erro mais comum de quem começa em freelance é aceitar trabalho a qualquer preço para "construir portfólio". Isso cria um ciclo: trabalhas a preços baixos, atrais clientes que pagam pouco, não tens tempo para subir de nível, e ficas preso.</p>
+    <div class="protocol">
+      <div class="protocol-header">Protocolo de arranque freelance</div>
+      <div class="protocol-step">
+        <div class="step-num">1</div>
+        <div>
+          <div class="step-title">Define a tua oferta — específica</div>
+          <div class="step-body">"Faço tudo" não vende. "Crio dashboards em Power BI para pequenas clínicas" vende. A especificidade cria confiança e permite cobrar mais. Podes ter várias especialidades, mas apresenta uma de cada vez a cada cliente.</div>
+        </div>
+      </div>
+      <div class="protocol-step">
+        <div class="step-num">2</div>
+        <div>
+          <div class="step-title">Calcula a tua taxa mínima antes de qualquer proposta</div>
+          <div class="step-body">Regra base: (despesas mensais ÷ horas facturáveis por mês) × 1,5 (margem para tempo não facturável). Se precisas de €1.500/mês e trabalhas 80h facturáveis, a tua taxa mínima é €28/h. Abaixo disso, não aceites.</div>
+        </div>
+      </div>
+      <div class="protocol-step">
+        <div class="step-num">3</div>
+        <div>
+          <div class="step-title">Primeiro clientes: rede pessoal, não plataformas</div>
+          <div class="step-body">Plataformas (Upwork, Fiverr) são guerra de preços quando começas. Os primeiros 3–5 clientes vêm melhor do teu círculo pessoal e profissional. Diz a toda a gente o que fazes e para que tipo de cliente. Pede referências activamente — "conheces alguém que precise de X?"</div>
+        </div>
+      </div>
+      <div class="protocol-step">
+        <div class="step-num">4</div>
+        <div>
+          <div class="step-title">Contrato sempre, mesmo com conhecidos</div>
+          <div class="step-body">Dois parágrafos servem: o que fazes, quando entregas, quanto recebes e quando. Sem contrato não há protecção. PT: recibo verde permite trabalhar legalmente. BR: MEI cobre a maioria das categorias de serviço.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ch-section">
+    <div class="section-title">Trabalho Remoto Internacional</div>
+    <div class="section-label">Como conseguir o primeiro cliente ou emprego</div>
+    <p class="prose">Para trabalhadores lusófonos, o mercado internacional — especialmente anglófono — oferece salários 3–10× superiores para as mesmas skills. O obstáculo real não é a competência — é o <strong>acesso e a confiança do empregador</strong> em contratar alguém sem historial internacional.</p>
+
+    <div class="compare">
+      <div class="compare-panel">
+        <div class="compare-flag"><span>🇵🇹</span><strong>Portugal — via legal</strong></div>
+        <div class="compare-item"><strong>Visto D8 (nómada digital):</strong> Para não-residentes que trabalham remotamente para fora de PT. Permite residir em PT com estatuto legal enquanto trabalhas para empresas estrangeiras.</div>
+        <div class="compare-item"><strong>Residente fiscal em PT:</strong> Atenção à dupla tributação — Portugal tem acordos com EUA, Reino Unido e outros. Consulta um TOC antes de aceitar emprego estrangeiro para perceber onde pagas impostos.</div>
+        <div class="compare-item"><strong>Onde procurar:</strong> Remote.co, We Work Remotely, Remotive, Otta (UK-focado), Wellfound (startups). Para Europeu em empresa EU, não há burocracia adicional.</div>
+      </div>
+      <div class="compare-panel">
+        <div class="compare-flag"><span>🇧🇷</span><strong>Brasil — via legal</strong></div>
+        <div class="compare-item"><strong>PJ (Pessoa Jurídica):</strong> A maioria das empresas internacionais paga para contratos PJ. MEI tem limite de receita de R$81.000/ano — acima disso, abre ME ou LTDA.</div>
+        <div class="compare-item"><strong>Câmbio:</strong> Receber em dólares ou euros no Brasil é legal. Usa Wise ou Remessa Online para converter com spread baixo. Evita bancos tradicionais para câmbio — cobram 3–5% acima do câmbio real.</div>
+        <div class="compare-item"><strong>Onde procurar:</strong> Toptal (alto nível, processo selectivo), Deel, Andela, LinkedIn com filtro "Remote". Plataformas BR com clientes internacionais: Revelo, 99Freelas.</div>
+      </div>
+    </div>
+
+    <div class="callout info">
+      <div class="callout-label">Estratégia de entrada</div>
+      <div class="callout-text">A barreira para trabalho remoto internacional raramente é a skill — é a <strong>prova de trabalho em inglês</strong>. Contribui para projectos open-source, escreve artigos técnicos em inglês, ou faz um projecto pessoal documentado em inglês. Isso é evidência que um recrutador estrangeiro consegue verificar.</div>
+    </div>
+  </div>
+
+</div>
+
+<div class="ch-nav">
+  <div class="ch-nav-inner">
+    <a href="cap03.html" class="ch-nav-link">
+      <small>← Capítulo 03</small>
+      Planejamento Financeiro
+    </a>
+    <a href="cap05.html" class="ch-nav-link next">
+      <small>Capítulo 05 →</small>
+      Conhecimento que Não se Perde
+    </a>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-logo">GUIA DE SOBREVIVÊNCIA URBANA</div>
+  <div class="footer-meta">Sem publicidade · Sem afiliados · Sem agenda<br>Conteúdo licenciado sob CC BY-SA 4.0<br>Última revisão: Abril 2026</div>
+</footer>
+</body>
+</html>

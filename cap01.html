@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cap. 01 — Dinheiro sob Pressão | GSU</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0d0d0d;--bg2:#141414;--bg3:#1a1a1a;--border:#2a2a2a;--text:#d4cfc8;--text-dim:#6b6560;--accent:#e8c547;--accent2:#c0392b;--accent3:#2ecc71;--mono:'IBM Plex Mono',monospace;--sans:'IBM Plex Sans',sans-serif;--display:'Bebas Neue',sans-serif}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-weight:300;line-height:1.7;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:9999;opacity:0.4}
+.topbar{background:var(--accent2);padding:8px 0;text-align:center;font-family:var(--mono);font-size:11px;letter-spacing:0.15em;color:#fff;position:sticky;top:0;z-index:100}
+.topbar span{opacity:0.7;margin:0 8px}
+nav{border-bottom:1px solid var(--border);padding:0 40px;display:flex;align-items:center;justify-content:space-between;height:60px;background:var(--bg);position:sticky;top:37px;z-index:99}
+.nav-logo{font-family:var(--display);font-size:22px;letter-spacing:0.08em;color:var(--accent);text-decoration:none}
+.nav-links{display:flex;gap:32px;list-style:none}
+.nav-links a{font-family:var(--mono);font-size:11px;letter-spacing:0.12em;color:var(--text-dim);text-decoration:none;text-transform:uppercase;transition:color 0.2s}
+.nav-links a:hover{color:var(--accent)}
+.nav-update{font-family:var(--mono);font-size:10px;color:var(--text-dim);letter-spacing:0.08em}
+.ch-hero{max-width:1100px;margin:0 auto;padding:80px 40px 60px;border-bottom:1px solid var(--border)}
+.ch-num{font-family:var(--display);font-size:120px;line-height:0.9;color:var(--border);margin-bottom:8px;user-select:none}
+.ch-tag{font-family:var(--mono);font-size:10px;letter-spacing:0.25em;color:var(--accent);text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:12px}
+.ch-tag::before{content:'';display:block;width:32px;height:1px;background:var(--accent)}
+.ch-title{font-family:var(--display);font-size:clamp(48px,7vw,88px);line-height:0.92;letter-spacing:0.02em;color:#fff;margin-bottom:24px}
+.ch-desc{font-size:17px;line-height:1.8;color:var(--text);max-width:640px;font-weight:300}
+.ch-badges{display:flex;gap:8px;margin-top:20px;flex-wrap:wrap}
+.badge{font-family:var(--mono);font-size:9px;letter-spacing:0.12em;padding:4px 10px;text-transform:uppercase;border:1px solid var(--border);color:var(--text-dim)}
+.badge.pt{border-color:#2a4a6e;color:#5dade2}
+.badge.br{border-color:#1a4a26;color:var(--accent3)}
+.badge.warn{border-color:#4a1a1a;color:var(--accent2)}
+.badge.new{border-color:#4a3a1a;color:var(--accent)}
+.ch-content{max-width:800px;margin:0 auto;padding:60px 40px}
+.ch-section{margin-bottom:64px}
+.section-title{font-family:var(--display);font-size:40px;letter-spacing:0.04em;color:#fff;margin-bottom:4px}
+.section-label{font-family:var(--mono);font-size:10px;letter-spacing:0.2em;color:var(--text-dim);text-transform:uppercase;margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid var(--border)}
+.prose{font-size:15px;line-height:1.85;color:var(--text);margin-bottom:16px}
+.prose strong{color:#fff;font-weight:600}
+.prose em{color:var(--accent);font-style:normal;font-weight:600}
+.protocol{border:1px solid var(--border);background:var(--bg2);margin:24px 0}
+.protocol-header{padding:14px 24px;border-bottom:1px solid var(--border);font-family:var(--mono);font-size:10px;letter-spacing:0.2em;color:var(--accent);text-transform:uppercase}
+.protocol-step{display:flex;gap:20px;padding:16px 24px;border-bottom:1px solid var(--border);align-items:flex-start}
+.protocol-step:last-child{border-bottom:none}
+.step-num{font-family:var(--display);font-size:28px;color:var(--accent);opacity:0.5;line-height:1;flex-shrink:0;width:32px}
+.step-title{font-size:14px;font-weight:600;color:#fff;margin-bottom:4px}
+.step-body{font-size:13px;color:var(--text-dim);line-height:1.65}
+.step-urgent{font-family:var(--mono);font-size:9px;color:var(--accent2);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:4px}
+.callout{border-left:3px solid var(--border);padding:20px 24px;margin:24px 0;background:var(--bg2)}
+.callout.warn{border-color:var(--accent2);background:#150c0c}
+.callout.tip{border-color:var(--accent3);background:#0c150e}
+.callout.info{border-color:var(--accent);background:#15120c}
+.callout-label{font-family:var(--mono);font-size:9px;letter-spacing:0.2em;text-transform:uppercase;margin-bottom:8px}
+.callout.warn .callout-label{color:var(--accent2)}
+.callout.tip .callout-label{color:var(--accent3)}
+.callout.info .callout-label{color:var(--accent)}
+.callout-text{font-size:14px;color:var(--text);line-height:1.7}
+.compare{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--border);margin:32px 0}
+.compare-panel{padding:28px}
+.compare-panel:first-child{border-right:1px solid var(--border)}
+.compare-flag{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.compare-flag span:first-child{font-size:22px}
+.compare-flag strong{font-family:var(--mono);font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-dim)}
+.compare-item{font-size:13px;color:var(--text);line-height:1.7;margin-bottom:10px;padding-left:12px;border-left:2px solid var(--border)}
+.compare-item strong{color:var(--accent);font-weight:600}
+.data-table{width:100%;border-collapse:collapse;margin:24px 0;font-size:13px}
+.data-table th{font-family:var(--mono);font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-dim);padding:10px 16px;border-bottom:1px solid var(--border);text-align:left;background:var(--bg2)}
+.data-table td{padding:12px 16px;border-bottom:1px solid var(--border);color:var(--text);line-height:1.5}
+.data-table tr:last-child td{border-bottom:none}
+.data-table tr:hover td{background:var(--bg2)}
+.data-table td:first-child{font-weight:600;color:#fff}
+.ch-nav{border-top:1px solid var(--border);background:var(--bg2)}
+.ch-nav-inner{max-width:1100px;margin:0 auto;padding:32px 40px;display:flex;justify-content:space-between;align-items:center;gap:24px}
+.ch-nav-link{font-family:var(--mono);font-size:11px;letter-spacing:0.1em;color:var(--text-dim);text-decoration:none;text-transform:uppercase;transition:color 0.2s;display:flex;flex-direction:column;gap:4px}
+.ch-nav-link:hover{color:var(--accent)}
+.ch-nav-link small{font-size:9px;letter-spacing:0.15em;opacity:0.6;display:block}
+.ch-nav-link.next{text-align:right}
+footer{border-top:1px solid var(--border);padding:40px;max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}
+.footer-logo{font-family:var(--display);font-size:18px;letter-spacing:0.08em;color:var(--text-dim)}
+.footer-meta{font-family:var(--mono);font-size:10px;color:var(--text-dim);letter-spacing:0.1em;text-align:right;line-height:1.8}
+@media(max-width:900px){nav{padding:0 20px}.nav-links{display:none}.ch-hero{padding:60px 20px 40px}.ch-num{font-size:80px}.ch-content{padding:40px 20px}.compare{grid-template-columns:1fr}.compare-panel:first-child{border-right:none;border-bottom:1px solid var(--border)}.ch-nav-inner{flex-direction:column;align-items:flex-start}.ch-nav-link.next{text-align:left}footer{flex-direction:column;gap:20px;text-align:center;padding:40px 20px}.footer-meta{text-align:center}}
+</style>
+</head>
+<body>
+
+<div class="topbar">⚠ ALERTA ATIVO <span>|</span> Phishing IRS 2026 e golpe Pix com CPF — ver Capítulo 2 <span>|</span> Última revisão: Abril 2026</div>
+
+<nav>
+  <a class="nav-logo" href="index.html">GSU</a>
+  <ul class="nav-links">
+    <li><a href="index.html#capitulos">← Capítulos</a></li>
+    <li><a href="index.html#changelog">O que mudou</a></li>
+    <li><a href="index.html#protocolos">Protocolos</a></li>
+    <li><a href="index.html#recursos">Recursos</a></li>
+  </ul>
+  <div class="nav-update">Cap. 01 / 10</div>
+</nav>
+
+<div class="ch-hero">
+  <div class="ch-num">01</div>
+  <div class="ch-tag">Guia de Sobrevivência Urbana</div>
+  <div class="ch-title">Dinheiro sob Pressão</div>
+  <div class="ch-desc">Inflação, orçamento de crise, fundo de emergência e a diferença entre dívida que trabalha para ti e dívida que te destrói.</div>
+  <div class="ch-badges">
+    <span class="badge pt">🇵🇹 Portugal</span>
+    <span class="badge br">🇧🇷 Brasil</span>
+    <span class="badge new">Finanças</span>
+  </div>
+</div>
+
+<div class="ch-content">
+
+  <div class="ch-section">
+    <div class="section-title">O que a inflação faz de verdade</div>
+    <div class="section-label">A ameaça silenciosa</div>
+    <p class="prose">Inflação de 5% ao ano parece pouco. Em 10 anos, o teu dinheiro parado perdeu <strong>40% do poder de compra</strong>. Em 15 anos, perdeu mais de metade. Um salário que não sobe com a inflação é, na prática, um corte salarial disfarçado.</p>
+    <p class="prose">O problema real não é a inflação em si — é a diferença entre o que os teus activos rendem e o que a inflação corrói. <em>Dinheiro na conta à ordem em Portugal rende 0% a 0,5%.</em> Inflação média foi 5–7% em 2022–2024. Estás a perder dinheiro todos os meses sem sair de casa.</p>
+    <table class="data-table">
+      <thead><tr><th>Cenário</th><th>5 anos</th><th>10 anos</th><th>20 anos</th></tr></thead>
+      <tbody>
+        <tr><td>Poupança à ordem (0%)</td><td>−22% poder compra</td><td>−39%</td><td>−64%</td></tr>
+        <tr><td>Certificados do Tesouro PT (~3%)</td><td>−9%</td><td>−17%</td><td>−29%</td></tr>
+        <tr><td>Tesouro Selic BR (~10,75%)</td><td>+3%</td><td>+7%</td><td>+16%</td></tr>
+      </tbody>
+    </table>
+    <div class="callout warn">
+      <div class="callout-label">⚠ Atenção</div>
+      <div class="callout-text">Estes números assumem inflação média de 4% (PT) e 5% (BR). Se a inflação subir, o impacto é pior. Se o teu dinheiro está numa conta que não rende, está a encolher — mesmo sem o sentires.</div>
+    </div>
+  </div>
+
+  <div class="ch-section">
+    <div class="section-title">Fundo de Emergência</div>
+    <div class="section-label">A única coisa que protege mesmo</div>
+    <p class="prose">O fundo de emergência não é uma poupança. É um seguro. Serve para <strong>despesas inesperadas e reais</strong>: despedimento, carro avariado, dentista de urgência, reparação em casa. Se não tens fundo de emergência, qualquer imprevisto vai ao cartão de crédito — e começas a acumular dívida a taxas criminosas.</p>
+    <p class="prose">A regra padrão é <em>3 a 6 meses de despesas essenciais</em>. Não despesas totais — essenciais. Renda ou prestação, comida, transportes, medicamentos. Tudo o resto podes cortar em emergência.</p>
+    <div class="protocol">
+      <div class="protocol-header">Como construir o fundo — passo a passo</div>
+      <div class="protocol-step">
+        <div class="step-num">1</div>
+        <div>
+          <div class="step-title">Calcula as tuas despesas essenciais mensais</div>
+          <div class="step-body">Abre o extrato bancário. Soma: renda/prestação + supermercado + transportes + medicamentos + seguros obrigatórios. Ignora lazer, restaurantes, compras. Esse número × 3 é a tua meta mínima.</div>
+        </div>
+      </div>
+      <div class="protocol-step">
+        <div class="step-num">2</div>
+        <div>
+          <div class="step-title">Abre uma conta separada com nome "Emergência"</div>
+          <div class="step-body">No mesmo banco, cria uma conta poupança ou sub-conta dedicada. Dá-lhe um nome que te lembre o propósito. Não actives cartão de débito para ela — dificulta o acesso impulsivo.</div>
+        </div>
+      </div>
+      <div class="protocol-step">
+        <div class="step-num">3</div>
+        <div>
+          <div class="step-title">Automatiza uma transferência mensal</div>
+          <div class="step-body">Configura ordem permanente para transferir 10–20% do teu salário nesse dia — preferencialmente o mesmo dia do vencimento. O que não vês, não gastas.</div>
+        </div>
+      </div>
+      <div class="protocol-step">
+        <div class="step-num">4</div>
+        <div>
+          <div class="step-title">Coloca o fundo num activo com liquidez imediata</div>
+          <div class="step-body">Não em ações, não em criptomoedas, não em imóvel. O fundo tem de estar disponível em 24–48h. PT: Certificados do Tesouro Poupança Mais ou conta poupança com boa taxa. BR: Tesouro Selic ou fundo DI de liquidez diária.</div>
+        </div>
+      </div>
+      <div class="protocol-step">
+        <div class="step-num">5</div>
+        <div>
+          <div class="step-title">Define as regras de utilização</div>
+          <div class="step-body">O fundo só é usado para emergências reais e inesperadas. Viagem de férias não é emergência. Promoção de TV não é emergência. Ficares sem emprego é emergência. Escreve as tuas regras e mantém-nas.</div>
+        </div>
+      </div>
+    </div>
+    <div class="callout tip">
+      <div class="callout-label">💡 Dica</div>
+      <div class="callout-text">Se estás a começar do zero, não te intimides com a meta de 6 meses. Começa com a meta de <strong>1 mês</strong> — é mais psicologicamente alcançável e já te protege das emergências menores (as mais frequentes).</div>
+    </div>
+  </div>
+
+  <div class="ch-section">
+    <div class="section-title">Orçamento de Crise</div>
+    <div class="section-label">O método dos três baldes</div>
+    <p class="prose">Esquece folhas de cálculo complexas em momentos de pressão. O método dos <em>três baldes</em> funciona porque é simples o suficiente para ser mantido mesmo quando estás stressado.</p>
+    <div class="protocol">
+      <div class="protocol-header">Os três baldes</div>
+      <div class="protocol-step">
+        <div class="step-num">1</div>
+        <div>
+          <div class="step-title">Balde Essencial — 50% do rendimento</div>
+          <div class="step-body">Renda/prestação, supermercado, transportes, saúde, seguros. Estas despesas não são negociáveis. Se representarem mais de 50%, tens um problema estrutural: renda demasiado alta ou rendimento demasiado baixo. Age num dos lados.</div>
+        </div>
+      </div>
+      <div class="protocol-step">
+        <div class="step-num">2</div>
+        <div>
+          <div class="step-title">Balde Futuro — 20% do rendimento</div>
+          <div class="step-body">Fundo de emergência, poupança, investimento, pagamento de dívidas. Este balde é sagrado. Em crise, transferes parte do Balde 3 para aqui — não o contrário.</div>
+        </div>
+      </div>
+      <div class="protocol-step">
+        <div class="step-num">3</div>
+        <div>
+          <div class="step-title">Balde Flexível — 30% do rendimento</div>
+          <div class="step-body">Restaurantes, lazer, roupa, subscrições, viagens. É o primeiro a cortar quando há pressão. Em crise real, este balde pode ir a zero temporariamente — é isso que faz dele "flexível".</div>
+        </div>
+      </div>
+    </div>
+    <p class="prose">Em crise grave (despedimento, doença, dívida alta), inverte a prioridade dos baldes 2 e 3: <strong>20% vai para dívida/emergência, 10% fica para o flexível</strong>. Não zero — mesmo em austeridade, precisas de algum espaço para respirar, ou o orçamento colapsa.</p>
+  </div>
+
+  <div class="ch-section">
+    <div class="section-title">Dívida Boa vs Dívida Má</div>
+    <div class="section-label">A distinção que importa</div>
+    <p class="prose">Não existe dívida "boa" no sentido absoluto. O que existe é dívida com taxa inferior ao rendimento esperado dos teus activos, e dívida com taxa superior. A segunda destrói riqueza.</p>
+    <table class="data-table">
+      <thead><tr><th>Tipo de Dívida</th><th>Taxa Típica PT</th><th>Taxa Típica BR</th><th>Veredicto</th></tr></thead>
+      <tbody>
+        <tr><td>Cartão de crédito rotativo</td><td>15–22% a.a.</td><td>250–430% a.a.</td><td style="color:var(--accent2)">Eliminar urgente</td></tr>
+        <tr><td>Crédito pessoal</td><td>8–18% a.a.</td><td>60–150% a.a.</td><td style="color:var(--accent2)">Eliminar rápido</td></tr>
+        <tr><td>Crédito automóvel</td><td>5–10% a.a.</td><td>18–35% a.a.</td><td style="color:var(--accent)">Gerir, não aumentar</td></tr>
+        <tr><td>Crédito habitação taxa fixa</td><td>3–5% a.a.</td><td>10–14% a.a.</td><td style="color:var(--accent3)">Aceitável se controlado</td></tr>
+        <tr><td>Crédito habitação taxa variável</td><td>Euribor + spread</td><td>IPCA/TR + spread</td><td style="color:var(--accent)">Risco — monitorizar</td></tr>
+      </tbody>
+    </table>
+    <div class="callout warn">
+      <div class="callout-label">⚠ Brasil — emergência nacional</div>
+      <div class="callout-text">O rotativo do cartão de crédito no Brasil tem taxas médias acima de 300% ao ano — as mais altas do mundo. Uma dívida de R$1.000 em rotativo pode virar R$4.000 em 12 meses. Se tens dívida em rotativo, é a tua prioridade número um, acima de qualquer poupança.</div>
+    </div>
+    <p class="prose">A regra prática: <em>se a taxa da dívida é maior que o rendimento esperado do investimento, paga a dívida primeiro</em>. Não faz sentido matemático ter €5.000 em poupança a 3% e €5.000 em crédito pessoal a 15%.</p>
+    <p class="prose">Para sair de dívida múltipla, usa o <strong>método da avalanche</strong>: lista todas as dívidas por taxa de juro (maior para menor), paga o mínimo em todas e direciona todo o extra para a de taxa mais alta. É matematicamente superior ao "método da bola de neve" (menor para maior) — embora este seja psicologicamente mais motivador para algumas pessoas.</p>
+  </div>
+
+  <div class="ch-section">
+    <div class="section-title">Protocolo de Emergência</div>
+    <div class="section-label">Tenho zero poupança — o que faço hoje?</div>
+    <div class="protocol">
+      <div class="protocol-header">Protocolo — zero poupança, pressão imediata</div>
+      <div class="protocol-step">
+        <div class="step-num">1</div>
+        <div>
+          <div class="step-urgent">Urgente — fazer hoje</div>
+          <div class="step-title">Mapear o dinheiro que sai todo o mês</div>
+          <div class="step-body">Abre a aplicação do banco, vai ao histórico dos últimos 30 dias. Lista cada categoria: renda, supermercado, restaurantes, transportes, subscrições. Muitas pessoas ficam surpreendidas com o que gastam em subscrições esquecidas.</div>
+        </div>
+      </div>
+      <div class="protocol-step">
+        <div class="step-num">2</div>
+        <div>
+          <div class="step-urgent">Urgente — fazer hoje</div>
+          <div class="step-title">Identificar 3 cortes imediatos</div>
+          <div class="step-body">Subscrições não usadas (streaming, apps, ginásio que não frequentas), jantares fora, compras impulsivas. Cancela agora — não amanhã. Cada €20/R$100 mensais que cortas é €240/R$1.200 por ano.</div>
+        </div>
+      </div>
+      <div class="protocol-step">
+        <div class="step-num">3</div>
+        <div>
+          <div class="step-title">Calcular a meta realista de 1 mês</div>
+          <div class="step-body">Pega no valor das tuas despesas essenciais mensais. Esse é o teu target. Não 6 meses — 1 mês. É alcançável em 3–6 meses de cortes modestos para a maioria das pessoas.</div>
+        </div>
+      </div>
+      <div class="protocol-step">
+        <div class="step-num">4</div>
+        <div>
+          <div class="step-title">Abrir conta separada para emergência</div>
+          <div class="step-body">Abre agora. Transfere o que conseguires, mesmo que seja pouco. O acto de criar a conta muda psicologicamente a relação com o dinheiro. PT: Certifica-te que tem liquidez imediata e FGTS/proteção de depósitos. BR: Conta poupança tradicional já serve para começar.</div>
+        </div>
+      </div>
+      <div class="protocol-step">
+        <div class="step-num">5</div>
+        <div>
+          <div class="step-title">Automatizar no próximo vencimento</div>
+          <div class="step-body">Configura transferência automática de 10% do salário para a conta emergência. Se não és assalariado, faz manualmente no mesmo dia em que recebes. O timing é crítico — quanto mais tempo o dinheiro fica na conta corrente, mais provável é ser gasto.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ch-section">
+    <div class="section-title">PT vs BR</div>
+    <div class="section-label">Diferenças que importam</div>
+    <div class="compare">
+      <div class="compare-panel">
+        <div class="compare-flag"><span>🇵🇹</span><strong>Portugal</strong></div>
+        <div class="compare-item"><strong>Certificados do Tesouro Poupança Mais (CTPM):</strong> capital garantido pelo Estado português, liquidez quase imediata, taxa variável ligada a Euribor + spread. Opção sólida para fundo de emergência que rende alguma coisa.</div>
+        <div class="compare-item"><strong>Certificados de Aforro Série F:</strong> taxa fixa por 10 anos, liquidez após 3 meses. Para poupança de médio prazo, não para emergência.</div>
+        <div class="compare-item"><strong>Subsídio de desemprego:</strong> regista-te no IEFP em 90 dias após demissão. Equivale a 65% do salário de referência durante 180–540 dias consoante tempo de descontos.</div>
+        <div class="compare-item"><strong>Apoio ao Arrendamento:</strong> em dificuldade com renda, contacta IHRU — existem programas de apoio a inquilinos.</div>
+      </div>
+      <div class="compare-panel">
+        <div class="compare-flag"><span>🇧🇷</span><strong>Brasil</strong></div>
+        <div class="compare-item"><strong>FGTS:</strong> em demissão sem justa causa tens direito a levantar o saldo. Usa o aplicativo FGTS para consultar o teu saldo e solicitar saque.</div>
+        <div class="compare-item"><strong>Tesouro Selic:</strong> liquidez D+1, rende acima da poupança tradicional, capital garantido pelo governo federal. Melhor opção para fundo de emergência de quem já tem mais de R$5.000 para colocar.</div>
+        <div class="compare-item"><strong>Rotativo do cartão:</strong> desde 2024 o saldo em rotativo não pode mais ser rolado indefinidamente — o banco é obrigado a oferecer parcelamento em até 24 meses. Usa isso se estiveres em rotativo.</div>
+        <div class="compare-item"><strong>Seguro-desemprego:</strong> solicitar em até 7–120 dias após demissão (sem justa causa) no SINE ou app da Carteira de Trabalho Digital. Valor entre R$1.518 e R$2.230 por até 5 parcelas.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="ch-nav">
+  <div class="ch-nav-inner">
+    <a href="index.html#capitulos" class="ch-nav-link">
+      <small>← Início</small>
+      Todos os capítulos
+    </a>
+    <a href="cap02.html" class="ch-nav-link next">
+      <small>Capítulo 02 →</small>
+      Segurança Digital e Golpes
+    </a>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-logo">GUIA DE SOBREVIVÊNCIA URBANA</div>
+  <div class="footer-meta">Sem publicidade · Sem afiliados · Sem agenda<br>Conteúdo licenciado sob CC BY-SA 4.0<br>Última revisão: Abril 2026</div>
+</footer>
+
+</body>
+</html>

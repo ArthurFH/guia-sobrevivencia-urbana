@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cap. 08 — Saúde quando o Sistema Aperta | GSU</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0d0d0d;--bg2:#141414;--bg3:#1a1a1a;--border:#2a2a2a;--text:#d4cfc8;--text-dim:#6b6560;--accent:#e8c547;--accent2:#c0392b;--accent3:#2ecc71;--mono:'IBM Plex Mono',monospace;--sans:'IBM Plex Sans',sans-serif;--display:'Bebas Neue',sans-serif}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-weight:300;line-height:1.7;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:9999;opacity:0.4}
+.topbar{background:var(--accent2);padding:8px 0;text-align:center;font-family:var(--mono);font-size:11px;letter-spacing:0.15em;color:#fff;position:sticky;top:0;z-index:100}
+.topbar span{opacity:0.7;margin:0 8px}
+nav{border-bottom:1px solid var(--border);padding:0 40px;display:flex;align-items:center;justify-content:space-between;height:60px;background:var(--bg);position:sticky;top:37px;z-index:99}
+.nav-logo{font-family:var(--display);font-size:22px;letter-spacing:0.08em;color:var(--accent);text-decoration:none}
+.nav-links{display:flex;gap:32px;list-style:none}
+.nav-links a{font-family:var(--mono);font-size:11px;letter-spacing:0.12em;color:var(--text-dim);text-decoration:none;text-transform:uppercase;transition:color 0.2s}
+.nav-links a:hover{color:var(--accent)}
+.nav-update{font-family:var(--mono);font-size:10px;color:var(--text-dim);letter-spacing:0.08em}
+.ch-hero{max-width:1100px;margin:0 auto;padding:80px 40px 60px;border-bottom:1px solid var(--border)}
+.ch-num{font-family:var(--display);font-size:120px;line-height:0.9;color:var(--border);margin-bottom:8px;user-select:none}
+.ch-tag{font-family:var(--mono);font-size:10px;letter-spacing:0.25em;color:var(--accent);text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:12px}
+.ch-tag::before{content:'';display:block;width:32px;height:1px;background:var(--accent)}
+.ch-title{font-family:var(--display);font-size:clamp(48px,7vw,88px);line-height:0.92;letter-spacing:0.02em;color:#fff;margin-bottom:24px}
+.ch-desc{font-size:17px;line-height:1.8;color:var(--text);max-width:640px;font-weight:300}
+.ch-badges{display:flex;gap:8px;margin-top:20px;flex-wrap:wrap}
+.badge{font-family:var(--mono);font-size:9px;letter-spacing:0.12em;padding:4px 10px;text-transform:uppercase;border:1px solid var(--border);color:var(--text-dim)}
+.badge.pt{border-color:#2a4a6e;color:#5dade2}.badge.br{border-color:#1a4a26;color:var(--accent3)}.badge.new{border-color:#4a3a1a;color:var(--accent)}
+.ch-content{max-width:800px;margin:0 auto;padding:60px 40px}
+.ch-section{margin-bottom:64px}
+.section-title{font-family:var(--display);font-size:40px;letter-spacing:0.04em;color:#fff;margin-bottom:4px}
+.section-label{font-family:var(--mono);font-size:10px;letter-spacing:0.2em;color:var(--text-dim);text-transform:uppercase;margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid var(--border)}
+.prose{font-size:15px;line-height:1.85;color:var(--text);margin-bottom:16px}
+.prose strong{color:#fff;font-weight:600}.prose em{color:var(--accent);font-style:normal;font-weight:600}
+.protocol{border:1px solid var(--border);background:var(--bg2);margin:24px 0}
+.protocol-header{padding:14px 24px;border-bottom:1px solid var(--border);font-family:var(--mono);font-size:10px;letter-spacing:0.2em;color:var(--accent);text-transform:uppercase}
+.protocol-step{display:flex;gap:20px;padding:16px 24px;border-bottom:1px solid var(--border);align-items:flex-start}
+.protocol-step:last-child{border-bottom:none}
+.step-num{font-family:var(--display);font-size:28px;color:var(--accent);opacity:0.5;line-height:1;flex-shrink:0;width:32px}
+.step-title{font-size:14px;font-weight:600;color:#fff;margin-bottom:4px}
+.step-body{font-size:13px;color:var(--text-dim);line-height:1.65}
+.callout{border-left:3px solid var(--border);padding:20px 24px;margin:24px 0;background:var(--bg2)}
+.callout.warn{border-color:var(--accent2);background:#150c0c}
+.callout.tip{border-color:var(--accent3);background:#0c150e}
+.callout.info{border-color:var(--accent);background:#15120c}
+.callout-label{font-family:var(--mono);font-size:9px;letter-spacing:0.2em;text-transform:uppercase;margin-bottom:8px}
+.callout.warn .callout-label{color:var(--accent2)}.callout.tip .callout-label{color:var(--accent3)}.callout.info .callout-label{color:var(--accent)}
+.callout-text{font-size:14px;color:var(--text);line-height:1.7}
+.compare{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--border);margin:32px 0}
+.compare-panel{padding:28px}
+.compare-panel:first-child{border-right:1px solid var(--border)}
+.compare-flag{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.compare-flag span:first-child{font-size:22px}
+.compare-flag strong{font-family:var(--mono);font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-dim)}
+.compare-item{font-size:13px;color:var(--text);line-height:1.7;margin-bottom:10px;padding-left:12px;border-left:2px solid var(--border)}
+.compare-item strong{color:var(--accent);font-weight:600}
+.tips-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border:1px solid var(--border);margin:24px 0}
+.tip-card{background:var(--bg);padding:20px 24px}
+.tip-name{font-size:14px;font-weight:600;color:#fff;margin-bottom:6px}
+.tip-desc{font-size:13px;color:var(--text-dim);line-height:1.6}
+.data-table{width:100%;border-collapse:collapse;margin:24px 0;font-size:13px}
+.data-table th{font-family:var(--mono);font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-dim);padding:10px 16px;border-bottom:1px solid var(--border);text-align:left;background:var(--bg2)}
+.data-table td{padding:12px 16px;border-bottom:1px solid var(--border);color:var(--text);line-height:1.5}
+.data-table tr:last-child td{border-bottom:none}
+.data-table tr:hover td{background:var(--bg2)}
+.data-table td:first-child{font-weight:600;color:#fff}
+.ch-nav{border-top:1px solid var(--border);background:var(--bg2)}
+.ch-nav-inner{max-width:1100px;margin:0 auto;padding:32px 40px;display:flex;justify-content:space-between;align-items:center;gap:24px}
+.ch-nav-link{font-family:var(--mono);font-size:11px;letter-spacing:0.1em;color:var(--text-dim);text-decoration:none;text-transform:uppercase;transition:color 0.2s;display:flex;flex-direction:column;gap:4px}
+.ch-nav-link:hover{color:var(--accent)}
+.ch-nav-link small{font-size:9px;letter-spacing:0.15em;opacity:0.6;display:block}
+.ch-nav-link.next{text-align:right}
+footer{border-top:1px solid var(--border);padding:40px;max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}
+.footer-logo{font-family:var(--display);font-size:18px;letter-spacing:0.08em;color:var(--text-dim)}
+.footer-meta{font-family:var(--mono);font-size:10px;color:var(--text-dim);letter-spacing:0.1em;text-align:right;line-height:1.8}
+@media(max-width:900px){nav{padding:0 20px}.nav-links{display:none}.ch-hero{padding:60px 20px 40px}.ch-num{font-size:80px}.ch-content{padding:40px 20px}.tips-grid{grid-template-columns:1fr}.compare{grid-template-columns:1fr}.compare-panel:first-child{border-right:none;border-bottom:1px solid var(--border)}.ch-nav-inner{flex-direction:column;align-items:flex-start}.ch-nav-link.next{text-align:left}footer{flex-direction:column;gap:20px;text-align:center;padding:40px 20px}.footer-meta{text-align:center}}
+</style>
+</head>
+<body>
+
+<div class="topbar">⚠ ALERTA ATIVO <span>|</span> Phishing IRS 2026 e golpe Pix com CPF — ver Capítulo 2 <span>|</span> Última revisão: Abril 2026</div>
+
+<nav>
+  <a class="nav-logo" href="index.html">GSU</a>
+  <ul class="nav-links">
+    <li><a href="index.html#capitulos">← Capítulos</a></li>
+    <li><a href="index.html#changelog">O que mudou</a></li>
+    <li><a href="index.html#protocolos">Protocolos</a></li>
+    <li><a href="index.html#recursos">Recursos</a></li>
+  </ul>
+  <div class="nav-update">Cap. 08 / 10</div>
+</nav>
+
+<div class="ch-hero">
+  <div class="ch-num">08</div>
+  <div class="ch-tag">Guia de Sobrevivência Urbana</div>
+  <div class="ch-title">Saúde quando o Sistema Aperta</div>
+  <div class="ch-desc">SNS e SUS na prática, medicamentos genéricos, saúde mental em período de crise e primeiros socorros que toda a gente devia saber.</div>
+  <div class="ch-badges">
+    <span class="badge new">Saúde</span>
+    <span class="badge pt">🇵🇹 Portugal</span>
+    <span class="badge br">🇧🇷 Brasil</span>
+  </div>
+</div>
+
+<div class="ch-content">
+
+  <div class="ch-section">
+    <div class="section-title">SNS e SUS na Prática</div>
+    <div class="section-label">O que tens direito — e como aceder de facto</div>
+    <p class="prose">Tanto o SNS português como o SUS brasileiro oferecem cobertura universal gratuita — mas na prática existem filas, horários e burocracias que fazem muita gente desistir ou pagar desnecessariamente. <strong>Conhecer o sistema é a diferença entre esperar 6 meses ou ser atendido em dias.</strong></p>
+
+    <div class="compare">
+      <div class="compare-panel">
+        <div class="compare-flag"><span>🇵🇹</span><strong>SNS — Portugal</strong></div>
+        <div class="compare-item"><strong>Médico de família:</strong> Pede inscrição no centro de saúde da tua área de residência com o Cartão de Cidadão. Se não tiver vaga, entra na lista de utentes sem médico — tens direito a ser atendido na mesma.</div>
+        <div class="compare-item"><strong>SNS 24 (808 24 24 24):</strong> Linha de triagem disponível 24h. Liga antes de ir às urgências — evitas esperas e recebes orientação. Para situações não urgentes, muitas vezes prescrevem medicamentos por telefone.</div>
+        <div class="compare-item"><strong>Consultas de especialidade:</strong> Pede referência ao médico de família. Se a espera for superior ao prazo de 150 dias, podes exigir vale de consulta para privado pago pelo SNS (SIGIC).</div>
+        <div class="compare-item"><strong>Urgência sem triagem verde:</strong> Pode custar €20 de taxa moderadora. Triagem azul (não urgente) pode custar €14. Apresenta o comprovativo de INEM se vieste em ambulância.</div>
+      </div>
+      <div class="compare-panel">
+        <div class="compare-flag"><span>🇧🇷</span><strong>SUS — Brasil</strong></div>
+        <div class="compare-item"><strong>UBS (Unidade Básica de Saúde):</strong> Ponto de entrada para quase tudo. Cadastra-te na UBS mais próxima da tua residência. O Agente Comunitário de Saúde pode ajudar a agilizar o acesso.</div>
+        <div class="compare-item"><strong>SAMU (192) e UPA:</strong> SAMU para emergências. UPA para urgências que não são emergência — funciona 24h e não precisa de encaminhamento.</div>
+        <div class="compare-item"><strong>Consulta de especialidade:</strong> Peça na UBS uma regulação para especialista. O sistema SISREG faz o agendamento. Em cidades grandes os prazos podem ser longos — busca o mesmo serviço em municípios vizinhos.</div>
+        <div class="compare-item"><strong>Farmácia Popular e Aqui Tem Farmácia Popular:</strong> Medicamentos para hipertensão, diabetes, asma e contraceptivos disponíveis gratuitamente ou com 90% de desconto em farmácias credenciadas.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ch-section">
+    <div class="section-title">Medicamentos Genéricos</div>
+    <div class="section-label">Mesma eficácia, preço radicalmente diferente</div>
+    <p class="prose">Um medicamento genérico contém exatamente o mesmo princípio ativo, na mesma dosagem, com os mesmos requisitos de bioequivalência que o medicamento de marca. A diferença de preço pode ser de <em>50 a 80%</em> — e a eficácia clínica é idêntica para a esmagadora maioria dos casos.</p>
+
+    <div class="callout info">
+      <div class="callout-label">Como pedir</div>
+      <div class="callout-text">Em Portugal, pede ao médico que prescreva pelo DCI (Denominação Comum Internacional) — o nome da substância activa. Em receita electrónica, o farmacêutico é obrigado a apresentar a opção mais barata disponível. No Brasil, a legislação já obriga as farmácias a oferecer o genérico equivalente quando disponível.</div>
+    </div>
+
+    <table class="data-table">
+      <thead><tr><th>Medicamento (DCI)</th><th>Marca (PT aprox.)</th><th>Genérico (PT aprox.)</th><th>Poupança</th></tr></thead>
+      <tbody>
+        <tr><td>Omeprazol 20mg (30 cp)</td><td>~€8–12</td><td>~€2–4</td><td>~70%</td></tr>
+        <tr><td>Ibuprofeno 400mg (20 cp)</td><td>~€6–9</td><td>~€1,50–3</td><td>~65%</td></tr>
+        <tr><td>Amoxicilina 500mg (21 cp)</td><td>~€10–14</td><td>~€3–5</td><td>~65%</td></tr>
+        <tr><td>Sertralina 50mg (30 cp)</td><td>~€25–35</td><td>~€5–10</td><td>~75%</td></tr>
+        <tr><td>Atorvastatina 20mg (30 cp)</td><td>~€20–30</td><td>~€4–8</td><td>~75%</td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout warn">
+      <div class="callout-label">⚠ Excepções</div>
+      <div class="callout-text">Para medicamentos com janela terapêutica estreita — como antiepilépticos (valproato, lamotrigina), anticoagulantes (varfarina) e imunossupressores — a troca entre marcas deve ser discutida com o médico. Nestes casos específicos, pequenas variações de absorção podem ter impacto clínico. Para todos os outros, o genérico é equivalente.</div>
+    </div>
+  </div>
+
+  <div class="ch-section">
+    <div class="section-title">Saúde Mental em Crise</div>
+    <div class="section-label">O que funciona quando o orçamento está a zero</div>
+    <p class="prose">Problemas financeiros e de carreira têm um impacto directo e documentado na saúde mental. Ansiedade, insónia e depressão aumentam em períodos de instabilidade económica. <strong>Reconhecer o estado em que estás é o primeiro passo — e existem recursos gratuitos reais, não apenas conselhos vagos.</strong></p>
+
+    <div class="protocol">
+      <div class="protocol-header">Apoio psicológico com custo zero ou reduzido</div>
+      <div class="protocol-step">
+        <div class="step-num">1</div>
+        <div>
+          <div class="step-title">SNS / SUS — psicólogo pelo sistema público</div>
+          <div class="step-body">Em Portugal: pede referência ao médico de família para consulta de psicologia no centro de saúde. Espera média de semanas a meses, mas existe. No Brasil: os CAPS (Centros de Atenção Psicossocial) oferecem acompanhamento gratuito — pede na UBS.</div>
+        </div>
+      </div>
+      <div class="protocol-step">
+        <div class="step-num">2</div>
+        <div>
+          <div class="step-title">Universidades com clínicas de psicologia</div>
+          <div class="step-body">Universidades com cursos de Psicologia têm clínicas onde alunos supervisionados por professores atendem gratuitamente ou a preço simbólico (€5–20 em PT, R$0–50 no BR). Qualidade rigorosamente supervisionada. Busca: "[cidade] clínica psicologia universitária".</div>
+        </div>
+      </div>
+      <div class="protocol-step">
+        <div class="step-num">3</div>
+        <div>
+          <div class="step-title">Psicólogos com escala social</div>
+          <div class="step-body">Em Portugal: associações como a APAV (trauma/violência), GRAAL e Cáritas têm apoio psicológico gratuito ou por donativo. No Brasil: procura no site do CFP (Conselho Federal de Psicologia) serviços de baixo custo registados. A plataforma Psicologia Viva tem planos de acesso reduzido.</div>
+        </div>
+      </div>
+      <div class="protocol-step">
+        <div class="step-num">4</div>
+        <div>
+          <div class="step-title">Linha de apoio em crise</div>
+          <div class="step-body">Portugal: SOS Voz Amiga (213 544 545, 16h–24h), Telefone da Amizade (228 332 004, 16h–23h). Brasil: CVV — Centro de Valorização da Vida (188, 24h, gratuito de qualquer operadora).</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tips-grid">
+      <div class="tip-card">
+        <div class="tip-name">Estrutura diária</div>
+        <div class="tip-desc">Em períodos de desemprego ou crise, a ausência de rotina amplifica a ansiedade. Define horários fixos de acordar, refeições e uma actividade de saída de casa — mesmo que pequena. A estrutura reduz a ruminação.</div>
+      </div>
+      <div class="tip-card">
+        <div class="tip-name">Exercício físico</div>
+        <div class="tip-desc">30 minutos de caminhada diária tem efeito ansiolítico demonstrado clinicamente — equivalente a pequenas doses de ansiolíticos em ansiedade leve. É gratuito e não exige equipamento.</div>
+      </div>
+      <div class="tip-card">
+        <div class="tip-name">Reduz o ruído informativo</div>
+        <div class="tip-desc">Notícias económicas negativas em loop aumentam a ansiedade sem dar controlo sobre os eventos. Define uma janela de 15–20 minutos por dia para acompanhar notícias. Fora desse horário, desliga.</div>
+      </div>
+      <div class="tip-card">
+        <div class="tip-name">Não te isoles</div>
+        <div class="tip-desc">O isolamento em crise amplifica a espiral negativa. Mesmo que envergonhes da situação — e isso é muito comum — uma conversa honesta com alguém de confiança quebra o ciclo cognitivo.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ch-section">
+    <div class="section-title">Primeiros Socorros Essenciais</div>
+    <div class="section-label">O que toda a gente devia saber e ninguém ensina</div>
+    <p class="prose">Os primeiros minutos de uma emergência médica são os mais críticos. O serviço de emergência (112 em PT, 192/193 no BR) pode demorar 8–15 minutos a chegar. O que fazes nesse intervalo pode determinar o outcome.</p>
+
+    <div class="protocol">
+      <div class="protocol-header">Paragem Cardiorrespiratória — Protocolo de Actuação</div>
+      <div class="protocol-step">
+        <div class="step-num">1</div>
+        <div>
+          <div class="step-title">Confirma e chama ajuda</div>
+          <div class="step-body">Toca nos ombros, chama pelo nome. Se não responde e não respira normalmente: chama 112 (PT) / 192 (BR) IMEDIATAMENTE ou pede a alguém para ligar enquanto começas as manobras. Ativa o altifalante.</div>
+        </div>
+      </div>
+      <div class="protocol-step">
+        <div class="step-num">2</div>
+        <div>
+          <div class="step-title">30 compressões torácicas</div>
+          <div class="step-body">Centro do peito, mãos sobrepostas, braços esticados. Comprime 5–6 cm de profundidade, ritmo de 100–120/min (batimento de "Stayin' Alive" dos Bee Gees). Deixa o peito subir completamente entre compressões.</div>
+        </div>
+      </div>
+      <div class="protocol-step">
+        <div class="step-num">3</div>
+        <div>
+          <div class="step-title">2 insuflações (se souberes)</div>
+          <div class="step-body">Se tiveres formação, dá 2 insuflações após 30 compressões. Se não, faz compressões contínuas sem insuflações — ainda assim altamente eficaz. O operador do 112 guia-te por telefone.</div>
+        </div>
+      </div>
+      <div class="protocol-step">
+        <div class="step-num">4</div>
+        <div>
+          <div class="step-title">DAE / Desfibrilhador</div>
+          <div class="step-body">Se estiveres em local público (aeroporto, centro comercial, ginásio), pede para alguém ir buscar o DAE. A maioria tem o símbolo de coração com raio. O equipamento dá instruções de voz — segue-as.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tips-grid">
+      <div class="tip-card">
+        <div class="tip-name">Corte com hemorragia</div>
+        <div class="tip-desc">Pressão directa e constante com pano limpo (ou qualquer tecido). Não levantas para ver. Mantém pressão pelo menos 10 minutos. Se não para e for no pescoço, virilha ou axila — liga 112 enquanto manténs pressão.</div>
+      </div>
+      <div class="tip-card">
+        <div class="tip-name">Engasgamento (adulto consciente)</div>
+        <div class="tip-desc">5 pancadas nas costas com a base da mão entre as omoplatas. Se não funcionar: 5 compressões abdominais (Heimlich) — mãos em punho abaixo do esterno, puxa para dentro e para cima. Alterna até expelir ou perda de consciência.</div>
+      </div>
+      <div class="tip-card">
+        <div class="tip-name">Queimadura</div>
+        <div class="tip-desc">Água fria corrente por 20 minutos — não gelo, não manteiga. Remove jóias/relógios antes de inchar. Não rebentes bolhas. Para queimaduras grandes, cobre com pano húmido limpo e liga 112.</div>
+      </div>
+      <div class="tip-card">
+        <div class="tip-name">Formação gratuita</div>
+        <div class="tip-desc">Cruz Vermelha Portuguesa e Cruz Vermelha Brasileira oferecem cursos presenciais de primeiros socorros periódicos — muitas vezes gratuitos ou com custo simbólico. Vale a pena fazer ao menos uma vez na vida.</div>
+      </div>
+    </div>
+
+    <div class="callout tip">
+      <div class="callout-label">💡 Kit de primeiros socorros doméstico</div>
+      <div class="callout-text">Custo total: €15–25. Deve conter: pensos (vários tamanhos), ligaduras elásticas e de gaze, solução salina, desinfectante (clorohexidina ou álcool 70%), luvas de látex, pinça, tesoura de pontas rombas, saco de gelo reutilizável, manta de emergência isotérmica e lista de números de emergência. Verifica datas de validade uma vez por ano.</div>
+    </div>
+  </div>
+
+</div>
+
+<div class="ch-nav">
+  <div class="ch-nav-inner">
+    <a href="cap07.html" class="ch-nav-link">
+      <small>← Capítulo 07</small>
+      Casa e Vida Doméstica
+    </a>
+    <a href="cap09.html" class="ch-nav-link next">
+      <small>Capítulo 09 →</small>
+      Empreender Pequeno
+    </a>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-logo">GUIA DE SOBREVIVÊNCIA URBANA</div>
+  <div class="footer-meta">Sem publicidade · Sem afiliados · Sem agenda<br>Conteúdo licenciado sob CC BY-SA 4.0<br>Última revisão: Abril 2026</div>
+</footer>
+</body>
+</html>

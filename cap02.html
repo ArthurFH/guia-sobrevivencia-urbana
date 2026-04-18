@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cap. 02 — Segurança Digital e Golpes | GSU</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0d0d0d;--bg2:#141414;--bg3:#1a1a1a;--border:#2a2a2a;--text:#d4cfc8;--text-dim:#6b6560;--accent:#e8c547;--accent2:#c0392b;--accent3:#2ecc71;--mono:'IBM Plex Mono',monospace;--sans:'IBM Plex Sans',sans-serif;--display:'Bebas Neue',sans-serif}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-weight:300;line-height:1.7;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:9999;opacity:0.4}
+.topbar{background:var(--accent2);padding:8px 0;text-align:center;font-family:var(--mono);font-size:11px;letter-spacing:0.15em;color:#fff;position:sticky;top:0;z-index:100}
+.topbar span{opacity:0.7;margin:0 8px}
+nav{border-bottom:1px solid var(--border);padding:0 40px;display:flex;align-items:center;justify-content:space-between;height:60px;background:var(--bg);position:sticky;top:37px;z-index:99}
+.nav-logo{font-family:var(--display);font-size:22px;letter-spacing:0.08em;color:var(--accent);text-decoration:none}
+.nav-links{display:flex;gap:32px;list-style:none}
+.nav-links a{font-family:var(--mono);font-size:11px;letter-spacing:0.12em;color:var(--text-dim);text-decoration:none;text-transform:uppercase;transition:color 0.2s}
+.nav-links a:hover{color:var(--accent)}
+.nav-update{font-family:var(--mono);font-size:10px;color:var(--text-dim);letter-spacing:0.08em}
+.ch-hero{max-width:1100px;margin:0 auto;padding:80px 40px 60px;border-bottom:1px solid var(--border)}
+.ch-num{font-family:var(--display);font-size:120px;line-height:0.9;color:var(--border);margin-bottom:8px;user-select:none}
+.ch-tag{font-family:var(--mono);font-size:10px;letter-spacing:0.25em;color:var(--accent);text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:12px}
+.ch-tag::before{content:'';display:block;width:32px;height:1px;background:var(--accent)}
+.ch-title{font-family:var(--display);font-size:clamp(48px,7vw,88px);line-height:0.92;letter-spacing:0.02em;color:#fff;margin-bottom:24px}
+.ch-desc{font-size:17px;line-height:1.8;color:var(--text);max-width:640px;font-weight:300}
+.ch-badges{display:flex;gap:8px;margin-top:20px;flex-wrap:wrap}
+.badge{font-family:var(--mono);font-size:9px;letter-spacing:0.12em;padding:4px 10px;text-transform:uppercase;border:1px solid var(--border);color:var(--text-dim)}
+.badge.pt{border-color:#2a4a6e;color:#5dade2}.badge.br{border-color:#1a4a26;color:var(--accent3)}.badge.warn{border-color:#4a1a1a;color:var(--accent2)}.badge.new{border-color:#4a3a1a;color:var(--accent)}
+.ch-content{max-width:800px;margin:0 auto;padding:60px 40px}
+.ch-section{margin-bottom:64px}
+.section-title{font-family:var(--display);font-size:40px;letter-spacing:0.04em;color:#fff;margin-bottom:4px}
+.section-label{font-family:var(--mono);font-size:10px;letter-spacing:0.2em;color:var(--text-dim);text-transform:uppercase;margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid var(--border)}
+.prose{font-size:15px;line-height:1.85;color:var(--text);margin-bottom:16px}
+.prose strong{color:#fff;font-weight:600}.prose em{color:var(--accent);font-style:normal;font-weight:600}
+.scam-card{border:1px solid var(--border);background:var(--bg2);margin:16px 0;overflow:hidden}
+.scam-header{display:flex;align-items:flex-start;gap:16px;padding:20px 24px;cursor:pointer;transition:background 0.2s}
+.scam-header:hover{background:var(--bg3)}
+.scam-num{font-family:var(--display);font-size:32px;color:var(--accent2);opacity:0.6;line-height:1;flex-shrink:0}
+.scam-info{flex:1}
+.scam-title{font-size:14px;font-weight:600;color:#fff;margin-bottom:4px}
+.scam-flags{font-family:var(--mono);font-size:10px;color:var(--text-dim);letter-spacing:0.1em}
+.scam-tag{font-family:var(--mono);font-size:9px;letter-spacing:0.12em;padding:3px 8px;text-transform:uppercase}
+.scam-tag.danger{background:#1f0e0e;color:var(--accent2)}
+.scam-tag.active{background:#1f0e0e;color:var(--accent2)}
+.scam-body{padding:0 24px 20px;border-top:1px solid var(--border);background:var(--bg)}
+.scam-body p{font-size:13px;color:var(--text-dim);line-height:1.7;margin-top:16px}
+.scam-body strong{color:var(--text);font-weight:600}
+.scam-alert{font-family:var(--mono);font-size:11px;color:var(--accent2);margin-top:12px;padding:10px 14px;background:#1a0a0a;border-left:2px solid var(--accent2)}
+.protocol{border:1px solid var(--border);background:var(--bg2);margin:24px 0}
+.protocol-header{padding:14px 24px;border-bottom:1px solid var(--border);font-family:var(--mono);font-size:10px;letter-spacing:0.2em;color:var(--accent);text-transform:uppercase}
+.protocol-step{display:flex;gap:20px;padding:16px 24px;border-bottom:1px solid var(--border);align-items:flex-start}
+.protocol-step:last-child{border-bottom:none}
+.step-num{font-family:var(--display);font-size:28px;color:var(--accent);opacity:0.5;line-height:1;flex-shrink:0;width:32px}
+.step-title{font-size:14px;font-weight:600;color:#fff;margin-bottom:4px}
+.step-body{font-size:13px;color:var(--text-dim);line-height:1.65}
+.step-urgent{font-family:var(--mono);font-size:9px;color:var(--accent2);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:4px}
+.callout{border-left:3px solid var(--border);padding:20px 24px;margin:24px 0;background:var(--bg2)}
+.callout.warn{border-color:var(--accent2);background:#150c0c}
+.callout.tip{border-color:var(--accent3);background:#0c150e}
+.callout.info{border-color:var(--accent);background:#15120c}
+.callout-label{font-family:var(--mono);font-size:9px;letter-spacing:0.2em;text-transform:uppercase;margin-bottom:8px}
+.callout.warn .callout-label{color:var(--accent2)}.callout.tip .callout-label{color:var(--accent3)}.callout.info .callout-label{color:var(--accent)}
+.callout-text{font-size:14px;color:var(--text);line-height:1.7}
+.compare{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--border);margin:32px 0}
+.compare-panel{padding:28px}.compare-panel:first-child{border-right:1px solid var(--border)}
+.compare-flag{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.compare-flag span:first-child{font-size:22px}
+.compare-flag strong{font-family:var(--mono);font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-dim)}
+.compare-item{font-size:13px;color:var(--text);line-height:1.7;margin-bottom:10px;padding-left:12px;border-left:2px solid var(--border)}
+.compare-item strong{color:var(--accent);font-weight:600}
+.habits-list{list-style:none;margin:16px 0}
+.habits-list li{font-size:14px;color:var(--text);line-height:1.7;padding:10px 0;border-bottom:1px solid var(--border);display:flex;gap:12px;align-items:flex-start}
+.habits-list li:last-child{border-bottom:none}
+.habit-icon{font-family:var(--mono);font-size:11px;color:var(--accent3);flex-shrink:0;margin-top:2px}
+.ch-nav{border-top:1px solid var(--border);background:var(--bg2)}
+.ch-nav-inner{max-width:1100px;margin:0 auto;padding:32px 40px;display:flex;justify-content:space-between;align-items:center;gap:24px}
+.ch-nav-link{font-family:var(--mono);font-size:11px;letter-spacing:0.1em;color:var(--text-dim);text-decoration:none;text-transform:uppercase;transition:color 0.2s;display:flex;flex-direction:column;gap:4px}
+.ch-nav-link:hover{color:var(--accent)}
+.ch-nav-link small{font-size:9px;letter-spacing:0.15em;opacity:0.6;display:block}
+.ch-nav-link.next{text-align:right}
+footer{border-top:1px solid var(--border);padding:40px;max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}
+.footer-logo{font-family:var(--display);font-size:18px;letter-spacing:0.08em;color:var(--text-dim)}
+.footer-meta{font-family:var(--mono);font-size:10px;color:var(--text-dim);letter-spacing:0.1em;text-align:right;line-height:1.8}
+@media(max-width:900px){nav{padding:0 20px}.nav-links{display:none}.ch-hero{padding:60px 20px 40px}.ch-num{font-size:80px}.ch-content{padding:40px 20px}.compare{grid-template-columns:1fr}.compare-panel:first-child{border-right:none;border-bottom:1px solid var(--border)}.ch-nav-inner{flex-direction:column;align-items:flex-start}.ch-nav-link.next{text-align:left}footer{flex-direction:column;gap:20px;text-align:center;padding:40px 20px}.footer-meta{text-align:center}}
+</style>
+</head>
+<body>
+
+<div class="topbar">⚠ ALERTA ATIVO <span>|</span> Phishing IRS 2026 e golpe Pix com CPF — ver este capítulo <span>|</span> Última revisão: Abril 2026</div>
+
+<nav>
+  <a class="nav-logo" href="index.html">GSU</a>
+  <ul class="nav-links">
+    <li><a href="index.html#capitulos">← Capítulos</a></li>
+    <li><a href="index.html#changelog">O que mudou</a></li>
+    <li><a href="index.html#protocolos">Protocolos</a></li>
+    <li><a href="index.html#recursos">Recursos</a></li>
+  </ul>
+  <div class="nav-update">Cap. 02 / 10</div>
+</nav>
+
+<div class="ch-hero">
+  <div class="ch-num">02</div>
+  <div class="ch-tag">Guia de Sobrevivência Urbana</div>
+  <div class="ch-title">Segurança Digital e Golpes</div>
+  <div class="ch-desc">Os golpes mais comuns explicados por dentro — como funcionam, como os reconheces antes de seres vítima, e o que fazer se já aconteceu.</div>
+  <div class="ch-badges">
+    <span class="badge warn">⚠ Actualizado Abril 2026</span>
+    <span class="badge pt">🇵🇹 Portugal</span>
+    <span class="badge br">🇧🇷 Brasil</span>
+  </div>
+</div>
+
+<div class="ch-content">
+
+  <div class="ch-section">
+    <div class="section-title">Como os Golpes Funcionam</div>
+    <div class="section-label">A mecânica por trás de todos eles</div>
+    <p class="prose">Todos os golpes exploram o mesmo conjunto de emoções: <strong>urgência, medo, ganância ou autoridade</strong>. Quando sentes um destes estados ao receber uma mensagem ou chamada, pára. Respira. É nesse momento que o risco é máximo.</p>
+    <p class="prose">Os criminosos não precisam de ser tecnicamente sofisticados. Precisam apenas de que tu respondas antes de pensares. A defesa mais eficaz não é tecnológica — é o hábito de <em>verificar antes de agir</em>, sempre por um canal independente.</p>
+    <div class="callout info">
+      <div class="callout-label">Regra de ouro</div>
+      <div class="callout-text">Nenhum banco, operador de telecomunicações, serviço de finanças, correio ou plataforma legítima alguma vez te pede que confirmes dados pessoais, senhas ou códigos de autenticação por SMS, email ou chamada telefónica não solicitada.</div>
+    </div>
+  </div>
+
+  <div class="ch-section">
+    <div class="section-title">Os Golpes Mais Comuns</div>
+    <div class="section-label">10 esquemas explicados por dentro</div>
+
+    <div class="scam-card">
+      <div class="scam-header">
+        <div class="scam-num">01</div>
+        <div class="scam-info">
+          <div class="scam-title">Phishing IRS / Autoridade Tributária (PT)</div>
+          <div class="scam-flags">🇵🇹 Portugal · <span class="scam-tag active">Activo Abr/2026</span></div>
+        </div>
+      </div>
+      <div class="scam-body">
+        <p><strong>Como funciona:</strong> Recebes SMS ou email a imitar a Autoridade Tributária, com logótipo convincente, alegando que tens um reembolso pendente ou uma dívida urgente. O link leva a uma página que imita o Portal das Finanças e rouba as tuas credenciais NIF + senha, ou dados de cartão para "processar" o reembolso.</p>
+        <p><strong>Sinais de alerta:</strong> Link diferente de autoridade-tributaria.pt / portaldasfinancas.gov.pt · pedido de dados de cartão · urgência ("prazo de 24h") · remetente de email com domínio estranho.</p>
+        <div class="scam-alert">O Fisco NUNCA envia links por SMS nem pede dados de cartão por email. Acede sempre manualmente ao portal oficial — nunca por links recebidos.</div>
+      </div>
+    </div>
+
+    <div class="scam-card">
+      <div class="scam-header">
+        <div class="scam-num">02</div>
+        <div class="scam-info">
+          <div class="scam-title">Golpe Pix com CPF como chave (BR)</div>
+          <div class="scam-flags">🇧🇷 Brasil · <span class="scam-tag active">Activo Abr/2026</span></div>
+        </div>
+      </div>
+      <div class="scam-body">
+        <p><strong>Como funciona:</strong> Criminosos abrem contas em instituições financeiras com os teus dados (obtidos em vazamentos) e registam o teu CPF como chave Pix nessa conta. A restituição do Imposto de Renda vai parar na conta deles. Também usada para interceptar pagamentos de terceiros que enviaram Pix para o teu CPF.</p>
+        <p><strong>Como te protegeres:</strong> Entra no Pix Key Manager (disponível na app do Banco Central ou na app do teu banco) e verifica a que conta está vinculado o teu CPF. Se não reconheceres, inicia o processo de portabilidade ou remoção imediata.</p>
+        <div class="scam-alert">Antes da restituição do IR: acede ao e-CAC e verifica em "Meus Dados" se a conta bancária de destino é a tua. Podes alterar até ao último dia de entrega da declaração.</div>
+      </div>
+    </div>
+
+    <div class="scam-card">
+      <div class="scam-header">
+        <div class="scam-num">03</div>
+        <div class="scam-info">
+          <div class="scam-title">Golpe MB Way / CTT / banco (PT)</div>
+          <div class="scam-flags">🇵🇹 Portugal</div>
+        </div>
+      </div>
+      <div class="scam-body">
+        <p><strong>Como funciona:</strong> Recebes SMS a imitar o CTT, banco ou uma plataforma de marketplace dizendo que tens uma entrega pendente ou uma cobrança. O link vai a uma página falsa que pede os dados do MB Way — número de telemóvel e PIN. Com isso, o criminoso gera pedidos de pagamento que aparecem no teu telemóvel como legítimos.</p>
+        <p><strong>Sinal definitivo:</strong> O MB Way nunca envia links para autorizar pagamentos. Pedidos de pagamento chegam directamente na app, não por SMS com link.</p>
+        <div class="scam-alert">Se chegou por link, é golpe. Fecha sem clicar. Se tens dúvida sobre uma entrega CTT, vai a ctt.pt manualmente com o número de objecto.</div>
+      </div>
+    </div>
+
+    <div class="scam-card">
+      <div class="scam-header">
+        <div class="scam-num">04</div>
+        <div class="scam-info">
+          <div class="scam-title">Golpe do WhatsApp — "Olá, mudei de número" (BR/PT)</div>
+          <div class="scam-flags">🇧🇷 Brasil · 🇵🇹 Portugal</div>
+        </div>
+      </div>
+      <div class="scam-body">
+        <p><strong>Como funciona:</strong> Recebes mensagem de número desconhecido a dizer que é um familiar ou amigo que mudou de telemóvel. Após alguma conversa, pede dinheiro com urgência ("estou sem acesso ao banco", "é uma emergência"). No Brasil, o vetor mais comum é clonar a foto de perfil do familiar.</p>
+        <p><strong>Defesa:</strong> Liga para o número anterior do suposto contacto. Nunca transferes dinheiro sem confirmar por voz ou videochamada que é a pessoa real.</p>
+      </div>
+    </div>
+
+    <div class="scam-card">
+      <div class="scam-header">
+        <div class="scam-num">05</div>
+        <div class="scam-info">
+          <div class="scam-title">Vishing — falso funcionário do banco (PT/BR)</div>
+          <div class="scam-flags">🇵🇹 Portugal · 🇧🇷 Brasil</div>
+        </div>
+      </div>
+      <div class="scam-body">
+        <p><strong>Como funciona:</strong> Recebes chamada de alguém a apresentar-se como funcionário do banco. Dizem que detectaram movimento suspeito na tua conta e precisam de verificar os teus dados ou que vais receber um código SMS que deves dizer — esse código é o código de autorização de uma transferência.</p>
+        <p><strong>Regra absoluta:</strong> Nenhum banco pede o código que chegou por SMS. Esse código autoriza uma operação — quem o pede quer executar essa operação na tua conta.</p>
+        <div class="scam-alert">Se tens dúvida, desliga. Depois liga tu para o número no verso do cartão ou no site oficial do banco. Nunca rediscas o número que ligou.</div>
+      </div>
+    </div>
+
+    <div class="scam-card">
+      <div class="scam-header">
+        <div class="scam-num">06</div>
+        <div class="scam-info">
+          <div class="scam-title">Golpe do Pix com comprovante falso (BR)</div>
+          <div class="scam-flags">🇧🇷 Brasil</div>
+        </div>
+      </div>
+      <div class="scam-body">
+        <p><strong>Como funciona:</strong> Em transacções particulares (OLX, Facebook Marketplace, grupos de WhatsApp), o comprador envia um comprovante de Pix falsificado. O vendedor vê o "comprovante" e entrega o produto antes de confirmar na app do banco que o dinheiro chegou.</p>
+        <p><strong>Regra:</strong> Só liberas o produto quando o valor está confirmado no extrato da tua conta — não quando vês o comprovante. Comprovantes são imagens facilmente falsificáveis.</p>
+      </div>
+    </div>
+
+    <div class="scam-card">
+      <div class="scam-header">
+        <div class="scam-num">07</div>
+        <div class="scam-info">
+          <div class="scam-title">Golpe do falso emprego / trabalho remoto (PT/BR)</div>
+          <div class="scam-flags">🇵🇹 Portugal · 🇧🇷 Brasil</div>
+        </div>
+      </div>
+      <div class="scam-body">
+        <p><strong>Como funciona:</strong> Oferta de trabalho por WhatsApp ou Telegram — normalmente "avaliador de produtos" ou "testador de apps". Pagam pequenas quantias iniciais para ganhar confiança, depois pedem que "invistas" valores crescentes em tarefas para receber comissão. No final, a plataforma bloqueia o levantamento até pagares mais uma taxa.</p>
+        <p><strong>Sinal definitivo:</strong> Qualquer "emprego" que exija que coloques dinheiro próprio é golpe. Empregos legítimos não têm taxa de entrada.</p>
+      </div>
+    </div>
+
+    <div class="scam-card">
+      <div class="scam-header">
+        <div class="scam-num">08</div>
+        <div class="scam-info">
+          <div class="scam-title">Fraude por QR Code / link em local público (PT/BR)</div>
+          <div class="scam-flags">🇵🇹 Portugal · 🇧🇷 Brasil</div>
+        </div>
+      </div>
+      <div class="scam-body">
+        <p><strong>Como funciona:</strong> QR Codes falsos são colados sobre os legítimos em menus, postos de carregamento, parquímetros ou cartazes. Ao scanear, vais a uma página que imita o serviço original e pode roubar dados de pagamento.</p>
+        <p><strong>Defesa:</strong> Inspeciona o QR Code fisicamente (pode ter sido colado por cima). Após scanear, verifica o URL antes de introduzir dados.</p>
+      </div>
+    </div>
+
+    <div class="scam-card">
+      <div class="scam-header">
+        <div class="scam-num">09</div>
+        <div class="scam-info">
+          <div class="scam-title">Golpe do amor / romance scam (PT/BR)</div>
+          <div class="scam-flags">🇵🇹 Portugal · 🇧🇷 Brasil</div>
+        </div>
+      </div>
+      <div class="scam-body">
+        <p><strong>Como funciona:</strong> Contacto em app de encontros ou redes sociais. Após semanas de conversa intensa (sem encontro presencial), surge uma crise: acidência, retenção alfandegária, oportunidade de investimento urgente. O pedido de dinheiro é sempre acompanhado de uma história emocional convincente.</p>
+        <p><strong>Indicadores:</strong> Perfil com poucas fotos · recusa de videochamada · vida extraordinária (militar no estrangeiro, cirurgião offshore, empresário de sucesso) · nunca está disponível para se encontrar pessoalmente.</p>
+        <div class="scam-alert">Faz uma pesquisa inversa de imagem das fotos do perfil (Google Images ou TinEye). A maioria usa fotos roubadas de militares, modelos ou atletas americanos.</div>
+      </div>
+    </div>
+
+    <div class="scam-card">
+      <div class="scam-header">
+        <div class="scam-num">10</div>
+        <div class="scam-info">
+          <div class="scam-title">Golpe do falso suporte técnico (PT/BR)</div>
+          <div class="scam-flags">🇵🇹 Portugal · 🇧🇷 Brasil</div>
+        </div>
+      </div>
+      <div class="scam-body">
+        <p><strong>Como funciona:</strong> Pop-up no browser ou chamada a dizer que o teu computador tem vírus e precisas de ligar para um número de suporte. Pedem que instales TeamViewer ou AnyDesk para "remover o vírus". Com acesso remoto, acedem ao teu homebanking ou roubam ficheiros.</p>
+        <p><strong>Regra:</strong> Microsoft, Apple, Google e bancos nunca ligam a dizer que o teu computador tem vírus. Fecha o pop-up. Se tiveres dúvida sobre o estado do PC, usa um antivírus local (Malwarebytes gratuito é suficiente para uma verificação).</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="ch-section">
+    <div class="section-title">Se Já Foste Vítima</div>
+    <div class="section-label">Protocolo — primeiras horas</div>
+    <p class="prose">A velocidade é o factor mais importante. Quanto mais depressa agires, maior a probabilidade de recuperar os valores ou limitar o dano. A vergonha não pode atrasar a resposta — estes golpes apanham pessoas inteligentes todos os dias.</p>
+    <div class="protocol">
+      <div class="protocol-header">Protocolo de fraude — executa por esta ordem</div>
+      <div class="protocol-step">
+        <div class="step-num">1</div>
+        <div>
+          <div class="step-urgent">Urgente — fazer agora</div>
+          <div class="step-title">Bloquear cartões e transferências</div>
+          <div class="step-body">Abre a app do banco e bloqueia todos os cartões. Se perdeste acesso à app, liga para a linha de emergência do banco (número no verso do cartão ou no site oficial). Pede bloqueio imediato e regista o número do processo.</div>
+        </div>
+      </div>
+      <div class="protocol-step">
+        <div class="step-num">2</div>
+        <div>
+          <div class="step-urgent">Urgente — fazer agora</div>
+          <div class="step-title">Guardar todas as evidências</div>
+          <div class="step-body">Prints de mensagens, emails, URLs visitados, comprovantes de transferência, histórico de chamadas. Faz screenshots de tudo antes de qualquer acção que possa apagar dados. Guarda em local seguro fora do dispositivo comprometido.</div>
+        </div>
+      </div>
+      <div class="protocol-step">
+        <div class="step-num">3</div>
+        <div>
+          <div class="step-title">Alterar passwords em dispositivo limpo</div>
+          <div class="step-body">Se o teu computador ou telemóvel foi comprometido, usa outro dispositivo. Muda primeiro a password do email principal (é a chave de tudo o resto), depois a do banco, depois as restantes. Activa autenticação a dois factores em todos os serviços críticos.</div>
+        </div>
+      </div>
+      <div class="protocol-step">
+        <div class="step-num">4</div>
+        <div>
+          <div class="step-title">Apresentar queixa criminal</div>
+          <div class="step-body">PT: Polícia Judiciária ou PSP — podes fazer queixa online em pgr.pt ou pessoalmente. BR: Polícia Civil (Delegacia de Crimes Cibernéticos se disponível no teu estado) ou pelo SaferNet Brasil. A queixa é necessária para o banco processar a reclamação e para o seguro se existir.</div>
+        </div>
+      </div>
+      <div class="protocol-step">
+        <div class="step-num">5</div>
+        <div>
+          <div class="step-title">Reportar às autoridades de supervisão</div>
+          <div class="step-body">PT: CNCS (cncs.gov.pt) e Banco de Portugal (para fraudes bancárias). BR: Banco Central pelo app BC+ para fraudes Pix; BACEN; Procon do teu estado. Estes relatórios ajudam a fechar as contas criminosas mais rapidamente.</div>
+        </div>
+      </div>
+      <div class="protocol-step">
+        <div class="step-num">6</div>
+        <div>
+          <div class="step-title">Avisar a tua rede</div>
+          <div class="step-body">Se a tua conta WhatsApp ou email foi comprometida, avisa os teus contactos directamente (por outro meio) que podem receber mensagens fraudulentas em teu nome. Faz isso antes dos criminosos a usarem para atacar as pessoas que confiam em ti.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ch-section">
+    <div class="section-title">Hábitos de Defesa</div>
+    <div class="section-label">O que implementar esta semana</div>
+    <ul class="habits-list">
+      <li><span class="habit-icon">✓</span><span><strong>Activa autenticação a dois factores</strong> em email, banco e redes sociais. Usa uma app (Authy, Google Authenticator) em vez de SMS quando possível — SMS pode ser interceptado via SIM swap.</span></li>
+      <li><span class="habit-icon">✓</span><span><strong>Usa um gestor de passwords</strong> (Bitwarden é gratuito e open-source). Passwords únicas por serviço significa que um vazamento num site não compromete os outros.</span></li>
+      <li><span class="habit-icon">✓</span><span><strong>Verifica emails de remetente suspeito pelo endereço completo</strong>, não pelo nome display. "Autoridade Tributária" pode ter como endereço real noreply@fiscopt-2024.ru.</span></li>
+      <li><span class="habit-icon">✓</span><span><strong>Configura alertas de transacção no banco.</strong> Notificação de cada movimento acima de €1/R$1 é o teu sistema de alerta precoce.</span></li>
+      <li><span class="habit-icon">✓</span><span><strong>Verifica se os teus dados já foram vazados</strong> em haveibeenpwned.com — é gratuito e mostra em que fugas o teu email apareceu.</span></li>
+      <li><span class="habit-icon">✓</span><span><strong>Desconfia de urgência artificial.</strong> Se uma mensagem diz que tens X horas para agir, isso é sinal de golpe, não de legitimidade.</span></li>
+      <li><span class="habit-icon">✓</span><span><strong>Regra do canal independente:</strong> qualquer pedido inesperado de dinheiro ou dados, verifica por um canal diferente do que chegou. Recebeste SMS? Liga para o número oficial da entidade, que encontraste no site deles — não no SMS.</span></li>
+    </ul>
+  </div>
+
+  <div class="ch-section">
+    <div class="section-title">Recursos Oficiais</div>
+    <div class="section-label">Onde reportar e onde aprender mais</div>
+    <div class="compare">
+      <div class="compare-panel">
+        <div class="compare-flag"><span>🇵🇹</span><strong>Portugal</strong></div>
+        <div class="compare-item"><strong>CNCS — cncs.gov.pt:</strong> Centro Nacional de Cibersegurança. Alertas, relatórios e formação gratuita sobre segurança digital.</div>
+        <div class="compare-item"><strong>cert.pt:</strong> Para reportar incidentes de cibersegurança. Contacto de emergência: cert@cncs.gov.pt</div>
+        <div class="compare-item"><strong>Banco de Portugal:</strong> Linha para reportar fraudes bancárias: 213 130 000.</div>
+        <div class="compare-item"><strong>PSP online:</strong> Podes apresentar queixa por crimes digitais em participações.psp.pt</div>
+      </div>
+      <div class="compare-panel">
+        <div class="compare-flag"><span>🇧🇷</span><strong>Brasil</strong></div>
+        <div class="compare-item"><strong>BACEN / Pix:</strong> App do Banco Central (BC+) para reportar fraudes Pix. Telefone: 145.</div>
+        <div class="compare-item"><strong>SaferNet Brasil — safernet.org.br:</strong> Central de ajuda para crimes e incidentes online, incluindo suporte a vítimas.</div>
+        <div class="compare-item"><strong>Procon:</strong> Para fraudes comerciais em plataformas digitais. Cada estado tem o seu portal.</div>
+        <div class="compare-item"><strong>Delegacias especializadas:</strong> SP, RJ, MG, RS, PR têm Delegacias de Crimes Cibernéticos.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="ch-nav">
+  <div class="ch-nav-inner">
+    <a href="cap01.html" class="ch-nav-link">
+      <small>← Capítulo 01</small>
+      Dinheiro sob Pressão
+    </a>
+    <a href="cap03.html" class="ch-nav-link next">
+      <small>Capítulo 03 →</small>
+      Planejamento Financeiro
+    </a>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-logo">GUIA DE SOBREVIVÊNCIA URBANA</div>
+  <div class="footer-meta">Sem publicidade · Sem afiliados · Sem agenda<br>Conteúdo licenciado sob CC BY-SA 4.0<br>Última revisão: Abril 2026</div>
+</footer>
+
+</body>
+</html>

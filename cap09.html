@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cap. 09 — Empreender Pequeno | GSU</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0d0d0d;--bg2:#141414;--bg3:#1a1a1a;--border:#2a2a2a;--text:#d4cfc8;--text-dim:#6b6560;--accent:#e8c547;--accent2:#c0392b;--accent3:#2ecc71;--mono:'IBM Plex Mono',monospace;--sans:'IBM Plex Sans',sans-serif;--display:'Bebas Neue',sans-serif}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-weight:300;line-height:1.7;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:9999;opacity:0.4}
+.topbar{background:var(--accent2);padding:8px 0;text-align:center;font-family:var(--mono);font-size:11px;letter-spacing:0.15em;color:#fff;position:sticky;top:0;z-index:100}
+.topbar span{opacity:0.7;margin:0 8px}
+nav{border-bottom:1px solid var(--border);padding:0 40px;display:flex;align-items:center;justify-content:space-between;height:60px;background:var(--bg);position:sticky;top:37px;z-index:99}
+.nav-logo{font-family:var(--display);font-size:22px;letter-spacing:0.08em;color:var(--accent);text-decoration:none}
+.nav-links{display:flex;gap:32px;list-style:none}
+.nav-links a{font-family:var(--mono);font-size:11px;letter-spacing:0.12em;color:var(--text-dim);text-decoration:none;text-transform:uppercase;transition:color 0.2s}
+.nav-links a:hover{color:var(--accent)}
+.nav-update{font-family:var(--mono);font-size:10px;color:var(--text-dim);letter-spacing:0.08em}
+.ch-hero{max-width:1100px;margin:0 auto;padding:80px 40px 60px;border-bottom:1px solid var(--border)}
+.ch-num{font-family:var(--display);font-size:120px;line-height:0.9;color:var(--border);margin-bottom:8px;user-select:none}
+.ch-tag{font-family:var(--mono);font-size:10px;letter-spacing:0.25em;color:var(--accent);text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:12px}
+.ch-tag::before{content:'';display:block;width:32px;height:1px;background:var(--accent)}
+.ch-title{font-family:var(--display);font-size:clamp(48px,7vw,88px);line-height:0.92;letter-spacing:0.02em;color:#fff;margin-bottom:24px}
+.ch-desc{font-size:17px;line-height:1.8;color:var(--text);max-width:640px;font-weight:300}
+.ch-badges{display:flex;gap:8px;margin-top:20px;flex-wrap:wrap}
+.badge{font-family:var(--mono);font-size:9px;letter-spacing:0.12em;padding:4px 10px;text-transform:uppercase;border:1px solid var(--border);color:var(--text-dim)}
+.badge.pt{border-color:#2a4a6e;color:#5dade2}.badge.br{border-color:#1a4a26;color:var(--accent3)}.badge.new{border-color:#4a3a1a;color:var(--accent)}
+.ch-content{max-width:800px;margin:0 auto;padding:60px 40px}
+.ch-section{margin-bottom:64px}
+.section-title{font-family:var(--display);font-size:40px;letter-spacing:0.04em;color:#fff;margin-bottom:4px}
+.section-label{font-family:var(--mono);font-size:10px;letter-spacing:0.2em;color:var(--text-dim);text-transform:uppercase;margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid var(--border)}
+.prose{font-size:15px;line-height:1.85;color:var(--text);margin-bottom:16px}
+.prose strong{color:#fff;font-weight:600}.prose em{color:var(--accent);font-style:normal;font-weight:600}
+.protocol{border:1px solid var(--border);background:var(--bg2);margin:24px 0}
+.protocol-header{padding:14px 24px;border-bottom:1px solid var(--border);font-family:var(--mono);font-size:10px;letter-spacing:0.2em;color:var(--accent);text-transform:uppercase}
+.protocol-step{display:flex;gap:20px;padding:16px 24px;border-bottom:1px solid var(--border);align-items:flex-start}
+.protocol-step:last-child{border-bottom:none}
+.step-num{font-family:var(--display);font-size:28px;color:var(--accent);opacity:0.5;line-height:1;flex-shrink:0;width:32px}
+.step-title{font-size:14px;font-weight:600;color:#fff;margin-bottom:4px}
+.step-body{font-size:13px;color:var(--text-dim);line-height:1.65}
+.callout{border-left:3px solid var(--border);padding:20px 24px;margin:24px 0;background:var(--bg2)}
+.callout.warn{border-color:var(--accent2);background:#150c0c}
+.callout.tip{border-color:var(--accent3);background:#0c150e}
+.callout.info{border-color:var(--accent);background:#15120c}
+.callout-label{font-family:var(--mono);font-size:9px;letter-spacing:0.2em;text-transform:uppercase;margin-bottom:8px}
+.callout.warn .callout-label{color:var(--accent2)}.callout.tip .callout-label{color:var(--accent3)}.callout.info .callout-label{color:var(--accent)}
+.callout-text{font-size:14px;color:var(--text);line-height:1.7}
+.compare{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--border);margin:32px 0}
+.compare-panel{padding:28px}
+.compare-panel:first-child{border-right:1px solid var(--border)}
+.compare-flag{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.compare-flag span:first-child{font-size:22px}
+.compare-flag strong{font-family:var(--mono);font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-dim)}
+.compare-item{font-size:13px;color:var(--text);line-height:1.7;margin-bottom:10px;padding-left:12px;border-left:2px solid var(--border)}
+.compare-item strong{color:var(--accent);font-weight:600}
+.tips-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border:1px solid var(--border);margin:24px 0}
+.tip-card{background:var(--bg);padding:20px 24px}
+.tip-name{font-size:14px;font-weight:600;color:#fff;margin-bottom:6px}
+.tip-desc{font-size:13px;color:var(--text-dim);line-height:1.6}
+.data-table{width:100%;border-collapse:collapse;margin:24px 0;font-size:13px}
+.data-table th{font-family:var(--mono);font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-dim);padding:10px 16px;border-bottom:1px solid var(--border);text-align:left;background:var(--bg2)}
+.data-table td{padding:12px 16px;border-bottom:1px solid var(--border);color:var(--text);line-height:1.5}
+.data-table tr:last-child td{border-bottom:none}
+.data-table tr:hover td{background:var(--bg2)}
+.data-table td:first-child{font-weight:600;color:#fff}
+.ch-nav{border-top:1px solid var(--border);background:var(--bg2)}
+.ch-nav-inner{max-width:1100px;margin:0 auto;padding:32px 40px;display:flex;justify-content:space-between;align-items:center;gap:24px}
+.ch-nav-link{font-family:var(--mono);font-size:11px;letter-spacing:0.1em;color:var(--text-dim);text-decoration:none;text-transform:uppercase;transition:color 0.2s;display:flex;flex-direction:column;gap:4px}
+.ch-nav-link:hover{color:var(--accent)}
+.ch-nav-link small{font-size:9px;letter-spacing:0.15em;opacity:0.6;display:block}
+.ch-nav-link.next{text-align:right}
+footer{border-top:1px solid var(--border);padding:40px;max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}
+.footer-logo{font-family:var(--display);font-size:18px;letter-spacing:0.08em;color:var(--text-dim)}
+.footer-meta{font-family:var(--mono);font-size:10px;color:var(--text-dim);letter-spacing:0.1em;text-align:right;line-height:1.8}
+@media(max-width:900px){nav{padding:0 20px}.nav-links{display:none}.ch-hero{padding:60px 20px 40px}.ch-num{font-size:80px}.ch-content{padding:40px 20px}.tips-grid{grid-template-columns:1fr}.compare{grid-template-columns:1fr}.compare-panel:first-child{border-right:none;border-bottom:1px solid var(--border)}.ch-nav-inner{flex-direction:column;align-items:flex-start}.ch-nav-link.next{text-align:left}footer{flex-direction:column;gap:20px;text-align:center;padding:40px 20px}.footer-meta{text-align:center}}
+</style>
+</head>
+<body>
+
+<div class="topbar">⚠ ALERTA ATIVO <span>|</span> Phishing IRS 2026 e golpe Pix com CPF — ver Capítulo 2 <span>|</span> Última revisão: Abril 2026</div>
+
+<nav>
+  <a class="nav-logo" href="index.html">GSU</a>
+  <ul class="nav-links">
+    <li><a href="index.html#capitulos">← Capítulos</a></li>
+    <li><a href="index.html#changelog">O que mudou</a></li>
+    <li><a href="index.html#protocolos">Protocolos</a></li>
+    <li><a href="index.html#recursos">Recursos</a></li>
+  </ul>
+  <div class="nav-update">Cap. 09 / 10</div>
+</nav>
+
+<div class="ch-hero">
+  <div class="ch-num">09</div>
+  <div class="ch-tag">Guia de Sobrevivência Urbana</div>
+  <div class="ch-title">Empreender Pequeno</div>
+  <div class="ch-desc">Side hustles realistas, como abrir actividade como recibo verde ou MEI, precificação honesta e as plataformas que funcionam sem capital inicial.</div>
+  <div class="ch-badges">
+    <span class="badge new">Negócio</span>
+    <span class="badge new">Freelance</span>
+    <span class="badge pt">🇵🇹 Portugal</span>
+    <span class="badge br">🇧🇷 Brasil</span>
+  </div>
+</div>
+
+<div class="ch-content">
+
+  <div class="ch-section">
+    <div class="section-title">Side Hustle Realista</div>
+    <div class="section-label">O que funciona — e o que é fantasia</div>
+    <p class="prose">O termo "side hustle" foi inflacionado por conteúdo que promete €5.000 por mês a trabalhar 2 horas por dia. A realidade: <strong>a maioria das fontes de rendimento paralelo levam 6–18 meses a produzir algo significativo</strong>, exigem trabalho real e as melhores oportunidades são extensões do que já sabes fazer.</p>
+
+    <div class="callout warn">
+      <div class="callout-label">⚠ Armadilhas comuns</div>
+      <div class="callout-text">Evita: cursos de "dropshipping" ou "trading" que prometem retornos rápidos; esquemas de MLM/marketing de rede onde o produto real és tu como recrutador; plataformas de "trabalho" que cobram para te inscrever. Nenhum negócio legítimo exige que pagues para trabalhar.</div>
+    </div>
+
+    <table class="data-table">
+      <thead><tr><th>Actividade</th><th>Capital inicial</th><th>Tempo até 1.º €</th><th>Potencial (mês)</th></tr></thead>
+      <tbody>
+        <tr><td>Freelance na área de trabalho actual</td><td>€0</td><td>2–4 semanas</td><td>€300–2.000+</td></tr>
+        <tr><td>Explicações / tutoring</td><td>€0</td><td>1–2 semanas</td><td>€200–800</td></tr>
+        <tr><td>Tradução e revisão de textos</td><td>€0</td><td>2–4 semanas</td><td>€200–1.000</td></tr>
+        <tr><td>Social media / gestão de comunidades</td><td>€0</td><td>2–6 semanas</td><td>€300–1.200</td></tr>
+        <tr><td>Revenda de artigos (marketplace)</td><td>€50–200</td><td>1–3 semanas</td><td>€100–600</td></tr>
+        <tr><td>Conteúdo digital (e-book, templates)</td><td>€0–50</td><td>2–6 meses</td><td>€50–500 (passivo)</td></tr>
+      </tbody>
+    </table>
+
+    <p class="prose">O princípio mais robusto: <em>começa pelo que já sabes</em>. Um contabilista que faz declarações de IRS de particulares ao fim de semana, um designer que aceita um projecto extra por semana — isto funciona porque não há curva de aprendizagem e os primeiros clientes chegam pela rede existente.</p>
+  </div>
+
+  <div class="ch-section">
+    <div class="section-title">Recibo Verde e MEI</div>
+    <div class="section-label">Abrir actividade — sem complicar</div>
+
+    <div class="compare">
+      <div class="compare-panel">
+        <div class="compare-flag"><span>🇵🇹</span><strong>Recibo Verde — Portugal</strong></div>
+        <div class="compare-item"><strong>Como abrir:</strong> Portal das Finanças → "Iniciar actividade". Leva 15 minutos online. É gratuito. Escolhe o CAE ou código CIRS que melhor descreve o teu serviço.</div>
+        <div class="compare-item"><strong>IVA:</strong> Se prevês facturar menos de €14.500/ano, estás isento de IVA (Regime de Isenção do art.º 53º). Acima desse valor, liquidas IVA ao estado.</div>
+        <div class="compare-item"><strong>IRS:</strong> No regime simplificado, pagas IRS sobre 75% do rendimento de serviços (25% é considerado despesa automática). Pode declarar despesas reais se tiveres regime de contabilidade organizada.</div>
+        <div class="compare-item"><strong>Segurança Social:</strong> Nos primeiros 12 meses de actividade, estás isento de contribuições para a SS. A partir do 2.º ano, pagas 21,4% sobre o rendimento relevante (base mínima calculada trimestralmente).</div>
+        <div class="compare-item"><strong>Prazo de emissão:</strong> Emite o recibo no portal e-fatura. Tens até ao fim do mês seguinte à prestação do serviço.</div>
+      </div>
+      <div class="compare-panel">
+        <div class="compare-flag"><span>🇧🇷</span><strong>MEI — Brasil</strong></div>
+        <div class="compare-item"><strong>Como abrir:</strong> Portal gov.br → "Abrir MEI". Gratuito, online, leva 10 minutos. CNPJ emitido na hora. Limite de facturação: R$81.000/ano (R$6.750/mês em média).</div>
+        <div class="compare-item"><strong>Imposto mensal fixo:</strong> DAS (Documento de Arrecadação do Simples Nacional) — valor fixo de R$71,60 (comércio/indústria) ou R$75,60 (serviços) em 2026. Inclui INSS, ICMS ou ISS.</div>
+        <div class="compare-item"><strong>Benefícios sociais:</strong> Com INSS em dia, tens direito a aposentadoria, auxílio-doença, salário-maternidade. O MEI é a forma mais barata de contribuir para a Previdência Social.</div>
+        <div class="compare-item"><strong>Declaração anual:</strong> DASN-SIMEI — declaração simplificada anual até 31 de Maio. Não precisa de contador para MEI.</div>
+        <div class="compare-item"><strong>Actividades permitidas:</strong> Lista de actividades elegíveis disponível em mei.gov.br. Serviços de TI, design, alimentação, beleza, artesanato e centenas de outras estão incluídos.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ch-section">
+    <div class="section-title">Precificação Honesta</div>
+    <div class="section-label">Como calcular o teu preço — e parar de cobrar pouco</div>
+    <p class="prose">A maior armadilha de quem começa como freelance é cobrar menos do que vale — seja por medo de perder clientes, por não saber calcular os custos reais, ou por comparar com plataformas de baixo custo. <strong>Cobrar pouco não te torna competitivo — torna-te insustentável.</strong></p>
+
+    <div class="protocol">
+      <div class="protocol-header">Fórmula de preço base para freelancers</div>
+      <div class="protocol-step">
+        <div class="step-num">1</div>
+        <div>
+          <div class="step-title">Calcula o teu custo de vida mensal</div>
+          <div class="step-body">Renda + alimentação + transportes + saúde + impostos + SS/INSS + margem de segurança de 20%. Este é o teu ponto de equilíbrio. Abaixo disto, estás a pagar para trabalhar.</div>
+        </div>
+      </div>
+      <div class="protocol-step">
+        <div class="step-num">2</div>
+        <div>
+          <div class="step-title">Quantas horas facturáveis tens por mês?</div>
+          <div class="step-body">Trabalho a tempo inteiro ≠ horas facturáveis. Vendas, gestão, formação, administração não são facturáveis. Para a maioria dos freelancers, de 160h mensais disponíveis, 80–100h são facturáveis de forma realista.</div>
+        </div>
+      </div>
+      <div class="protocol-step">
+        <div class="step-num">3</div>
+        <div>
+          <div class="step-title">Taxa horária mínima = Custo mensal ÷ Horas facturáveis</div>
+          <div class="step-body">Exemplo: €2.000/mês de custos ÷ 90h facturáveis = €22/h. Este é o teu piso. Para ter margem e crescimento, aplica 1,5–2x: €33–44/h. Para mercado PT em serviços de conhecimento, €35–80/h é realista.</div>
+        </div>
+      </div>
+      <div class="protocol-step">
+        <div class="step-num">4</div>
+        <div>
+          <div class="step-title">Preço por projecto vs. por hora</div>
+          <div class="step-body">Projectos com âmbito definido (website, relatório, campanha) são melhor cotados por projecto — permite entregar mais rápido sem penalização. Use taxa horária para calcular o orçamento internamente, mas apresenta ao cliente como valor fixo por entregável.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout tip">
+      <div class="callout-label">💡 Regra da subida de preço</div>
+      <div class="callout-text">Quando estiveres com agenda cheia e a recusar trabalho, é altura de subir o preço. Um aumento de 20–30% faz com que alguns clientes saiam — mas os que ficam pagam mais e normalmente são os melhores. Nunca subas o preço para clientes actuais sem aviso antecipado de 30–60 dias.</div>
+    </div>
+  </div>
+
+  <div class="ch-section">
+    <div class="section-title">Plataformas Sem Capital</div>
+    <div class="section-label">Onde começar a encontrar clientes</div>
+    <p class="prose">Nenhuma das plataformas abaixo exige investimento inicial. Exigem tempo para construir perfil e reputação — o que é muito diferente.</p>
+
+    <div class="tips-grid">
+      <div class="tip-card">
+        <div class="tip-name">LinkedIn</div>
+        <div class="tip-desc">A rede mais subestimada para freelancers B2B. Publica conteúdo na tua área, activa o "Open to Work" em modo privado para recrutadores, usa a funcionalidade de serviços. O primeiro cliente freelance em mais de 70% dos casos vem da rede existente.</div>
+      </div>
+      <div class="tip-card">
+        <div class="tip-name">Upwork / Fiverr</div>
+        <div class="tip-desc">Para começar a construir portfólio internacional com reviews verificados. Comissões altas (20% no início no Upwork) mas acesso a clientes globais. O truque: começa com preço competitivo para ganhar as primeiras 5 avaliações, depois sobe progressivamente.</div>
+      </div>
+      <div class="tip-card">
+        <div class="tip-name">Workana (PT/BR)</div>
+        <div class="tip-desc">Plataforma focada em América Latina com versão para Portugal. Menor competição que Upwork para serviços em português. Boa para Design, TI, Marketing e Escrita. Comissão de 8–20% conforme valor do projecto.</div>
+      </div>
+      <div class="tip-card">
+        <div class="tip-name">GetNinjas / TaskRabbit</div>
+        <div class="tip-desc">Para serviços locais e presenciais: reparações, limpeza, montagem de móveis, aulas presenciais. GetNinjas funciona principalmente no Brasil; TaskRabbit tem presença em Portugal nas principais cidades.</div>
+      </div>
+      <div class="tip-card">
+        <div class="tip-name">OLX / Facebook Marketplace</div>
+        <div class="tip-desc">Subestimados para serviços locais. Explicações, design de logo, gestão de redes sociais, fotografia — serviços simples com anúncio bem escrito geram contactos. Custo zero e resposta rápida.</div>
+      </div>
+      <div class="tip-card">
+        <div class="tip-name">Perfil próprio simples</div>
+        <div class="tip-desc">Um site de uma página (Carrd.co a €19/ano ou Google Sites grátis) com quem és, o que fazes e como contratar é suficiente para dar credibilidade. Liga a partir do LinkedIn e das plataformas — profissionaliza a imagem sem custo.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="ch-nav">
+  <div class="ch-nav-inner">
+    <a href="cap08.html" class="ch-nav-link">
+      <small>← Capítulo 08</small>
+      Saúde quando o Sistema Aperta
+    </a>
+    <a href="cap10.html" class="ch-nav-link next">
+      <small>Capítulo 10 →</small>
+      Protocolos de Emergência
+    </a>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-logo">GUIA DE SOBREVIVÊNCIA URBANA</div>
+  <div class="footer-meta">Sem publicidade · Sem afiliados · Sem agenda<br>Conteúdo licenciado sob CC BY-SA 4.0<br>Última revisão: Abril 2026</div>
+</footer>
+</body>
+</html>

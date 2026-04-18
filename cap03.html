@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cap. 03 — Planejamento Financeiro | GSU</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0d0d0d;--bg2:#141414;--bg3:#1a1a1a;--border:#2a2a2a;--text:#d4cfc8;--text-dim:#6b6560;--accent:#e8c547;--accent2:#c0392b;--accent3:#2ecc71;--mono:'IBM Plex Mono',monospace;--sans:'IBM Plex Sans',sans-serif;--display:'Bebas Neue',sans-serif}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-weight:300;line-height:1.7;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:9999;opacity:0.4}
+.topbar{background:var(--accent2);padding:8px 0;text-align:center;font-family:var(--mono);font-size:11px;letter-spacing:0.15em;color:#fff;position:sticky;top:0;z-index:100}
+.topbar span{opacity:0.7;margin:0 8px}
+nav{border-bottom:1px solid var(--border);padding:0 40px;display:flex;align-items:center;justify-content:space-between;height:60px;background:var(--bg);position:sticky;top:37px;z-index:99}
+.nav-logo{font-family:var(--display);font-size:22px;letter-spacing:0.08em;color:var(--accent);text-decoration:none}
+.nav-links{display:flex;gap:32px;list-style:none}
+.nav-links a{font-family:var(--mono);font-size:11px;letter-spacing:0.12em;color:var(--text-dim);text-decoration:none;text-transform:uppercase;transition:color 0.2s}
+.nav-links a:hover{color:var(--accent)}
+.nav-update{font-family:var(--mono);font-size:10px;color:var(--text-dim);letter-spacing:0.08em}
+.ch-hero{max-width:1100px;margin:0 auto;padding:80px 40px 60px;border-bottom:1px solid var(--border)}
+.ch-num{font-family:var(--display);font-size:120px;line-height:0.9;color:var(--border);margin-bottom:8px;user-select:none}
+.ch-tag{font-family:var(--mono);font-size:10px;letter-spacing:0.25em;color:var(--accent);text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:12px}
+.ch-tag::before{content:'';display:block;width:32px;height:1px;background:var(--accent)}
+.ch-title{font-family:var(--display);font-size:clamp(48px,7vw,88px);line-height:0.92;letter-spacing:0.02em;color:#fff;margin-bottom:24px}
+.ch-desc{font-size:17px;line-height:1.8;color:var(--text);max-width:640px;font-weight:300}
+.ch-badges{display:flex;gap:8px;margin-top:20px;flex-wrap:wrap}
+.badge{font-family:var(--mono);font-size:9px;letter-spacing:0.12em;padding:4px 10px;text-transform:uppercase;border:1px solid var(--border);color:var(--text-dim)}
+.badge.pt{border-color:#2a4a6e;color:#5dade2}.badge.br{border-color:#1a4a26;color:var(--accent3)}.badge.new{border-color:#4a3a1a;color:var(--accent)}
+.ch-content{max-width:800px;margin:0 auto;padding:60px 40px}
+.ch-section{margin-bottom:64px}
+.section-title{font-family:var(--display);font-size:40px;letter-spacing:0.04em;color:#fff;margin-bottom:4px}
+.section-label{font-family:var(--mono);font-size:10px;letter-spacing:0.2em;color:var(--text-dim);text-transform:uppercase;margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid var(--border)}
+.prose{font-size:15px;line-height:1.85;color:var(--text);margin-bottom:16px}
+.prose strong{color:#fff;font-weight:600}.prose em{color:var(--accent);font-style:normal;font-weight:600}
+.protocol{border:1px solid var(--border);background:var(--bg2);margin:24px 0}
+.protocol-header{padding:14px 24px;border-bottom:1px solid var(--border);font-family:var(--mono);font-size:10px;letter-spacing:0.2em;color:var(--accent);text-transform:uppercase}
+.protocol-step{display:flex;gap:20px;padding:16px 24px;border-bottom:1px solid var(--border);align-items:flex-start}
+.protocol-step:last-child{border-bottom:none}
+.step-num{font-family:var(--display);font-size:28px;color:var(--accent);opacity:0.5;line-height:1;flex-shrink:0;width:32px}
+.step-title{font-size:14px;font-weight:600;color:#fff;margin-bottom:4px}
+.step-body{font-size:13px;color:var(--text-dim);line-height:1.65}
+.callout{border-left:3px solid var(--border);padding:20px 24px;margin:24px 0;background:var(--bg2)}
+.callout.warn{border-color:var(--accent2);background:#150c0c}
+.callout.tip{border-color:var(--accent3);background:#0c150e}
+.callout.info{border-color:var(--accent);background:#15120c}
+.callout-label{font-family:var(--mono);font-size:9px;letter-spacing:0.2em;text-transform:uppercase;margin-bottom:8px}
+.callout.warn .callout-label{color:var(--accent2)}.callout.tip .callout-label{color:var(--accent3)}.callout.info .callout-label{color:var(--accent)}
+.callout-text{font-size:14px;color:var(--text);line-height:1.7}
+.compare{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--border);margin:32px 0}
+.compare-panel{padding:28px}.compare-panel:first-child{border-right:1px solid var(--border)}
+.compare-flag{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.compare-flag span:first-child{font-size:22px}
+.compare-flag strong{font-family:var(--mono);font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-dim)}
+.compare-item{font-size:13px;color:var(--text);line-height:1.7;margin-bottom:10px;padding-left:12px;border-left:2px solid var(--border)}
+.compare-item strong{color:var(--accent);font-weight:600}
+.data-table{width:100%;border-collapse:collapse;margin:24px 0;font-size:13px}
+.data-table th{font-family:var(--mono);font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-dim);padding:10px 16px;border-bottom:1px solid var(--border);text-align:left;background:var(--bg2)}
+.data-table td{padding:12px 16px;border-bottom:1px solid var(--border);color:var(--text);line-height:1.5}
+.data-table tr:last-child td{border-bottom:none}
+.data-table tr:hover td{background:var(--bg2)}
+.data-table td:first-child{font-weight:600;color:#fff}
+.ch-nav{border-top:1px solid var(--border);background:var(--bg2)}
+.ch-nav-inner{max-width:1100px;margin:0 auto;padding:32px 40px;display:flex;justify-content:space-between;align-items:center;gap:24px}
+.ch-nav-link{font-family:var(--mono);font-size:11px;letter-spacing:0.1em;color:var(--text-dim);text-decoration:none;text-transform:uppercase;transition:color 0.2s;display:flex;flex-direction:column;gap:4px}
+.ch-nav-link:hover{color:var(--accent)}
+.ch-nav-link small{font-size:9px;letter-spacing:0.15em;opacity:0.6;display:block}
+.ch-nav-link.next{text-align:right}
+footer{border-top:1px solid var(--border);padding:40px;max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}
+.footer-logo{font-family:var(--display);font-size:18px;letter-spacing:0.08em;color:var(--text-dim)}
+.footer-meta{font-family:var(--mono);font-size:10px;color:var(--text-dim);letter-spacing:0.1em;text-align:right;line-height:1.8}
+@media(max-width:900px){nav{padding:0 20px}.nav-links{display:none}.ch-hero{padding:60px 20px 40px}.ch-num{font-size:80px}.ch-content{padding:40px 20px}.compare{grid-template-columns:1fr}.compare-panel:first-child{border-right:none;border-bottom:1px solid var(--border)}.ch-nav-inner{flex-direction:column;align-items:flex-start}.ch-nav-link.next{text-align:left}footer{flex-direction:column;gap:20px;text-align:center;padding:40px 20px}.footer-meta{text-align:center}}
+</style>
+</head>
+<body>
+
+<div class="topbar">⚠ ALERTA ATIVO <span>|</span> Phishing IRS 2026 e golpe Pix com CPF — ver Capítulo 2 <span>|</span> Última revisão: Abril 2026</div>
+
+<nav>
+  <a class="nav-logo" href="index.html">GSU</a>
+  <ul class="nav-links">
+    <li><a href="index.html#capitulos">← Capítulos</a></li>
+    <li><a href="index.html#changelog">O que mudou</a></li>
+    <li><a href="index.html#protocolos">Protocolos</a></li>
+    <li><a href="index.html#recursos">Recursos</a></li>
+  </ul>
+  <div class="nav-update">Cap. 03 / 10</div>
+</nav>
+
+<div class="ch-hero">
+  <div class="ch-num">03</div>
+  <div class="ch-tag">Guia de Sobrevivência Urbana</div>
+  <div class="ch-title">Planejamento Financeiro</div>
+  <div class="ch-desc">A regra 50/30/20 adaptada à realidade lusa e brasileira, seguro de saúde, imóvel em contexto instável, e como pensar em reforma sem ilusões.</div>
+  <div class="ch-badges">
+    <span class="badge pt">🇵🇹 Portugal</span>
+    <span class="badge br">🇧🇷 Brasil</span>
+    <span class="badge new">Longo Prazo</span>
+  </div>
+</div>
+
+<div class="ch-content">
+
+  <div class="ch-section">
+    <div class="section-title">Regra 50/30/20</div>
+    <div class="section-label">Adaptada para PT e BR — 2026</div>
+    <p class="prose">A regra original foi criada nos EUA dos anos 90 para rendimentos medianos norte-americanos. Em Portugal, com rendas que representam 40–60% do salário médio nas grandes cidades, e no Brasil, com inflação estruturalmente mais alta, a regra precisa de ser calibrada.</p>
+    <table class="data-table">
+      <thead><tr><th>Balde</th><th>Original</th><th>PT Adaptado</th><th>BR Adaptado</th></tr></thead>
+      <tbody>
+        <tr><td>Essenciais</td><td>50%</td><td>55–60% (rendas altas em Lisboa/Porto)</td><td>50–55%</td></tr>
+        <tr><td>Desejos</td><td>30%</td><td>15–20%</td><td>20–25%</td></tr>
+        <tr><td>Poupança/Dívida</td><td>20%</td><td>20–25%</td><td>20%</td></tr>
+      </tbody>
+    </table>
+    <p class="prose">Se a renda consome mais de 35% do teu rendimento líquido, és financeiramente vulnerável. Não é questão de disciplina — é questão estrutural. As opções são: aumentar rendimento, reduzir renda (mudar de zona, partilhar casa), ou aceitar que o espaço para poupança será muito limitado.</p>
+    <div class="callout info">
+      <div class="callout-label">Nota prática</div>
+      <div class="callout-text">A regra dos percentagens só funciona se soubers primeiro o que entra e o que sai. Antes de aplicar qualquer sistema orçamental, passa um mês a registar tudo. Apps de orçamento gratuitas: <strong>Money Manager</strong> (PT/BR), <strong>Mobills</strong> (BR), <strong>Spendee</strong> (PT/BR).</div>
+    </div>
+  </div>
+
+  <div class="ch-section">
+    <div class="section-title">Seguro de Saúde</div>
+    <div class="section-label">Quando vale a pena, o que cobrir</div>
+    <p class="prose">A questão não é "devo ter seguro de saúde" — é <em>que cobertura me protege dos riscos reais</em>. Para a maioria das pessoas, o maior risco financeiro em saúde não é uma consulta de medicina geral — é uma cirurgia inesperada, um cancro, ou uma longa recuperação.</p>
+    <p class="prose">Em Portugal, o SNS cobre a maioria dos cuidados urgentes e de especialidade, com tempos de espera. O seguro privado é útil para <strong>reduzir tempos de espera, acesso a especialistas específicos e cuidados dentários</strong> (que o SNS cobre muito pouco). Em contexto de rendimento limitado, um seguro de saúde básico com bom dentário é frequentemente melhor ROI do que um plano abrangente.</p>
+    <p class="prose">No Brasil, o SUS tem cobertura universal mas qualidade variável. Para quem pode pagar, um plano de saúde evita o risco de despesas catastróficas. O risco a cobrir é principalmente <strong>hospitalização, cirurgia e doenças graves</strong>.</p>
+
+    <div class="protocol">
+      <div class="protocol-header">O que verificar num seguro de saúde</div>
+      <div class="protocol-step">
+        <div class="step-num">1</div>
+        <div>
+          <div class="step-title">Rede de prestadores na tua zona</div>
+          <div class="step-body">Um plano barato com rede pequena pode ser inútil se não tiver hospitais ou clínicas acessíveis onde vives. Verifica antes de contratar, não depois.</div>
+        </div>
+      </div>
+      <div class="protocol-step">
+        <div class="step-num">2</div>
+        <div>
+          <div class="step-title">Limites de cobertura e exclusões</div>
+          <div class="step-body">Lê as exclusões — são a parte mais importante do contrato. Doenças pré-existentes, períodos de carência, limites anuais de hospitalização, cobertura fora do país. Em PT: verifica se cobre Lisboa E Porto se vives entre as duas. Em BR: verifica cobertura em viagens pelo país.</div>
+        </div>
+      </div>
+      <div class="protocol-step">
+        <div class="step-num">3</div>
+        <div>
+          <div class="step-title">Períodos de carência para doenças graves</div>
+          <div class="step-body">PT: Seguros têm períodos de carência de 90 dias a 2 anos para algumas coberturas. BR: Planos novos têm carências obrigatórias por lei (até 180 dias para parto). Contrata antes de precisar, não quando já tens sintomas.</div>
+        </div>
+      </div>
+      <div class="protocol-step">
+        <div class="step-num">4</div>
+        <div>
+          <div class="step-title">Cobertura dentária</div>
+          <div class="step-body">Dentes são o maior gasto de saúde fora do SNS em Portugal. Uma extracção simples: €80–150. Uma coroa: €500–1.500. Um seguro dentário que custe €15–25/mês pode poupar centenas num ano activo. No BR, o plano odontológico separado é geralmente mais barato que incluído no plano de saúde.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ch-section">
+    <div class="section-title">Imóvel em Contexto Instável</div>
+    <div class="section-label">Comprar vs arrendar — sem romantismo</div>
+    <p class="prose">A narrativa de que "pagar renda é deitaro dinheiro fora" é um mito financeiro. Depende completamente dos números: preço de compra, taxa de juro, custo de manutenção, imposto e quanto tempo vais ficar no mesmo sítio.</p>
+    <p class="prose">A regra prática: <em>se planeias ficar menos de 7–10 anos no mesmo imóvel</em>, arrendar é geralmente mais eficiente do ponto de vista financeiro, em contexto de preços altos e taxas acima de 3%. Quando fazes a conta a sério, a compra só bate o arrendamento ao fim de muitos anos — e só se o imóvel se valorizar.</p>
+
+    <table class="data-table">
+      <thead><tr><th>Factor</th><th>Favorece Compra</th><th>Favorece Arrendamento</th></tr></thead>
+      <tbody>
+        <tr><td>Horizonte temporal</td><td>&gt; 10 anos no mesmo local</td><td>&lt; 7 anos, incerteza de vida</td></tr>
+        <tr><td>Taxa de juro</td><td>Taxa fixa baixa (&lt;3%)</td><td>Taxa variável alta (&gt;4%)</td></tr>
+        <tr><td>Rácio preço/renda</td><td>Compra &lt; 20× renda anual</td><td>Compra &gt; 25× renda anual</td></tr>
+        <tr><td>Flexibilidade</td><td>Carreira estável, família estabelecida</td><td>Mobilidade profissional ou pessoal</td></tr>
+        <tr><td>Capital próprio</td><td>20%+ de entrada disponível</td><td>Pouca ou nenhuma poupança</td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout warn">
+      <div class="callout-label">⚠ Atenção — crédito habitação variável PT</div>
+      <div class="callout-text">Quem contratou crédito habitação em 2020–2021 com Euribor negativa sentiu a prestação subir 60–100% em 2022–2023. Se tens crédito variável, simula o que acontece à tua prestação se a Euribor subir mais 1%. Se não consegues suportar esse aumento, negocia taxa fixa agora.</div>
+    </div>
+  </div>
+
+  <div class="ch-section">
+    <div class="section-title">Pensar na Reforma</div>
+    <div class="section-label">Sem ilusões, com acção</div>
+    <p class="prose">Os sistemas públicos de pensões em PT e BR estão sob pressão demográfica. Não são soluções completas para a maioria das pessoas que hoje têm menos de 50 anos. Isso não significa entrar em pânico — significa <strong>agir cedo e diversificar</strong>.</p>
+    <p class="prose">A variável mais poderosa na reforma não é a taxa de juro — é o tempo. €100 investidos mensalmente durante 30 anos a 7% ao ano resultam em ~€120.000. Os mesmos €100 durante 20 anos resultam em ~€52.000. <em>Cada 10 anos que atrases custa-te mais de metade do resultado.</em></p>
+
+    <div class="compare">
+      <div class="compare-panel">
+        <div class="compare-flag"><span>🇵🇹</span><strong>Portugal</strong></div>
+        <div class="compare-item"><strong>PPR (Plano Poupança Reforma):</strong> Benefício fiscal no IRS — deduz 20% das entregas até €400/ano (escalão 1). Penalização se resgatar antes dos 60 anos fora de situações excepcionais. PPR Fundos têm rendimentos variáveis; seguros PPR são mais conservadores.</div>
+        <div class="compare-item"><strong>Certificados de Aforro:</strong> Para capital garantido pelo Estado, 10 anos, taxa fixa. Não é específico de reforma mas serve como componente segura.</div>
+        <div class="compare-item"><strong>ETFs via broker:</strong> Para horizontes &gt;15 anos, ETFs de índice diversificados (VWCE, IWDA) historicamente superam a maioria dos PPRs em rendimento. Sem benefício fiscal, mas com mais flexibilidade. Disponíveis via DeGiro, Trading 212, IBKR.</div>
+        <div class="compare-item"><strong>Segurança Social:</strong> Actualiza regularmente o teu registo de carreiras na SS Directa — erros no registo de contribuições são frequentes e afectam a pensão futura.</div>
+      </div>
+      <div class="compare-panel">
+        <div class="compare-flag"><span>🇧🇷</span><strong>Brasil</strong></div>
+        <div class="compare-item"><strong>PGBL:</strong> Deduz até 12% da renda bruta tributável no IR. Vantajoso para quem faz declaração completa. No resgate, paga IR sobre o total (principal + rendimento).</div>
+        <div class="compare-item"><strong>VGBL:</strong> Sem dedução no IR. No resgate, paga IR só sobre o rendimento. Melhor para quem faz declaração simplificada ou já atingiu o limite do PGBL.</div>
+        <div class="compare-item"><strong>Tesouro Directo:</strong> Tesouro IPCA+ com vencimento longo protege contra inflação. Para horizonte de reforma, papéis com vencimento em 2035+ alinham-se bem com o objectivo.</div>
+        <div class="compare-item"><strong>INSS:</strong> Verifica o teu CNIS (Cadastro Nacional de Informações Sociais) no app Meu INSS — erros de contribuição são frequentes, especialmente para autónomos.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="ch-nav">
+  <div class="ch-nav-inner">
+    <a href="cap02.html" class="ch-nav-link">
+      <small>← Capítulo 02</small>
+      Segurança Digital e Golpes
+    </a>
+    <a href="cap04.html" class="ch-nav-link next">
+      <small>Capítulo 04 →</small>
+      Carreira em Mercado Difícil
+    </a>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-logo">GUIA DE SOBREVIVÊNCIA URBANA</div>
+  <div class="footer-meta">Sem publicidade · Sem afiliados · Sem agenda<br>Conteúdo licenciado sob CC BY-SA 4.0<br>Última revisão: Abril 2026</div>
+</footer>
+</body>
+</html>

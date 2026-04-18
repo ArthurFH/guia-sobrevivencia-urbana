@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cap. 06 — Noções Jurídicas de Sobrevivência | GSU</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0d0d0d;--bg2:#141414;--bg3:#1a1a1a;--border:#2a2a2a;--text:#d4cfc8;--text-dim:#6b6560;--accent:#e8c547;--accent2:#c0392b;--accent3:#2ecc71;--mono:'IBM Plex Mono',monospace;--sans:'IBM Plex Sans',sans-serif;--display:'Bebas Neue',sans-serif}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-weight:300;line-height:1.7;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:9999;opacity:0.4}
+.topbar{background:var(--accent2);padding:8px 0;text-align:center;font-family:var(--mono);font-size:11px;letter-spacing:0.15em;color:#fff;position:sticky;top:0;z-index:100}
+.topbar span{opacity:0.7;margin:0 8px}
+nav{border-bottom:1px solid var(--border);padding:0 40px;display:flex;align-items:center;justify-content:space-between;height:60px;background:var(--bg);position:sticky;top:37px;z-index:99}
+.nav-logo{font-family:var(--display);font-size:22px;letter-spacing:0.08em;color:var(--accent);text-decoration:none}
+.nav-links{display:flex;gap:32px;list-style:none}
+.nav-links a{font-family:var(--mono);font-size:11px;letter-spacing:0.12em;color:var(--text-dim);text-decoration:none;text-transform:uppercase;transition:color 0.2s}
+.nav-links a:hover{color:var(--accent)}
+.nav-update{font-family:var(--mono);font-size:10px;color:var(--text-dim);letter-spacing:0.08em}
+.ch-hero{max-width:1100px;margin:0 auto;padding:80px 40px 60px;border-bottom:1px solid var(--border)}
+.ch-num{font-family:var(--display);font-size:120px;line-height:0.9;color:var(--border);margin-bottom:8px;user-select:none}
+.ch-tag{font-family:var(--mono);font-size:10px;letter-spacing:0.25em;color:var(--accent);text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:12px}
+.ch-tag::before{content:'';display:block;width:32px;height:1px;background:var(--accent)}
+.ch-title{font-family:var(--display);font-size:clamp(48px,7vw,88px);line-height:0.92;letter-spacing:0.02em;color:#fff;margin-bottom:24px}
+.ch-desc{font-size:17px;line-height:1.8;color:var(--text);max-width:640px;font-weight:300}
+.ch-badges{display:flex;gap:8px;margin-top:20px;flex-wrap:wrap}
+.badge{font-family:var(--mono);font-size:9px;letter-spacing:0.12em;padding:4px 10px;text-transform:uppercase;border:1px solid var(--border);color:var(--text-dim)}
+.badge.pt{border-color:#2a4a6e;color:#5dade2}.badge.br{border-color:#1a4a26;color:var(--accent3)}.badge.new{border-color:#4a3a1a;color:var(--accent)}
+.ch-content{max-width:800px;margin:0 auto;padding:60px 40px}
+.ch-section{margin-bottom:64px}
+.section-title{font-family:var(--display);font-size:40px;letter-spacing:0.04em;color:#fff;margin-bottom:4px}
+.section-label{font-family:var(--mono);font-size:10px;letter-spacing:0.2em;color:var(--text-dim);text-transform:uppercase;margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid var(--border)}
+.prose{font-size:15px;line-height:1.85;color:var(--text);margin-bottom:16px}
+.prose strong{color:#fff;font-weight:600}.prose em{color:var(--accent);font-style:normal;font-weight:600}
+.law-block{border:1px solid var(--border);padding:20px 24px;margin:16px 0;background:var(--bg2)}
+.law-title{font-size:14px;font-weight:600;color:#fff;margin-bottom:8px;display:flex;align-items:center;gap:10px}
+.law-flag{font-size:14px}
+.law-body{font-size:13px;color:var(--text-dim);line-height:1.7}
+.law-body strong{color:var(--text);font-weight:600}
+.law-note{font-family:var(--mono);font-size:10px;color:var(--accent);letter-spacing:0.1em;margin-top:10px}
+.protocol{border:1px solid var(--border);background:var(--bg2);margin:24px 0}
+.protocol-header{padding:14px 24px;border-bottom:1px solid var(--border);font-family:var(--mono);font-size:10px;letter-spacing:0.2em;color:var(--accent);text-transform:uppercase}
+.protocol-step{display:flex;gap:20px;padding:16px 24px;border-bottom:1px solid var(--border);align-items:flex-start}
+.protocol-step:last-child{border-bottom:none}
+.step-num{font-family:var(--display);font-size:28px;color:var(--accent);opacity:0.5;line-height:1;flex-shrink:0;width:32px}
+.step-title{font-size:14px;font-weight:600;color:#fff;margin-bottom:4px}
+.step-body{font-size:13px;color:var(--text-dim);line-height:1.65}
+.callout{border-left:3px solid var(--border);padding:20px 24px;margin:24px 0;background:var(--bg2)}
+.callout.warn{border-color:var(--accent2);background:#150c0c}
+.callout.tip{border-color:var(--accent3);background:#0c150e}
+.callout.info{border-color:var(--accent);background:#15120c}
+.callout-label{font-family:var(--mono);font-size:9px;letter-spacing:0.2em;text-transform:uppercase;margin-bottom:8px}
+.callout.warn .callout-label{color:var(--accent2)}.callout.tip .callout-label{color:var(--accent3)}.callout.info .callout-label{color:var(--accent)}
+.callout-text{font-size:14px;color:var(--text);line-height:1.7}
+.compare{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--border);margin:32px 0}
+.compare-panel{padding:28px}.compare-panel:first-child{border-right:1px solid var(--border)}
+.compare-flag{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.compare-flag span:first-child{font-size:22px}
+.compare-flag strong{font-family:var(--mono);font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-dim)}
+.compare-item{font-size:13px;color:var(--text);line-height:1.7;margin-bottom:10px;padding-left:12px;border-left:2px solid var(--border)}
+.compare-item strong{color:var(--accent);font-weight:600}
+.ch-nav{border-top:1px solid var(--border);background:var(--bg2)}
+.ch-nav-inner{max-width:1100px;margin:0 auto;padding:32px 40px;display:flex;justify-content:space-between;align-items:center;gap:24px}
+.ch-nav-link{font-family:var(--mono);font-size:11px;letter-spacing:0.1em;color:var(--text-dim);text-decoration:none;text-transform:uppercase;transition:color 0.2s;display:flex;flex-direction:column;gap:4px}
+.ch-nav-link:hover{color:var(--accent)}
+.ch-nav-link small{font-size:9px;letter-spacing:0.15em;opacity:0.6;display:block}
+.ch-nav-link.next{text-align:right}
+footer{border-top:1px solid var(--border);padding:40px;max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}
+.footer-logo{font-family:var(--display);font-size:18px;letter-spacing:0.08em;color:var(--text-dim)}
+.footer-meta{font-family:var(--mono);font-size:10px;color:var(--text-dim);letter-spacing:0.1em;text-align:right;line-height:1.8}
+@media(max-width:900px){nav{padding:0 20px}.nav-links{display:none}.ch-hero{padding:60px 20px 40px}.ch-num{font-size:80px}.ch-content{padding:40px 20px}.compare{grid-template-columns:1fr}.compare-panel:first-child{border-right:none;border-bottom:1px solid var(--border)}.ch-nav-inner{flex-direction:column;align-items:flex-start}.ch-nav-link.next{text-align:left}footer{flex-direction:column;gap:20px;text-align:center;padding:40px 20px}.footer-meta{text-align:center}}
+</style>
+</head>
+<body>
+
+<div class="topbar">⚠ ALERTA ATIVO <span>|</span> Phishing IRS 2026 e golpe Pix com CPF — ver Capítulo 2 <span>|</span> Última revisão: Abril 2026</div>
+
+<nav>
+  <a class="nav-logo" href="index.html">GSU</a>
+  <ul class="nav-links">
+    <li><a href="index.html#capitulos">← Capítulos</a></li>
+    <li><a href="index.html#changelog">O que mudou</a></li>
+    <li><a href="index.html#protocolos">Protocolos</a></li>
+    <li><a href="index.html#recursos">Recursos</a></li>
+  </ul>
+  <div class="nav-update">Cap. 06 / 10</div>
+</nav>
+
+<div class="ch-hero">
+  <div class="ch-num">06</div>
+  <div class="ch-tag">Guia de Sobrevivência Urbana</div>
+  <div class="ch-title">Noções Jurídicas de Sobrevivência</div>
+  <div class="ch-desc">Direitos do trabalhador, contratos, despejo, execução fiscal, e como aceder a apoio jurídico gratuito em Portugal e Brasil.</div>
+  <div class="ch-badges">
+    <span class="badge new">Direito</span>
+    <span class="badge pt">🇵🇹 Portugal</span>
+    <span class="badge br">🇧🇷 Brasil</span>
+  </div>
+</div>
+
+<div class="ch-content">
+
+  <div class="ch-section">
+    <div class="section-title">Nota Importante</div>
+    <div class="section-label">Este capítulo não é aconselhamento jurídico</div>
+    <p class="prose">O que está aqui é informação geral para ajudar a perceber os teus direitos e o que podes esperar. Para situações específicas — especialmente com potencial litigioso — consulta sempre um advogado ou o apoio jurídico gratuito disponível. Leis mudam; este guia é actualizado, mas não é substituto de assessoria profissional.</p>
+  </div>
+
+  <div class="ch-section">
+    <div class="section-title">Direitos do Trabalhador</div>
+    <div class="section-label">O que não podes abdicar — PT e BR</div>
+
+    <div class="law-block">
+      <div class="law-title"><span class="law-flag">🇵🇹</span> Direitos irrenunciáveis em Portugal (Código do Trabalho)</div>
+      <div class="law-body">
+        <strong>Período experimental:</strong> até 90 dias para contratos sem termo (180 dias para cargos de direcção). Durante este período, podes ser dispensado sem aviso prévio mas tens direito a salário proporcional e subsídios.<br><br>
+        <strong>Aviso prévio de despedimento:</strong> varia com a antiguidade — 30 dias (&lt;1 ano), 60 dias (1–5 anos), 75 dias (5–10 anos), 90 dias (&gt;10 anos). Se não houver aviso prévio adequado, tens direito a indemnização substitutiva.<br><br>
+        <strong>Indemnização por despedimento ilícito:</strong> 20–45 dias de salário base + diuturnidades por cada ano de trabalho (mínimo 3 meses). Em despedimento colectivo: 20 dias/ano.<br><br>
+        <strong>Subsídio de férias e de Natal:</strong> obrigatórios por lei. Não podem ser incluídos no salário base sem acordo expresso. Equivalem cada um a um mês de remuneração.
+      </div>
+      <div class="law-note">Última actualização relevante: Set/2023 — Agenda do Trabalho Digno</div>
+    </div>
+
+    <div class="law-block">
+      <div class="law-title"><span class="law-flag">🇧🇷</span> Direitos irrenunciáveis em Brasil (CLT)</div>
+      <div class="law-body">
+        <strong>FGTS:</strong> 8% do salário bruto depositado pelo empregador mensalmente. Em demissão sem justa causa, recebes o saldo + multa de 40% sobre os depósitos. Verifica regularmente no app FGTS.<br><br>
+        <strong>Aviso prévio:</strong> 30 dias + 3 dias por ano de serviço (máximo 90 dias). Podes trabalhar os 30 dias ou receber compensação monetária.<br><br>
+        <strong>13º salário:</strong> proporcional aos meses trabalhados. Pago em duas parcelas (Novembro e Dezembro). Não pode ser parcelado no salário sem acordo especial.<br><br>
+        <strong>Férias:</strong> 30 dias após cada período de 12 meses. Direito a adicional de 1/3 sobre o salário de férias. Férias não tiradas até 12 meses após vencimento são pagas em dobro.
+      </div>
+    </div>
+
+    <div class="callout warn">
+      <div class="callout-label">⚠ Atenção — assédio e rescisão</div>
+      <div class="callout-text">PT: Se sofreres pressão para pedir demissão (rescisão por mútuo acordo forçada), documenta tudo por escrito. Tem direito a 50% da indemnização e pode aceder ao subsídio de desemprego. BR: Pedido de demissão "voluntário" pressuposto pelo empregador para evitar multa do FGTS é prática ilegal — procura a Defensoria Pública.</div>
+    </div>
+  </div>
+
+  <div class="ch-section">
+    <div class="section-title">Arrendamento e Despejo</div>
+    <div class="section-label">Direitos do inquilino</div>
+
+    <div class="compare">
+      <div class="compare-panel">
+        <div class="compare-flag"><span>🇵🇹</span><strong>Portugal — NRAU</strong></div>
+        <div class="compare-item"><strong>Actualização de renda:</strong> limitada ao coeficiente publicado anualmente pelo INE. Actualização acima desse valor é ilegal sem acordo do inquilino.</div>
+        <div class="compare-item"><strong>Aviso de despejo:</strong> para contratos sem prazo, mínimo de 2 anos de aviso com concessão se o proprietário quiser habitar ou demolir. Para fim de contrato com prazo, aviso de 60–240 dias conforme duração.</div>
+        <div class="compare-item"><strong>Obras obrigatórias:</strong> reparações estruturais são da responsabilidade do senhorio. Pequenas reparações do uso normal são do inquilino — verifica o contrato.</div>
+        <div class="compare-item"><strong>Despejo ilegal:</strong> o senhorio não pode cortar electricidade ou água, entrar sem autorização ou remover pertences. Denuncia à IHRU ou ao tribunal de pequena instância cível.</div>
+      </div>
+      <div class="compare-panel">
+        <div class="compare-flag"><span>🇧🇷</span><strong>Brasil — Lei do Inquilinato</strong></div>
+        <div class="compare-item"><strong>Reajuste anual:</strong> limitado ao índice contratual (normalmente IGPM ou IPCA). Reajuste superior exige renegociação e consentimento do inquilino.</div>
+        <div class="compare-item"><strong>Prazo para desocupação:</strong> em caso de retomada do imóvel pelo proprietário para uso próprio, mínimo de 30 dias após notificação (contratos acima de 30 meses) ou conforme decisão judicial.</div>
+        <div class="compare-item"><strong>Garantias:</strong> o proprietário só pode exigir uma das garantias (fiador, caução, seguro ou título de capitalização). Exigir duas é ilegal.</div>
+        <div class="compare-item"><strong>Vistorias:</strong> entra e saída do imóvel devem ter laudo de vistoria assinado por ambas as partes. Sem laudo de entrada, o inquilino não pode ser cobrado por danos pré-existentes.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ch-section">
+    <div class="section-title">Execução Fiscal e Dívidas</div>
+    <div class="section-label">O que podem e não podem penhorar</div>
+    <p class="prose">Quando há uma dívida em execução — seja ao Estado, banco ou credor particular — existe um conjunto de bens que a lei protege. Conhecer esses limites é fundamental para não aceitar acordos piores do que o que a lei garante.</p>
+
+    <div class="law-block">
+      <div class="law-title"><span class="law-flag">🇵🇹</span> Portugal — bens impenhoráveis</div>
+      <div class="law-body">
+        <strong>Salário:</strong> só pode ser penhorado o que exceder o salário mínimo nacional, até ao limite de 1/3 da quantia acima desse mínimo. Nunca podes ficar com menos que o SMN.<br><br>
+        <strong>Casa de habitação:</strong> a habitação própria e permanente tem protecção reforçada — execução hipotecária é possível mas tem processos mais longos e o tribunal pode suspender se houver menores ou pessoas vulneráveis.<br><br>
+        <strong>Bens essenciais:</strong> cama, roupas, instrumentos de trabalho necessários (até certo valor), alimentos para 1 mês.<br><br>
+        <strong>Prazo de prescrição:</strong> dívidas comerciais prescrevem geralmente em 5 anos. IRS prescreve em 8 anos após liquidação. Verifica sempre — dívidas prescritas não podem ser cobradas.
+      </div>
+    </div>
+
+    <div class="law-block">
+      <div class="law-title"><span class="law-flag">🇧🇷</span> Brasil — impenhorabilidade</div>
+      <div class="law-body">
+        <strong>Salário:</strong> impenhorável na totalidade para execuções não-alimentares (como dívidas bancárias). Excepção: pensão alimentícia.<br><br>
+        <strong>Bem de família:</strong> o único imóvel residencial da família é impenhorável (Lei 8.009/90). Mesmo em dívidas com garantia hipotecária, o bem de família tem protecção especial.<br><br>
+        <strong>Superendividamento:</strong> desde 2021 (Lei 14.181), consumidores em superendividamento têm direito a renegociação compulsória com todos os credores. Podes pedir ao juiz que convoque todos para uma renegociação de uma só vez.
+      </div>
+    </div>
+  </div>
+
+  <div class="ch-section">
+    <div class="section-title">Apoio Jurídico Gratuito</div>
+    <div class="section-label">Onde ir quando não podes pagar advogado</div>
+    <div class="compare">
+      <div class="compare-panel">
+        <div class="compare-flag"><span>🇵🇹</span><strong>Portugal</strong></div>
+        <div class="compare-item"><strong>Apoio Judiciário (DGSJ):</strong> Se o teu rendimento mensal bruto for até 3× o IAS (~€1.400), tens direito a apoio judiciário gratuito — inclui advogado nomeado. Pede em qualquer tribunal ou online no portaldocidadao.pt</div>
+        <div class="compare-item"><strong>Centros de Arbitragem de Conflitos de Consumo:</strong> Gratuitos para conflitos de consumo até €5.000. Resolução em 70 dias em média. consumerlaw.pt</div>
+        <div class="compare-item"><strong>APESPE / Sindicatos:</strong> Sindicatos prestam consultas jurídicas gratuitas a associados. Se tens sindicato no teu sector, usa — é para isso que existe.</div>
+        <div class="compare-item"><strong>Ordem dos Advogados — consultas gratuitas:</strong> A OA organiza periodicamente dias de consulta jurídica gratuita. Verifica no site da delegação da tua zona.</div>
+      </div>
+      <div class="compare-panel">
+        <div class="compare-flag"><span>🇧🇷</span><strong>Brasil</strong></div>
+        <div class="compare-item"><strong>Defensoria Pública:</strong> Presente em todos os estados. Assistência jurídica gratuita para quem não tem condições de contratar advogado. Cobre direito do trabalho, cível, família e criminal. Procura a Defensoria do teu estado.</div>
+        <div class="compare-item"><strong>PROCON:</strong> Conflitos com empresas, bancos e prestadores de serviço. Gratuito. Cada estado e muitos municípios têm o seu. Procon federal: consumidor.gov.br (resolução sem ir presencialmente).</div>
+        <div class="compare-item"><strong>JEC — Juizado Especial Cível:</strong> Para causas até 40 salários mínimos, podes litigar sem advogado até 20 SM. Gratuito e mais rápido que a justiça comum.</div>
+        <div class="compare-item"><strong>OAB — Escritórios Modelo:</strong> Faculdades de direito têm escritórios de prática que prestam assistência jurídica gratuita supervisionada por professores.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="ch-nav">
+  <div class="ch-nav-inner">
+    <a href="cap05.html" class="ch-nav-link">
+      <small>← Capítulo 05</small>
+      Conhecimento que Não se Perde
+    </a>
+    <a href="cap07.html" class="ch-nav-link next">
+      <small>Capítulo 07 →</small>
+      Casa e Vida Doméstica
+    </a>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-logo">GUIA DE SOBREVIVÊNCIA URBANA</div>
+  <div class="footer-meta">Sem publicidade · Sem afiliados · Sem agenda<br>Conteúdo licenciado sob CC BY-SA 4.0<br>Última revisão: Abril 2026</div>
+</footer>
+</body>
+</html>
