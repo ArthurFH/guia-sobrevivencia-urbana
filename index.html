@@ -336,28 +336,25 @@
 
   @media (max-width: 600px) {
     .chapter-card {
-      display: flex;
-      align-items: flex-start;
-      gap: 16px;
-      padding: 20px;
-      flex-direction: row;
+      display: block;
+      padding: 16px;
+      height: auto;
+      overflow: visible;
+      white-space: normal;
+      text-overflow: clip;
     }
     .chapter-card[style*="grid-column"] {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 8px;
+      display: block;
+      padding: 16px;
     }
     .chapter-card[style*="grid-column"] span {
       display: none;
     }
     .chapter-num {
       font-size: 32px;
-      flex-shrink: 0;
       line-height: 1;
       color: var(--border);
-      margin-bottom: 0;
-      min-width: 40px;
-      text-align: center;
+      margin-bottom: 8px;
     }
     .chapter-card:hover .chapter-num {
       color: var(--accent);
@@ -367,14 +364,19 @@
       font-size: 14px;
       font-weight: 600;
       margin-bottom: 6px;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
     }
     .chapter-desc {
       font-size: 11px;
       line-height: 1.5;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
     }
     .chapter-tags {
       margin-top: 10px;
       gap: 4px;
+      flex-wrap: wrap;
     }
     .ctag {
       font-size: 8px;
