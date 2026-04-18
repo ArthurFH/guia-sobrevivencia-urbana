@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GSU — Administração</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:        #0d0d0d;
+    --bg2:       #141414;
+    --bg3:       #1a1a1a;
+    --border:    #2a2a2a;
+    --text:      #d4cfc8;
+    --text-dim:  #6b6560;
+    --accent:    #e8c547;
+    --accent2:   #c0392b;
+    --accent3:   #2ecc71;
+    --mono:      'IBM Plex Mono', monospace;
+    --sans:      'IBM Plex Sans', sans-serif;
+    --display:   'Bebas Neue', sans-serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-weight: 300;
+    line-height: 1.7;
+  }
+  #auth-overlay {
+    position: fixed; inset: 0;
+    background: var(--bg);
+    display: flex; align-items: center; justify-content: center;
+    z-index: 9999;
+  }
+  .auth-box {
+    border: 1px solid var(--border);
+    padding: 48px 40px;
+    width: 360px;
+    background: var(--bg2);
+  }
+  .auth-logo {
+    font-family: var(--display);
+    font-size: 28px;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+  .auth-sub {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    margin-bottom: 32px;
+  }
+  .auth-error {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--accent2);
+    margin-bottom: 16px;
+    display: none;
+  }
+  .field { margin-bottom: 20px; }
+  .field label {
+    display: block;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 8px;
+  }
+  input, textarea, select {
+    width: 100%;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-family: var(--mono);
+    font-size: 13px;
+    padding: 10px 14px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  input:focus, textarea:focus, select:focus { border-color: var(--accent); }
+  textarea { resize: vertical; min-height: 80px; }
+  select option { background: var(--bg3); }
+  .btn {
+    background: var(--accent);
+    color: #0d0d0d;
+    border: none;
+    padding: 12px 24px;
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s;
+    width: 100%;
+  }
+  .btn:hover { background: #f5d55a; }
+  .btn-sm {
+    width: auto;
+    padding: 6px 14px;
+    font-size: 10px;
+  }
+  .btn-danger {
+    background: #1f0e0e;
+    color: var(--accent2);
+    border: 1px solid var(--accent2);
+  }
+  .btn-danger:hover { background: var(--accent2); color: #fff; }
+
+  /* LAYOUT ADMIN */
+  header {
+    border-bottom: 1px solid var(--border);
+    padding: 0 40px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--bg);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+  .header-logo { font-family: var(--display); font-size: 20px; letter-spacing: 0.08em; color: var(--accent); }
+  .header-badge {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent2);
+    border: 1px solid var(--accent2);
+    padding: 3px 10px;
+  }
+  .main { max-width: 1100px; margin: 0 auto; padding: 48px 40px; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; }
+
+  .panel {
+    border: 1px solid var(--border);
+    background: var(--bg2);
+  }
+  .panel-header {
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .panel-title {
+    font-family: var(--display);
+    font-size: 22px;
+    letter-spacing: 0.05em;
+    color: #fff;
+  }
+  .panel-count {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text-dim);
+    letter-spacing: 0.1em;
+  }
+  .panel-form { padding: 24px; border-bottom: 1px solid var(--border); }
+  .panel-form-title {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 20px;
+  }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .panel-list { padding: 0; }
+
+  .list-item {
+    padding: 16px 24px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  .list-item:last-child { border-bottom: none; }
+  .list-item-body { flex: 1; min-width: 0; }
+  .list-item-id {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text-dim);
+    letter-spacing: 0.08em;
+    margin-bottom: 4px;
+  }
+  .list-item-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 4px;
+    line-height: 1.4;
+    word-break: break-word;
+  }
+  .list-item-meta {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+  .badge {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    padding: 2px 8px;
+    text-transform: uppercase;
+  }
+  .badge-golpe   { background: #1f0e0e; color: var(--accent2); }
+  .badge-lei     { background: #0e1218; color: #5dade2; }
+  .badge-tool    { background: #0e1f12; color: var(--accent3); }
+  .badge-update  { background: #1f1a0e; color: var(--accent); }
+  .badge-phishing { background: #1f0e0e; color: #e67e22; }
+  .badge-aviso   { background: #1f1a0e; color: var(--accent); }
+  .badge-ativo   { background: #0e1f12; color: var(--accent3); }
+  .badge-inativo { background: #1f0e0e; color: var(--text-dim); }
+  .badge-pt      { background: #0a0e1a; color: #5dade2; }
+  .badge-br      { background: #0e1a0a; color: var(--accent3); }
+  .badge-ambos   { background: #1a1a0a; color: var(--accent); }
+
+  .empty-state {
+    padding: 32px 24px;
+    text-align: center;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-dim);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* TOAST */
+  .toast {
+    position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(80px);
+    background: var(--bg3); border: 1px solid var(--border);
+    color: var(--text); font-family: var(--mono); font-size: 11px;
+    letter-spacing: 0.1em; padding: 12px 24px;
+    transition: transform 0.3s ease; z-index: 9998;
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+  .toast.ok   { border-color: var(--accent3); color: var(--accent3); }
+  .toast.err  { border-color: var(--accent2); color: var(--accent2); }
+
+  .spinner {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text-dim);
+    letter-spacing: 0.1em;
+  }
+
+  @media (max-width: 900px) {
+    .main { padding: 24px 20px; }
+    .grid-2 { grid-template-columns: 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+    header { padding: 0 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- AUTH OVERLAY -->
+<div id="auth-overlay">
+  <div class="auth-box">
+    <div class="auth-logo">GSU</div>
+    <div class="auth-sub">Área de Administração</div>
+    <div class="auth-error" id="auth-error">Password incorrecta. Tenta novamente.</div>
+    <div class="field">
+      <label>Password</label>
+      <input type="password" id="auth-input" placeholder="••••••••" autocomplete="current-password">
+    </div>
+    <button class="btn" onclick="checkAuth()">Entrar →</button>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- HEADER -->
+<header>
+  <div class="header-logo">GSU — Admin</div>
+  <span class="header-badge">Uso Pessoal</span>
+</header>
+
+<!-- MAIN -->
+<div class="main">
+  <div class="grid-2">
+
+    <!-- ===== ALERTAS ===== -->
+    <div>
+      <div class="panel">
+        <div class="panel-header">
+          <div class="panel-title">Alertas</div>
+          <div class="panel-count" id="alert-count">a carregar...</div>
+        </div>
+
+        <!-- Formulário novo alerta -->
+        <div class="panel-form">
+          <div class="panel-form-title">+ Novo Alerta</div>
+          <div class="field">
+            <label>ID (único, sem espaços)</label>
+            <input type="text" id="a-id" placeholder="alert-nome-abr26">
+          </div>
+          <div class="form-row">
+            <div class="field">
+              <label>Tipo</label>
+              <select id="a-tipo">
+                <option value="golpe">Golpe</option>
+                <option value="phishing">Phishing</option>
+                <option value="fraude">Fraude</option>
+                <option value="aviso">Aviso</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>País</label>
+              <select id="a-pais">
+                <option value="PT">🇵🇹 Portugal</option>
+                <option value="BR">🇧🇷 Brasil</option>
+                <option value="ambos">🇵🇹🇧🇷 Ambos</option>
+              </select>
+            </div>
+          </div>
+          <div class="field">
+            <label>Título</label>
+            <input type="text" id="a-titulo" placeholder="Título breve e descritivo">
+          </div>
+          <div class="field">
+            <label>Descrição</label>
+            <textarea id="a-descricao" placeholder="Descrição detalhada do alerta..."></textarea>
+          </div>
+          <div class="field" style="display:flex;align-items:center;gap:10px;">
+            <input type="checkbox" id="a-ativo" checked style="width:auto;cursor:pointer;">
+            <label for="a-ativo" style="margin:0;cursor:pointer;">Alerta activo (visível no site)</label>
+          </div>
+          <button class="btn btn-sm" onclick="addAlert()" style="width:auto;">Adicionar Alerta</button>
+        </div>
+
+        <!-- Lista de alertas -->
+        <div class="panel-list" id="alerts-list">
+          <div class="empty-state spinner">a carregar...</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== CHANGELOG ===== -->
+    <div>
+      <div class="panel">
+        <div class="panel-header">
+          <div class="panel-title">Changelog</div>
+          <div class="panel-count" id="changelog-count">a carregar...</div>
+        </div>
+
+        <!-- Formulário novo changelog -->
+        <div class="panel-form">
+          <div class="panel-form-title">+ Nova Entrada</div>
+          <div class="field">
+            <label>ID (único, sem espaços)</label>
+            <input type="text" id="c-id" placeholder="log-nome-abr26">
+          </div>
+          <div class="form-row">
+            <div class="field">
+              <label>Data</label>
+              <input type="date" id="c-data">
+            </div>
+            <div class="field">
+              <label>Tipo</label>
+              <select id="c-tipo">
+                <option value="golpe">Golpe</option>
+                <option value="lei">Lei</option>
+                <option value="ferramenta">Ferramenta</option>
+                <option value="actualizacao">Actualização</option>
+              </select>
+            </div>
+          </div>
+          <div class="field">
+            <label>País</label>
+            <select id="c-pais">
+              <option value="PT">🇵🇹 Portugal</option>
+              <option value="BR">🇧🇷 Brasil</option>
+              <option value="ambos">🇵🇹🇧🇷 Ambos</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Título</label>
+            <input type="text" id="c-titulo" placeholder="Título da entrada">
+          </div>
+          <div class="field">
+            <label>Descrição</label>
+            <textarea id="c-descricao" placeholder="Descrição da actualização..."></textarea>
+          </div>
+          <button class="btn btn-sm" onclick="addChangelog()" style="width:auto;">Adicionar Entrada</button>
+        </div>
+
+        <!-- Lista de changelog -->
+        <div class="panel-list" id="changelog-list">
+          <div class="empty-state spinner">a carregar...</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+// ============================================================
+// CONFIG — alterar password aqui se necessário
+// ============================================================
+const ADMIN_PASSWORD = 'gsu-admin';
+
+const SUPABASE_URL      = 'https://bktsmktrvsjcarjxmpub.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJrdHNta3RydnNqY2FyanhtcHViIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY0NTI5MjgsImV4cCI6MjA5MjAyODkyOH0.WRxyX0hOs-gSEEvV5u76ZqvSWMorH5mH1bpQAha2nTY';
+
+// ============================================================
+// AUTH
+// ============================================================
+function checkAuth() {
+  const val = document.getElementById('auth-input').value;
+  if (val === ADMIN_PASSWORD) {
+    document.getElementById('auth-overlay').style.display = 'none';
+    init();
+  } else {
+    document.getElementById('auth-error').style.display = 'block';
+    document.getElementById('auth-input').value = '';
+    document.getElementById('auth-input').focus();
+  }
+}
+document.getElementById('auth-input').addEventListener('keydown', e => {
+  if (e.key === 'Enter') checkAuth();
+});
+
+// ============================================================
+// SUPABASE CLIENT
+// ============================================================
+async function sb(method, table, body = null, params = '', extraHeaders = {}) {
+  const url = `${SUPABASE_URL}/rest/v1/${table}${params}`;
+  const res = await fetch(url, {
+    method,
+    headers: {
+      'apikey':        SUPABASE_ANON_KEY,
+      'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+      'Content-Type':  'application/json',
+      'Prefer':        'return=representation',
+      ...extraHeaders
+    },
+    body: body ? JSON.stringify(body) : undefined
+  });
+  const text = await res.text();
+  if (!res.ok) throw new Error(`${res.status}: ${text}`);
+  return text ? JSON.parse(text) : [];
+}
+
+// ============================================================
+// TOAST
+// ============================================================
+function toast(msg, type = '') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = `toast ${type} show`;
+  setTimeout(() => { t.className = 'toast'; }, 3000);
+}
+
+// ============================================================
+// HELPERS
+// ============================================================
+const PAIS_FLAGS   = { PT: '🇵🇹 PT', BR: '🇧🇷 BR', ambos: '🇵🇹🇧🇷 Ambos' };
+const PAIS_BADGE   = { PT: 'badge-pt', BR: 'badge-br', ambos: 'badge-ambos' };
+const TIPO_BADGE_A = { phishing: 'badge-phishing', golpe: 'badge-golpe', fraude: 'badge-golpe', aviso: 'badge-aviso' };
+const TIPO_BADGE_C = { golpe: 'badge-golpe', lei: 'badge-lei', ferramenta: 'badge-tool', actualizacao: 'badge-update' };
+
+function formatDate(str) {
+  if (!str) return '—';
+  const meses = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
+  const d = new Date(str + (str.length === 10 ? 'T00:00:00' : ''));
+  return `${meses[d.getUTCMonth()]} ${d.getUTCFullYear()}`;
+}
+
+function slugify(str) {
+  return str.toLowerCase()
+    .replace(/[áàãâ]/g, 'a').replace(/[éê]/g, 'e').replace(/[íî]/g, 'i')
+    .replace(/[óõô]/g, 'o').replace(/[úû]/g, 'u').replace(/ç/g, 'c')
+    .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+}
+
+// ============================================================
+// ALERTAS
+// ============================================================
+async function loadAlerts() {
+  const listEl  = document.getElementById('alerts-list');
+  const countEl = document.getElementById('alert-count');
+  try {
+    const data = await sb('GET', 'alerts', null, '?order=created_at.desc');
+    countEl.textContent = `${data.length} registo${data.length !== 1 ? 's' : ''}`;
+    if (data.length === 0) {
+      listEl.innerHTML = '<div class="empty-state">Sem alertas</div>';
+      return;
+    }
+    listEl.innerHTML = data.map(a => `
+      <div class="list-item" id="alert-row-${a.id}">
+        <div class="list-item-body">
+          <div class="list-item-id">${a.id}</div>
+          <div class="list-item-title">${escHtml(a.titulo)}</div>
+          <div class="list-item-meta">
+            <span class="badge ${TIPO_BADGE_A[a.tipo] || 'badge-golpe'}">${a.tipo}</span>
+            <span class="badge ${PAIS_BADGE[a.pais] || ''}">${PAIS_FLAGS[a.pais] || a.pais}</span>
+            <span class="badge ${a.ativo ? 'badge-ativo' : 'badge-inativo'}">${a.ativo ? 'Ativo' : 'Inativo'}</span>
+          </div>
+        </div>
+        <button class="btn btn-sm btn-danger" onclick="deleteAlert('${escHtml(a.id)}')">Eliminar</button>
+      </div>
+    `).join('');
+  } catch (e) {
+    listEl.innerHTML = `<div class="empty-state" style="color:var(--accent2)">Erro: ${escHtml(e.message)}</div>`;
+    countEl.textContent = 'erro';
+  }
+}
+
+async function addAlert() {
+  const id       = document.getElementById('a-id').value.trim();
+  const tipo     = document.getElementById('a-tipo').value;
+  const pais     = document.getElementById('a-pais').value;
+  const titulo   = document.getElementById('a-titulo').value.trim();
+  const descricao= document.getElementById('a-descricao').value.trim();
+  const ativo    = document.getElementById('a-ativo').checked;
+
+  if (!id || !titulo || !descricao) {
+    toast('Preenche todos os campos obrigatórios.', 'err'); return;
+  }
+  try {
+    await sb('POST', 'alerts', [{ id, tipo, titulo, descricao, pais, ativo }], '',
+      { 'Prefer': 'resolution=ignore-duplicates,return=minimal' });
+    toast('✓ Alerta adicionado.', 'ok');
+    document.getElementById('a-id').value = '';
+    document.getElementById('a-titulo').value = '';
+    document.getElementById('a-descricao').value = '';
+    loadAlerts();
+  } catch (e) {
+    toast(`Erro: ${e.message}`, 'err');
+  }
+}
+
+async function deleteAlert(id) {
+  if (!confirm(`Eliminar alerta "${id}"?`)) return;
+  try {
+    await sb('DELETE', 'alerts', null, `?id=eq.${encodeURIComponent(id)}`, { 'Prefer': 'return=minimal' });
+    document.getElementById(`alert-row-${id}`)?.remove();
+    toast('✓ Alerta eliminado.', 'ok');
+    const listEl = document.getElementById('alerts-list');
+    if (!listEl.querySelector('.list-item')) {
+      listEl.innerHTML = '<div class="empty-state">Sem alertas</div>';
+    }
+    loadAlerts(); // refresh count
+  } catch (e) {
+    toast(`Erro: ${e.message}`, 'err');
+  }
+}
+
+// ============================================================
+// CHANGELOG
+// ============================================================
+async function loadChangelog() {
+  const listEl  = document.getElementById('changelog-list');
+  const countEl = document.getElementById('changelog-count');
+  try {
+    const data = await sb('GET', 'changelog', null, '?order=data.desc');
+    countEl.textContent = `${data.length} registo${data.length !== 1 ? 's' : ''}`;
+    if (data.length === 0) {
+      listEl.innerHTML = '<div class="empty-state">Sem entradas</div>';
+      return;
+    }
+    listEl.innerHTML = data.map(c => `
+      <div class="list-item" id="changelog-row-${c.id}">
+        <div class="list-item-body">
+          <div class="list-item-id">${c.id}</div>
+          <div class="list-item-title">${escHtml(c.titulo)}</div>
+          <div class="list-item-meta">
+            <span class="badge ${TIPO_BADGE_C[c.tipo] || 'badge-update'}">${c.tipo}</span>
+            <span class="badge ${PAIS_BADGE[c.pais] || ''}">${PAIS_FLAGS[c.pais] || c.pais}</span>
+            <span style="font-family:var(--mono);font-size:10px;color:var(--text-dim);">${formatDate(c.data)}</span>
+          </div>
+        </div>
+        <button class="btn btn-sm btn-danger" onclick="deleteChangelog('${escHtml(c.id)}')">Eliminar</button>
+      </div>
+    `).join('');
+  } catch (e) {
+    listEl.innerHTML = `<div class="empty-state" style="color:var(--accent2)">Erro: ${escHtml(e.message)}</div>`;
+    countEl.textContent = 'erro';
+  }
+}
+
+async function addChangelog() {
+  const id       = document.getElementById('c-id').value.trim();
+  const data     = document.getElementById('c-data').value;
+  const tipo     = document.getElementById('c-tipo').value;
+  const pais     = document.getElementById('c-pais').value;
+  const titulo   = document.getElementById('c-titulo').value.trim();
+  const descricao= document.getElementById('c-descricao').value.trim();
+
+  if (!id || !data || !titulo || !descricao) {
+    toast('Preenche todos os campos obrigatórios.', 'err'); return;
+  }
+  try {
+    await sb('POST', 'changelog', [{ id, data, tipo, titulo, descricao, pais }], '',
+      { 'Prefer': 'resolution=ignore-duplicates,return=minimal' });
+    toast('✓ Entrada adicionada.', 'ok');
+    document.getElementById('c-id').value = '';
+    document.getElementById('c-data').value = '';
+    document.getElementById('c-titulo').value = '';
+    document.getElementById('c-descricao').value = '';
+    loadChangelog();
+  } catch (e) {
+    toast(`Erro: ${e.message}`, 'err');
+  }
+}
+
+async function deleteChangelog(id) {
+  if (!confirm(`Eliminar entrada "${id}"?`)) return;
+  try {
+    await sb('DELETE', 'changelog', null, `?id=eq.${encodeURIComponent(id)}`, { 'Prefer': 'return=minimal' });
+    document.getElementById(`changelog-row-${id}`)?.remove();
+    toast('✓ Entrada eliminada.', 'ok');
+    loadChangelog(); // refresh count
+  } catch (e) {
+    toast(`Erro: ${e.message}`, 'err');
+  }
+}
+
+// ============================================================
+// UTIL
+// ============================================================
+function escHtml(str) {
+  return String(str)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// ============================================================
+// INIT (chamado após autenticação)
+// ============================================================
+function init() {
+  // Definir data de hoje no campo de data do changelog
+  document.getElementById('c-data').value = new Date().toISOString().slice(0,10);
+  loadAlerts();
+  loadChangelog();
+}
+</script>
+</body>
+</html>

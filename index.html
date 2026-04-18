@@ -725,14 +725,12 @@
 <script>
 // ============================================================
 // CONFIGURAÇÃO SUPABASE
-// Substitui pelos teus valores reais do projecto Supabase
 // ============================================================
-const SUPABASE_URL = 'https://bktsmktrvsjcarjxmpub.supabase.co';
+const SUPABASE_URL      = 'https://bktsmktrvsjcarjxmpub.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJrdHNta3RydnNqY2FyanhtcHViIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY0NTI5MjgsImV4cCI6MjA5MjAyODkyOH0.WRxyX0hOs-gSEEvV5u76ZqvSWMorH5mH1bpQAha2nTY';
 
 // ============================================================
-// DADOS DO SITE (gerados pelo Cowork e colados aqui)
-// Cada entrada tem um id único e estável
+// DADOS HARDCODED — fallback se Supabase não responder
 // ============================================================
 const ALERTS = [
   {
@@ -840,17 +838,70 @@ const CHANGELOG = [
 ];
 
 // ============================================================
+// SEED DATA — formato DB para inserir no Supabase (idempotente)
+// ============================================================
+const ALERTS_SEED = [
+  { id: 'alert-irs-phishing-abr26', tipo: 'phishing',
+    titulo:   'Phishing IRS 2026 — SMS e emails falsos da Autoridade Tributária',
+    descricao: 'Criminosos enviam SMS e emails a imitar o Fisco, alegando reembolsos ou dívidas, com links para páginas falsas que roubam dados e credenciais. O Fisco nunca envia links por SMS ou email a pedir dados pessoais.',
+    pais: 'PT', ativo: true, created_at: '2026-04-01T00:00:00Z' },
+  { id: 'alert-pix-cpf-ir-abr26', tipo: 'golpe',
+    titulo:   'Golpe Pix: CPF usado como chave para desviar restituição do IR',
+    descricao: 'Criminosos abrem contas em nomes de terceiros e registam o CPF da vítima como chave Pix. A restituição do Imposto de Renda vai parar na conta do golpista. Verifique a sua chave Pix no app do banco antes da restituição.',
+    pais: 'BR', ativo: true, created_at: '2026-04-01T00:00:00Z' },
+  { id: 'alert-mbway-sms-abr25', tipo: 'golpe',
+    titulo:   'Golpe MB Way com SMS falso do CTT',
+    descricao: 'Mensagem pede confirmação de entrega com link que redireciona para página falsa do banco.',
+    pais: 'PT', ativo: true, created_at: '2025-04-01T00:00:00Z' }
+];
+
+const CHANGELOG_SEED = [
+  { id: 'log-irs-phishing-abr26',  data: '2026-04-01', tipo: 'golpe',
+    titulo:   'Alerta IRS 2026 — phishing e smishing fiscal em alta',
+    descricao: 'Adicionado ao Capítulo 2. SMS e emails falsos a imitar o Fisco aumentam na época de entrega do IRS.',
+    pais: 'PT' },
+  { id: 'log-pix-cpf-ir-abr26',   data: '2026-04-01', tipo: 'golpe',
+    titulo:   'Golpe Pix + CPF a desviar restituição do IR 2026',
+    descricao: 'Adicionado ao Capítulo 2. Criminosos registam CPF de vítimas como chave Pix para interceptar reembolso do Imposto de Renda.',
+    pais: 'BR' },
+  { id: 'log-pix-med-fev26',       data: '2026-02-01', tipo: 'ferramenta',
+    titulo:   'Novas regras Pix — MED 2.0 em vigor desde fevereiro',
+    descricao: 'Banco Central lançou mecanismo que rastreia dinheiro após múltiplas transferências. Bancos podem bloquear contas suspeitas por 72h e devolver valores em até 11 dias.',
+    pais: 'BR' },
+  { id: 'log-mbway-abr25',         data: '2025-04-01', tipo: 'golpe',
+    titulo:   'Novo golpe do MB Way via SMS do CTT',
+    descricao: 'Adicionado ao Capítulo 2. Link na mensagem vai para domínio falso do BCP/CGD.',
+    pais: 'PT' },
+  { id: 'log-nrau-mar25',          data: '2025-03-01', tipo: 'lei',
+    titulo:   'Atualização Capítulo 6 — Nova lei de arrendamento',
+    descricao: 'Limites de atualização de renda revistos. Novas regras para contratos a partir de 2025.',
+    pais: 'PT' },
+  { id: 'log-pix-mar25',           data: '2025-03-01', tipo: 'golpe',
+    titulo:   'Golpe do Pix com comprovante falso',
+    descricao: 'Técnica em alta em grupos de Facebook Marketplace e OLX. Adicionado ao Capítulo 2.',
+    pais: 'BR' },
+  { id: 'log-anki-fev25',          data: '2025-02-01', tipo: 'ferramenta',
+    titulo:   'Ferramenta adicionada — Anki para aprendizagem de línguas',
+    descricao: 'Capítulo 5 atualizado com guia de uso do Anki com decks gratuitos por idioma.',
+    pais: 'ambos' },
+  { id: 'log-iefp-jan25',          data: '2025-01-01', tipo: 'actualizacao',
+    titulo:   'Prazo IEFP — atualização do prazo para registo',
+    descricao: 'Prazo confirmado em 90 dias após demissão para não perder subsídio. Checklist atualizada.',
+    pais: 'PT' }
+];
+
+// ============================================================
 // SUPABASE CLIENT (fetch directo, sem SDK)
 // ============================================================
-async function supabaseQuery(method, table, body = null, params = '') {
+async function supabaseQuery(method, table, body = null, params = '', extraHeaders = {}) {
   const url = `${SUPABASE_URL}/rest/v1/${table}${params}`;
   const opts = {
     method,
     headers: {
-      'apikey': SUPABASE_ANON_KEY,
+      'apikey':        SUPABASE_ANON_KEY,
       'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
-      'Content-Type': 'application/json',
-      'Prefer': method === 'POST' ? 'resolution=merge-duplicates' : ''
+      'Content-Type':  'application/json',
+      ...extraHeaders
     }
   };
   if (body) opts.body = JSON.stringify(body);
@@ -859,13 +910,98 @@ async function supabaseQuery(method, table, body = null, params = '') {
   return res.json().catch(() => []);
 }
 
-// Busca contagem de votos para uma lista de IDs
+// ============================================================
+// SEED SUPABASE (idempotente — INSERT OR IGNORE)
+// ============================================================
+async function seedSupabase() {
+  try {
+    await supabaseQuery('POST', 'alerts',    ALERTS_SEED,    '', { 'Prefer': 'resolution=ignore-duplicates,return=minimal' });
+    await supabaseQuery('POST', 'changelog', CHANGELOG_SEED, '', { 'Prefer': 'resolution=ignore-duplicates,return=minimal' });
+  } catch(e) {
+    console.warn('Seed Supabase (non-fatal):', e.message);
+  }
+}
+
+// ============================================================
+// HELPERS: converter formato DB → formato display
+// ============================================================
+const MESES_PT   = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
+const PAIS_FLAGS = { PT: ['🇵🇹'], BR: ['🇧🇷'], ambos: ['🇵🇹','🇧🇷'] };
+
+const TIPO_ALERT_MAP = {
+  phishing: { tag: 'danger', label: 'Phishing' },
+  golpe:    { tag: 'danger', label: 'Golpe Ativo' },
+  fraude:   { tag: 'danger', label: 'Fraude' },
+  aviso:    { tag: 'info',   label: 'Aviso' }
+};
+
+const TIPO_CHANGELOG_MAP = {
+  golpe:        { badge: 'badge-golpe',  label: 'Golpe' },
+  lei:          { badge: 'badge-lei',    label: 'Lei' },
+  ferramenta:   { badge: 'badge-tool',   label: 'Ferramenta' },
+  actualizacao: { badge: 'badge-update', label: 'Actualização' }
+};
+
+function fmtDateTS(ts) {
+  const d = new Date(ts);
+  return `${MESES_PT[d.getUTCMonth()]} ${d.getUTCFullYear()}`;
+}
+
+function fmtDateStr(str) {
+  // str = 'YYYY-MM-DD'
+  const parts = str.split('-');
+  return `${MESES_PT[parseInt(parts[1]) - 1]} ${parts[0]}`;
+}
+
+function alertFromDB(row) {
+  const t = TIPO_ALERT_MAP[row.tipo] || { tag: 'info', label: row.tipo };
+  return {
+    id:       row.id,
+    date:     fmtDateTS(row.created_at),
+    flags:    PAIS_FLAGS[row.pais] || ['🌍'],
+    title:    row.titulo,
+    body:     row.descricao,
+    tag:      t.tag,
+    tagLabel: t.label
+  };
+}
+
+function changelogFromDB(row) {
+  const t = TIPO_CHANGELOG_MAP[row.tipo] || { badge: 'badge-update', label: row.tipo };
+  return {
+    id:        row.id,
+    date:      fmtDateStr(row.data),
+    flags:     PAIS_FLAGS[row.pais] || ['🌍'],
+    title:     row.titulo,
+    body:      row.descricao,
+    badge:     t.badge,
+    badgeLabel:t.label
+  };
+}
+
+// ============================================================
+// FETCH DE DADOS DO SUPABASE
+// ============================================================
+async function fetchAlertsFromDB() {
+  const data = await supabaseQuery('GET', 'alerts', null,
+    '?ativo=eq.true&order=created_at.desc');
+  return data.map(alertFromDB);
+}
+
+async function fetchChangelogFromDB() {
+  const data = await supabaseQuery('GET', 'changelog', null,
+    '?order=data.desc');
+  return data.map(changelogFromDB);
+}
+
+// ============================================================
+// VOTOS — busca contagem para lista de IDs
+// ============================================================
 async function fetchVoteCounts(ids) {
   try {
     const idList = ids.map(id => `"${id}"`).join(',');
-    const data = await supabaseQuery('GET', 'votes', null,
-      `?select=entry_id,vote_type&entry_id=in.(${idList})`
-    );
+    const data   = await supabaseQuery('GET', 'votes', null,
+      `?select=entry_id,vote_type&entry_id=in.(${idList})`);
     const counts = {};
     ids.forEach(id => { counts[id] = { up: 0, down: 0 }; });
     data.forEach(row => {
@@ -873,7 +1009,7 @@ async function fetchVoteCounts(ids) {
     });
     return counts;
   } catch {
-    return null; // Supabase não configurado ainda
+    return null;
   }
 }
 
@@ -881,11 +1017,9 @@ async function fetchVoteCounts(ids) {
 async function castVote(entryId, voteType) {
   const fp = await getFingerprint();
   try {
-    await supabaseQuery('POST', 'votes', {
-      entry_id: entryId,
-      vote_type: voteType,
-      fingerprint: fp
-    });
+    await supabaseQuery('POST', 'votes',
+      { entry_id: entryId, vote_type: voteType, fingerprint: fp },
+      '', { 'Prefer': 'resolution=merge-duplicates' });
     return true;
   } catch {
     return false;
@@ -924,8 +1058,8 @@ function showToast(msg, type = '') {
 // RENDER VOTE BUTTONS
 // ============================================================
 function renderVoteButtons(entryId, counts, container) {
-  const up   = counts ? counts.up   : '—';
-  const down = counts ? counts.down : '—';
+  const up    = counts ? counts.up   : '—';
+  const down  = counts ? counts.down : '—';
   const voted = sessionVotes[entryId];
 
   container.innerHTML = `
@@ -947,14 +1081,14 @@ async function handleVote(entryId, type, btn) {
   sessionVotes[entryId] = type;
 
   // UI otimista
-  const row = btn.closest('.vote-row, .changelog-votes');
+  const row  = btn.closest('.vote-row, .changelog-votes');
   const btns = row.querySelectorAll('.vote-btn');
   btns.forEach(b => { b.disabled = true; });
   btn.classList.add(type === 'up' ? 'voted-up' : 'voted-down');
 
   // Incrementa contador visualmente
-  const countEl = btn.querySelector(type === 'up' ? '.up-count' : '.dn-count');
-  const current = parseInt(countEl.textContent) || 0;
+  const countEl  = btn.querySelector(type === 'up' ? '.up-count' : '.dn-count');
+  const current  = parseInt(countEl.textContent) || 0;
   countEl.textContent = current + 1;
 
   const ok = await castVote(entryId, type);
@@ -963,22 +1097,27 @@ async function handleVote(entryId, type, btn) {
     down: ['✓ Obrigado — vamos avaliar a relevância', 'down']
   };
   showToast(...msgs[type]);
-
-  if (!ok) {
-    // Supabase não configurado — funciona só na sessão
-    console.warn('Voto registado apenas em sessão. Configura o Supabase para persistir.');
-  }
+  if (!ok) console.warn('Voto registado só na sessão. Supabase não respondeu.');
 }
 
 // ============================================================
-// RENDER ALERTAS
+// RENDER ALERTAS — Supabase primeiro, fallback se falhar
 // ============================================================
 async function renderAlerts() {
   const container = document.getElementById('alerts-container');
-  const ids = ALERTS.map(a => a.id);
+
+  let alerts = ALERTS; // fallback por defeito
+  try {
+    const dbAlerts = await fetchAlertsFromDB();
+    if (dbAlerts.length > 0) alerts = dbAlerts;
+  } catch(e) {
+    console.warn('Alertas do Supabase indisponíveis, a usar dados locais:', e.message);
+  }
+
+  const ids    = alerts.map(a => a.id);
   const counts = await fetchVoteCounts(ids);
 
-  container.innerHTML = ALERTS.map(alert => `
+  container.innerHTML = alerts.map(alert => `
     <div class="alert-item">
       <div class="alert-date">
         ${alert.flags.map(f => `<span class="flag">${f}</span>`).join('')}
@@ -995,21 +1134,30 @@ async function renderAlerts() {
     </div>
   `).join('');
 
-  ALERTS.forEach(alert => {
+  alerts.forEach(alert => {
     const vr = document.getElementById(`vr-${alert.id}`);
     if (vr) renderVoteButtons(alert.id, counts ? counts[alert.id] : null, vr);
   });
 }
 
 // ============================================================
-// RENDER CHANGELOG
+// RENDER CHANGELOG — Supabase primeiro, fallback se falhar
 // ============================================================
 async function renderChangelog() {
   const container = document.getElementById('changelog-container');
-  const ids = CHANGELOG.map(e => e.id);
+
+  let changelog = CHANGELOG; // fallback por defeito
+  try {
+    const dbChangelog = await fetchChangelogFromDB();
+    if (dbChangelog.length > 0) changelog = dbChangelog;
+  } catch(e) {
+    console.warn('Changelog do Supabase indisponível, a usar dados locais:', e.message);
+  }
+
+  const ids    = changelog.map(e => e.id);
   const counts = await fetchVoteCounts(ids);
 
-  container.innerHTML = CHANGELOG.map(entry => `
+  container.innerHTML = changelog.map(entry => `
     <div class="changelog-entry">
       <div class="changelog-meta">
         <div class="changelog-date">${entry.date}</div>
@@ -1026,7 +1174,7 @@ async function renderChangelog() {
     </div>
   `).join('');
 
-  CHANGELOG.forEach(entry => {
+  changelog.forEach(entry => {
     const cv = document.getElementById(`cv-${entry.id}`);
     if (cv) renderVoteButtons(entry.id, counts ? counts[entry.id] : null, cv);
   });
@@ -1036,6 +1184,9 @@ async function renderChangelog() {
 // INIT
 // ============================================================
 document.addEventListener('DOMContentLoaded', () => {
+  // Seed em background (idempotente — ON CONFLICT DO NOTHING)
+  seedSupabase();
+  // Render
   renderAlerts();
   renderChangelog();
 });
