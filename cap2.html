@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cap. 2 — Segurança Digital e Golpes | Guia de Sobrevivência Urbana</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:        #0d0d0d;
+    --bg2:       #141414;
+    --bg3:       #1a1a1a;
+    --border:    #2a2a2a;
+    --text:      #d4cfc8;
+    --text-dim:  #6b6560;
+    --accent:    #e8c547;
+    --accent2:   #c0392b;
+    --accent3:   #2ecc71;
+    --mono:      'IBM Plex Mono', monospace;
+    --sans:      'IBM Plex Sans', sans-serif;
+    --display:   'Bebas Neue', sans-serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: var(--sans); font-weight: 300; line-height: 1.7; overflow-x: hidden; }
+  body::before {
+    content: ''; position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 9999; opacity: 0.4;
+  }
+
+  .topbar { background: var(--accent2); padding: 8px 0; text-align: center; font-family: var(--mono); font-size: 11px; letter-spacing: 0.15em; color: #fff; position: sticky; top: 0; z-index: 100; }
+  .topbar span { opacity: 0.7; margin: 0 8px; }
+
+  nav { border-bottom: 1px solid var(--border); padding: 0 40px; display: flex; align-items: center; justify-content: space-between; height: 60px; background: var(--bg); position: sticky; top: 37px; z-index: 99; }
+  .nav-logo { font-family: var(--display); font-size: 22px; letter-spacing: 0.08em; color: var(--accent); text-decoration: none; }
+  .nav-chapter { font-family: var(--mono); font-size: 11px; color: var(--text-dim); letter-spacing: 0.12em; display: flex; align-items: center; gap: 12px; }
+  .nav-chapter::before { content: ''; display: block; width: 1px; height: 20px; background: var(--border); }
+  .nav-back { font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; color: var(--text-dim); text-decoration: none; text-transform: uppercase; transition: color 0.2s; }
+  .nav-back:hover { color: var(--accent); }
+
+  #progress-bar { position: fixed; top: 97px; left: 0; height: 2px; background: var(--accent2); width: 0%; z-index: 98; transition: width 0.1s linear; }
+
+  .chapter-header { max-width: 900px; margin: 0 auto; padding: 80px 40px 60px; animation: fadeUp 0.7s ease both; }
+  .ch-tag { font-family: var(--mono); font-size: 10px; letter-spacing: 0.25em; color: var(--text-dim); text-transform: uppercase; display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+  .ch-tag::before { content: '02'; font-size: 11px; color: var(--accent2); }
+  .ch-tag::after { content: ''; flex: 0 0 32px; height: 1px; background: var(--border); }
+
+  h1 { font-family: var(--display); font-size: clamp(52px, 7vw, 88px); line-height: 0.92; letter-spacing: 0.02em; color: #fff; margin-bottom: 24px; }
+  h1 em { font-style: normal; color: var(--accent2); display: block; }
+
+  .ch-intro { font-size: 16px; line-height: 1.85; color: var(--text); max-width: 680px; margin-bottom: 40px; }
+  .ch-toc { border: 1px solid var(--border); background: var(--bg2); padding: 24px 28px; display: inline-block; min-width: 340px; }
+  .ch-toc-title { font-family: var(--mono); font-size: 9px; letter-spacing: 0.2em; color: var(--text-dim); text-transform: uppercase; margin-bottom: 14px; }
+  .ch-toc ol { list-style: none; counter-reset: toc; }
+  .ch-toc ol li { counter-increment: toc; display: flex; gap: 10px; align-items: baseline; padding: 5px 0; border-bottom: 1px solid #1e1e1e; }
+  .ch-toc ol li:last-child { border-bottom: none; }
+  .ch-toc ol li::before { content: counter(toc, decimal-leading-zero); font-family: var(--mono); font-size: 9px; color: var(--accent2); flex-shrink: 0; }
+  .ch-toc ol li a { font-size: 12px; color: var(--text-dim); text-decoration: none; transition: color 0.2s; }
+  .ch-toc ol li a:hover { color: var(--accent2); }
+
+  .content-wrap { max-width: 900px; margin: 0 auto; padding: 0 40px 120px; }
+
+  .section-block { padding: 72px 0; border-top: 1px solid var(--border); animation: fadeUp 0.6s ease both; }
+  .s-label { font-family: var(--mono); font-size: 9px; letter-spacing: 0.25em; color: var(--accent2); text-transform: uppercase; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+  .s-num { font-size: 11px; color: var(--text-dim); }
+
+  h2 { font-family: var(--display); font-size: clamp(28px, 4vw, 44px); letter-spacing: 0.03em; color: #fff; line-height: 1.05; margin-bottom: 24px; }
+  h2 span { color: var(--accent2); }
+  h3 { font-family: var(--sans); font-size: 16px; font-weight: 600; color: var(--text); margin: 32px 0 12px; }
+
+  p { font-size: 15px; color: var(--text); line-height: 1.85; margin-bottom: 16px; }
+  p strong { color: #fff; font-weight: 600; }
+  p em { color: var(--accent2); font-style: normal; }
+
+  .callout { border-left: 3px solid var(--accent); background: var(--bg2); padding: 16px 20px; margin: 24px 0; font-size: 14px; color: var(--text); line-height: 1.7; }
+  .callout strong { color: var(--accent); }
+  .callout-danger { border-left-color: var(--accent2); background: #180d0d; }
+  .callout-danger strong { color: var(--accent2); }
+  .callout-ok { border-left-color: var(--accent3); background: #0b180e; }
+  .callout-ok strong { color: var(--accent3); }
+
+  /* SCAM CARDS */
+  .scam-list { display: flex; flex-direction: column; gap: 1px; background: var(--border); border: 1px solid var(--border); margin: 28px 0; }
+  .scam-card { background: var(--bg); padding: 0; display: grid; grid-template-columns: 56px 1fr; transition: background 0.2s; }
+  .scam-card:hover { background: var(--bg2); }
+  .scam-num { background: var(--bg3); display: flex; align-items: center; justify-content: center; font-family: var(--display); font-size: 28px; color: var(--border); border-right: 1px solid var(--border); transition: color 0.2s; }
+  .scam-card:hover .scam-num { color: var(--accent2); }
+  .scam-body { padding: 20px 24px; }
+  .scam-title { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 6px; display: flex; align-items: center; gap: 10px; }
+  .scam-flags { font-size: 13px; }
+  .scam-desc { font-size: 13px; color: var(--text-dim); line-height: 1.65; margin-bottom: 10px; }
+  .scam-how { font-size: 12px; color: var(--text-dim); border-left: 2px solid var(--border); padding-left: 12px; line-height: 1.6; }
+  .scam-how strong { color: var(--accent2); font-size: 9px; font-family: var(--mono); letter-spacing: 0.15em; text-transform: uppercase; display: block; margin-bottom: 4px; }
+  .scam-tag { font-family: var(--mono); font-size: 8px; letter-spacing: 0.15em; padding: 2px 8px; text-transform: uppercase; margin-top: 10px; display: inline-block; }
+  .tag-active { background: #1f0e0e; color: var(--accent2); }
+  .tag-pt { background: #0e1218; color: #5b9bd5; }
+  .tag-br { background: #0b180e; color: #4cba72; }
+  .tag-both { background: #1a150e; color: var(--accent); }
+
+  /* PHISHING DIAGRAM */
+  .diagram-wrap { margin: 40px 0; border: 1px solid var(--border); background: var(--bg2); padding: 32px 24px; }
+  .diagram-title { font-family: var(--mono); font-size: 9px; letter-spacing: 0.2em; color: var(--text-dim); text-transform: uppercase; margin-bottom: 28px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+
+  /* CHANNEL GRID */
+  .channel-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); margin: 24px 0; }
+  .channel-card { background: var(--bg); padding: 20px 18px; }
+  .channel-icon { font-size: 24px; margin-bottom: 10px; }
+  .channel-name { font-family: var(--mono); font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent2); margin-bottom: 8px; }
+  .channel-def { font-size: 13px; color: var(--text); margin-bottom: 8px; font-weight: 600; }
+  .channel-ex { font-size: 12px; color: var(--text-dim); line-height: 1.6; }
+
+  /* HYGIENE CHECKLIST */
+  .hygiene-list { display: flex; flex-direction: column; gap: 1px; background: var(--border); border: 1px solid var(--border); margin: 24px 0; }
+  .hygiene-item { background: var(--bg); padding: 16px 20px; display: grid; grid-template-columns: 32px 1fr auto; align-items: center; gap: 16px; cursor: pointer; transition: background 0.2s; }
+  .hygiene-item:hover { background: var(--bg2); }
+  .hygiene-item.done { }
+  .hygiene-check { width: 20px; height: 20px; border: 1px solid var(--border); position: relative; flex-shrink: 0; transition: all 0.2s; }
+  .hygiene-item.done .hygiene-check { background: var(--accent3); border-color: var(--accent3); }
+  .hygiene-item.done .hygiene-check::after { content: '✓'; position: absolute; top: -1px; left: 3px; font-size: 12px; color: #0d0d0d; font-weight: bold; }
+  .hygiene-item.done .hygiene-text { text-decoration: line-through; color: var(--text-dim); }
+  .hygiene-text { font-size: 14px; color: var(--text); line-height: 1.5; }
+  .hygiene-sub { font-size: 11px; color: var(--text-dim); margin-top: 3px; }
+  .hygiene-priority { font-family: var(--mono); font-size: 9px; letter-spacing: 0.1em; padding: 2px 8px; white-space: nowrap; }
+  .p-critico { background: #1f0e0e; color: var(--accent2); }
+  .p-alto    { background: #1f1a0e; color: var(--accent); }
+  .p-medio   { background: #0e1218; color: #5b9bd5; }
+
+  /* VICTIM TIMELINE */
+  .timeline { display: flex; flex-direction: column; gap: 0; margin: 28px 0; }
+  .timeline-step { display: grid; grid-template-columns: 80px 1fr; gap: 0; }
+  .t-time { font-family: var(--display); font-size: 22px; color: var(--accent2); padding: 16px 16px 16px 0; border-right: 2px solid var(--border); text-align: right; line-height: 1.2; display: flex; flex-direction: column; align-items: flex-end; justify-content: flex-start; padding-top: 20px; }
+  .t-time small { font-family: var(--mono); font-size: 8px; color: var(--text-dim); letter-spacing: 0.1em; margin-top: 4px; }
+  .t-content { padding: 16px 0 16px 24px; border-bottom: 1px solid var(--border); }
+  .timeline-step:last-child .t-content { border-bottom: none; }
+  .t-title { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
+  .t-body { font-size: 13px; color: var(--text-dim); line-height: 1.6; }
+  .t-dot { width: 10px; height: 10px; background: var(--accent2); border-radius: 50%; position: absolute; left: -6px; top: 22px; }
+
+  /* CONTACTS */
+  .contacts-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); border: 1px solid var(--border); margin: 24px 0; }
+  .contact-col { background: var(--bg); padding: 24px; }
+  .contact-country { font-family: var(--mono); font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 8px; }
+  .contact-col:first-child .contact-country { color: #5b9bd5; }
+  .contact-col:last-child  .contact-country { color: #4cba72; }
+  .contact-item { padding: 10px 0; border-bottom: 1px solid #1e1e1e; }
+  .contact-item:last-child { border-bottom: none; }
+  .contact-name { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 3px; }
+  .contact-detail { font-size: 12px; color: var(--text-dim); }
+  .contact-detail a { color: var(--accent); text-decoration: none; }
+  .contact-detail a:hover { text-decoration: underline; }
+
+  /* LIVE SECTION */
+  .live-section { background: #180d0d; border: 1px solid #3d1a1a; padding: 28px; margin: 40px 0; }
+  .live-header { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; padding-bottom: 14px; border-bottom: 1px solid #3d1a1a; }
+  .live-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent2); animation: pulse 2s infinite; }
+  .live-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent2); }
+  .live-date { font-family: var(--mono); font-size: 10px; color: var(--text-dim); margin-left: auto; }
+  .live-title { font-size: 16px; font-weight: 600; color: #fff; margin-bottom: 12px; }
+  .live-body { font-size: 14px; color: var(--text); line-height: 1.8; }
+  .live-body strong { color: var(--accent2); }
+
+  .ch-footer { border-top: 1px solid var(--border); padding: 40px; max-width: 900px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 24px; }
+  .ch-footer-back a { font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; color: var(--text-dim); text-decoration: none; text-transform: uppercase; transition: color 0.2s; }
+  .ch-footer-back a:hover { color: var(--accent); }
+  .ch-footer-next { font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; color: var(--text-dim); text-align: right; }
+  .ch-footer-next span { display: block; color: var(--text); font-size: 13px; margin-top: 4px; }
+  .ch-disclaimer { max-width: 900px; margin: 0 auto; padding: 24px 40px 60px; font-family: var(--mono); font-size: 10px; letter-spacing: 0.08em; color: var(--text-dim); line-height: 1.8; border-top: 1px solid var(--border); }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(1.3); } }
+
+  @media (max-width: 760px) {
+    nav { padding: 0 20px; }
+    .chapter-header, .content-wrap { padding-left: 20px; padding-right: 20px; }
+    .channel-grid { grid-template-columns: 1fr; }
+    .contacts-grid { grid-template-columns: 1fr; }
+    .scam-card { grid-template-columns: 40px 1fr; }
+    h1 { font-size: 52px; }
+    .ch-footer { flex-direction: column; align-items: flex-start; padding: 40px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+
+<div class="topbar">
+  ⚠ ALERTA ATIVO <span>|</span> Phishing IRS 2026 e golpe Pix com CPF — ver abaixo <span>|</span> Última revisão: Abril 2026
+</div>
+
+<nav>
+  <a href="index.html" class="nav-logo">GSU</a>
+  <div class="nav-chapter">CAP. 02 — SEGURANÇA DIGITAL E GOLPES</div>
+  <a href="index.html" class="nav-back">← Índice</a>
+</nav>
+
+<div class="chapter-header">
+  <div class="ch-tag">Capítulo 2</div>
+  <h1>Segurança Digital<em>e Golpes</em></h1>
+  <p class="ch-intro">
+    Os golpes digitais mais eficazes não exploram falhas técnicas — exploram emoções: urgência,
+    medo, ganância, afeto. Este capítulo explica como cada esquema funciona por dentro, para que
+    reconheças o padrão antes de seres apanhado.
+  </p>
+  <div class="ch-toc">
+    <div class="ch-toc-title">Neste capítulo</div>
+    <ol>
+      <li><a href="#canais">Phishing, vishing, smishing — as diferenças</a></li>
+      <li><a href="#top10">Os 10 golpes mais comuns (2025–2026)</a></li>
+      <li><a href="#higiene">Checklist de higiene digital mínima</a></li>
+      <li><a href="#vitima">Se já fores vítima — primeiros 30 minutos</a></li>
+      <li><a href="#contactos">Onde reportar: PT e BR</a></li>
+      <li><a href="#destaque">⚠ Golpe em Destaque Este Mês</a></li>
+    </ol>
+  </div>
+</div>
+
+<div class="content-wrap">
+
+  <!-- ── 1. CANAIS ── -->
+  <div class="section-block" id="canais">
+    <div class="s-label"><span class="s-num">01 /</span> Canais</div>
+    <h2>Phishing, Vishing, <span>Smishing</span></h2>
+    <p>
+      Três palavras para a mesma táctica — enganar uma pessoa fingindo ser uma entidade de confiança.
+      O canal muda, a mecânica é sempre a mesma: criar urgência ou confiança para levar à acção sem pensar.
+    </p>
+
+    <div class="channel-grid">
+      <div class="channel-card">
+        <div class="channel-icon">📧</div>
+        <div class="channel-name">Phishing</div>
+        <div class="channel-def">Via email</div>
+        <div class="channel-ex">Email falso a imitar banco, AT, CTT, Netflix, Microsoft. Link para página clonada que rouba credenciais ou instala malware. É o mais antigo e ainda o mais usado.</div>
+      </div>
+      <div class="channel-card">
+        <div class="channel-icon">📞</div>
+        <div class="channel-name">Vishing</div>
+        <div class="channel-def">Via chamada de voz</div>
+        <div class="channel-ex">"Fala da segurança do banco" — pedem código de confirmação enviado por SMS, dados do cartão ou transferência imediata. Comum em PT com IVR sintético que imita número real.</div>
+      </div>
+      <div class="channel-card">
+        <div class="channel-icon">💬</div>
+        <div class="channel-name">Smishing</div>
+        <div class="channel-def">Via SMS / WhatsApp</div>
+        <div class="channel-ex">SMS com link encurtado ("confirma entrega", "atualiza dados"). WhatsApp de número desconhecido a pedir ajuda urgente ou a fingir ser familiar. Muito eficaz por parecer mais pessoal.</div>
+      </div>
+    </div>
+
+    <!-- SVG: anatomy of a phishing message -->
+    <div class="diagram-wrap">
+      <div class="diagram-title">Anatomia de uma mensagem fraudulenta — sinais de alerta universais</div>
+      <svg viewBox="0 0 660 280" width="100%" xmlns="http://www.w3.org/2000/svg" font-family="'IBM Plex Mono', monospace">
+        <rect width="660" height="280" fill="#141414"/>
+        <!-- Fake message bubble -->
+        <rect x="40" y="20" width="340" height="180" rx="4" fill="#1a1a1a" stroke="#2a2a2a" stroke-width="1"/>
+        <!-- Message header -->
+        <rect x="40" y="20" width="340" height="32" rx="4" fill="#1f0e0e" stroke="#2a2a2a" stroke-width="1"/>
+        <text x="56" y="40" fill="#c0392b" font-size="10" letter-spacing="0.5">BANCO SEGURO — ALERTA URGENTE</text>
+        <!-- Message body lines -->
+        <text x="56" y="72" fill="#d4cfc8" font-size="10">Caro Cliente,</text>
+        <text x="56" y="90" fill="#d4cfc8" font-size="10">Detetámos actividade suspeita na sua</text>
+        <text x="56" y="106" fill="#d4cfc8" font-size="10">conta. A sua conta será BLOQUEADA</text>
+        <text x="56" y="122" fill="#d4cfc8" font-size="10">em 24 horas se não confirmar agora.</text>
+        <text x="56" y="148" fill="#5b9bd5" font-size="10" text-decoration="underline">https://banco-seguro-pt.xyz/confirmar</text>
+        <text x="56" y="172" fill="#d4cfc8" font-size="10">Equipa de Segurança Digital</text>
+        <text x="56" y="188" fill="#6b6560" font-size="9">noreply@bancoseguro-alertas.com</text>
+
+        <!-- Annotation lines + labels -->
+        <!-- 1: urgency -->
+        <line x1="165" y1="106" x2="420" y2="60" stroke="#e8c547" stroke-width="1" stroke-dasharray="3,3"/>
+        <rect x="420" y="44" width="200" height="32" fill="#1f1a0e" stroke="#e8c547" stroke-width="1"/>
+        <text x="430" y="58" fill="#e8c547" font-size="9">⚡ URGÊNCIA ARTIFICIAL</text>
+        <text x="430" y="70" fill="#6b6560" font-size="8">"bloqueada em 24h" = pressão</text>
+
+        <!-- 2: suspicious link -->
+        <line x1="220" y1="148" x2="420" y2="120" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3"/>
+        <rect x="420" y="104" width="200" height="32" fill="#180d0d" stroke="#c0392b" stroke-width="1"/>
+        <text x="430" y="118" fill="#c0392b" font-size="9">🔗 DOMÍNIO FALSO</text>
+        <text x="430" y="130" fill="#6b6560" font-size="8">banco-seguro-pt.xyz ≠ banco real</text>
+
+        <!-- 3: fake sender -->
+        <line x1="200" y1="188" x2="420" y2="180" stroke="#5b9bd5" stroke-width="1" stroke-dasharray="3,3"/>
+        <rect x="420" y="164" width="200" height="32" fill="#0e1218" stroke="#5b9bd5" stroke-width="1"/>
+        <text x="430" y="178" fill="#5b9bd5" font-size="9">📧 REMETENTE FALSO</text>
+        <text x="430" y="190" fill="#6b6560" font-size="8">domínio ≠ banco oficial</text>
+
+        <!-- Rule at bottom -->
+        <rect x="40" y="220" width="580" height="44" fill="#0b180e" stroke="#2ecc71" stroke-width="1"/>
+        <text x="56" y="238" fill="#2ecc71" font-size="9" letter-spacing="0.5">REGRA DE OURO:</text>
+        <text x="56" y="253" fill="#d4cfc8" font-size="9">O teu banco NUNCA te pede código de confirmação, password ou dados do cartão por email, SMS ou telefone.</text>
+      </svg>
+    </div>
+  </div>
+
+  <!-- ── 2. TOP 10 GOLPES ── -->
+  <div class="section-block" id="top10">
+    <div class="s-label"><span class="s-num">02 /</span> Os 10 Golpes</div>
+    <h2>Os 10 golpes mais comuns <span>2025–2026</span></h2>
+    <p>Cada esquema tem uma mecânica específica. Conhecer o padrão interno torna-te imune.</p>
+
+    <div class="scam-list">
+
+      <div class="scam-card">
+        <div class="scam-num">01</div>
+        <div class="scam-body">
+          <div class="scam-title">Phishing bancário <span class="scam-flags">🇵🇹 🇧🇷</span></div>
+          <div class="scam-desc">Email ou SMS a imitar banco com link para página idêntica à real. Rouba credenciais de acesso e/ou dados de cartão.</div>
+          <div class="scam-how">
+            <strong>Como funciona por dentro</strong>
+            O golpista regista um domínio semelhante ao banco (cgd-seguro.pt, bradescoalerta.com), clona a página de login com CSS idêntico, e redireciona as credenciais para servidor próprio. Muitas vezes o site tem certificado SSL (cadeado verde) — isso não garante legitimidade, apenas encriptação.
+          </div>
+          <span class="scam-tag tag-both">PT + BR</span>
+          <span class="scam-tag tag-active">Ativo 2026</span>
+        </div>
+      </div>
+
+      <div class="scam-card">
+        <div class="scam-num">02</div>
+        <div class="scam-body">
+          <div class="scam-title">Golpe MB Way — SMS falso <span class="scam-flags">🇵🇹</span></div>
+          <div class="scam-desc">SMS a imitar CTT, banco ou entidade oficial pedindo confirmação de entrega ou pagamento via MB Way.</div>
+          <div class="scam-how">
+            <strong>Como funciona por dentro</strong>
+            A vítima recebe SMS com link para página falsa que pede número de telemóvel e código MB Way. Com esses dados, o golpista inicia uma transferência MB Way a partir da conta da vítima. O código pedido é o código de autorização da transferência — não de confirmação de entrega.
+          </div>
+          <span class="scam-tag tag-pt">PT</span>
+          <span class="scam-tag tag-active">Ativo 2026</span>
+        </div>
+      </div>
+
+      <div class="scam-card">
+        <div class="scam-num">03</div>
+        <div class="scam-body">
+          <div class="scam-title">Golpe Pix — comprovante falso ou chave CPF <span class="scam-flags">🇧🇷</span></div>
+          <div class="scam-desc">Comprovante de transferência editado digitalmente para simular pagamento; ou CPF da vítima registado como chave Pix em conta fraudulenta.</div>
+          <div class="scam-how">
+            <strong>Como funciona por dentro</strong>
+            No golpe do comprovante: vendedor em OLX/Marketplace recebe imagem editada no Photoshop a mostrar Pix efetuado — entrega o produto sem verificar. No golpe do CPF: criminosos abrem conta digital em nome de terceiro com documentos vazados e registam o CPF como chave Pix, interceptando restituições do IR e transferências destinadas à vítima.
+          </div>
+          <span class="scam-tag tag-br">BR</span>
+          <span class="scam-tag tag-active">Ativo 2026</span>
+        </div>
+      </div>
+
+      <div class="scam-card">
+        <div class="scam-num">04</div>
+        <div class="scam-body">
+          <div class="scam-title">Falso suporte técnico (Microsoft / Apple) <span class="scam-flags">🇵🇹 🇧🇷</span></div>
+          <div class="scam-desc">Popup ou chamada alegando vírus no computador. Pede acesso remoto para "resolver" — usa-o para roubar dados ou instalar malware.</div>
+          <div class="scam-how">
+            <strong>Como funciona por dentro</strong>
+            Um popup de browser bloqueia o ecrã com alerta sonoro e número de telefone. Ao ligar, o "técnico" pede instalação de software de acesso remoto (AnyDesk, TeamViewer). Com acesso, rouba senhas guardadas no browser, dados bancários, e pode instalar keylogger. A Microsoft e a Apple NUNCA contactam proativamente por popup ou chamada.
+          </div>
+          <span class="scam-tag tag-both">PT + BR</span>
+        </div>
+      </div>
+
+      <div class="scam-card">
+        <div class="scam-num">05</div>
+        <div class="scam-body">
+          <div class="scam-title">Phishing IRS / Receita Federal <span class="scam-flags">🇵🇹 🇧🇷</span></div>
+          <div class="scam-desc">Email ou SMS a imitar a Autoridade Tributária (PT) ou Receita Federal (BR) com promessa de reembolso ou ameaça de dívida.</div>
+          <div class="scam-how">
+            <strong>Como funciona por dentro</strong>
+            Exploram o período de entrega do IRS/IR (março–junho) quando muitas pessoas esperam reembolso. O link vai para página idêntica à oficial, que pede NIF/CPF, dados bancários e por vezes cartão de crédito para "validar identidade". O Fisco/Receita NUNCA envia links por SMS nem pede dados bancários por email.
+          </div>
+          <span class="scam-tag tag-both">PT + BR</span>
+          <span class="scam-tag tag-active">Ativo Abr 2026</span>
+        </div>
+      </div>
+
+      <div class="scam-card">
+        <div class="scam-num">06</div>
+        <div class="scam-body">
+          <div class="scam-title">Romance scam <span class="scam-flags">🇵🇹 🇧🇷</span></div>
+          <div class="scam-desc">Perfil atraente em app de encontros ou redes sociais que cria ligação emocional ao longo de semanas, antes de pedir dinheiro.</div>
+          <div class="scam-how">
+            <strong>Como funciona por dentro</strong>
+            O "pig butchering" (abate do porco) é a versão moderna: semanas de conversas afetivas para criar confiança, depois introdução a "investimento incrível" em plataforma falsa. A vítima vê lucros fictícios no dashboard e investe mais — quando tenta retirar, pedem "taxas" ou o dinheiro desaparece. Alvo frequente: pessoas em luto, recém-divorciados, solidão.
+          </div>
+          <span class="scam-tag tag-both">PT + BR</span>
+        </div>
+      </div>
+
+      <div class="scam-card">
+        <div class="scam-num">07</div>
+        <div class="scam-body">
+          <div class="scam-title">Investimento milagroso / criptomoedas <span class="scam-flags">🇵🇹 🇧🇷</span></div>
+          <div class="scam-desc">Plataforma ou pessoa promete rendimentos extraordinários com risco mínimo. É pirâmide ou plataforma fraudulenta que desaparece com o dinheiro.</div>
+          <div class="scam-how">
+            <strong>Como funciona por dentro</strong>
+            Combinam legitimidade aparente (design profissional, depoimentos falsos, domínio .com) com retornos impossíveis (2–5% ao dia). Os primeiros saques funcionam para criar confiança. Quando a vítima investe o montante maior ou traz amigos, a plataforma fecha ou congela saques com pretextos. Comum também em grupos WhatsApp com "dicas exclusivas".
+          </div>
+          <span class="scam-tag tag-both">PT + BR</span>
+          <span class="scam-tag tag-active">Ativo 2026</span>
+        </div>
+      </div>
+
+      <div class="scam-card">
+        <div class="scam-num">08</div>
+        <div class="scam-body">
+          <div class="scam-title">Golpe "é o filho" / "acidente de familiar" <span class="scam-flags">🇵🇹 🇧🇷</span></div>
+          <div class="scam-desc">WhatsApp de número desconhecido a imitar familiar em apuros, pedindo transferência urgente.</div>
+          <div class="scam-how">
+            <strong>Como funciona por dentro</strong>
+            "Mãe, mudei de número, este é o novo." Após confirmação da identidade pela vítima (que confirma o nome), pede transferência urgente por doença, acidente ou dívida. Em PT: MB Way. Em BR: Pix. A urgência impede que a vítima ligue para o número antigo para verificar. Defesa: combina palavra-código com família para situações de emergência.
+          </div>
+          <span class="scam-tag tag-both">PT + BR</span>
+        </div>
+      </div>
+
+      <div class="scam-card">
+        <div class="scam-num">09</div>
+        <div class="scam-body">
+          <div class="scam-title">Falso emprego / trabalho remoto <span class="scam-flags">🇵🇹 🇧🇷</span></div>
+          <div class="scam-desc">Oferta de emprego excessivamente generosa que pede dados pessoais, documentos ou pequeno "depósito de boa-fé".</div>
+          <div class="scam-how">
+            <strong>Como funciona por dentro</strong>
+            Anúncio no LinkedIn, Indeed ou Instagram prometendo trabalho remoto com salário alto e requisitos mínimos. Após "entrevista" via chat (nunca vídeo), pedem NIF/CPF, cópias de documentos e às vezes depósito para "materiais" ou "seguro". Os dados são usados para fraude de identidade. O emprego nunca existiu.
+          </div>
+          <span class="scam-tag tag-both">PT + BR</span>
+        </div>
+      </div>
+
+      <div class="scam-card">
+        <div class="scam-num">10</div>
+        <div class="scam-body">
+          <div class="scam-title">Deepfake e voz clonada <span class="scam-flags">🇵🇹 🇧🇷</span></div>
+          <div class="scam-desc">Áudio ou vídeo sintético a imitar voz de familiar, CEO ou celebridade a pedir transferência ou a promover investimento fraudulento.</div>
+          <div class="scam-how">
+            <strong>Como funciona por dentro</strong>
+            Com 30 segundos de áudio público (Instagram, TikTok) é possível clonar uma voz com ferramentas acessíveis. A vítima recebe chamada com a "voz do filho" ou "voz do chefe" a pedir transferência urgente. Em contexto empresarial (BEC — Business Email Compromise), o golpe combinado de email + chamada deepfake já causou perdas de milhões. Em crescimento acelerado em 2025–2026.
+          </div>
+          <span class="scam-tag tag-both">PT + BR</span>
+          <span class="scam-tag tag-active">Em crescimento</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── 3. HIGIENE DIGITAL ── -->
+  <div class="section-block" id="higiene">
+    <div class="s-label"><span class="s-num">03 /</span> Higiene Digital</div>
+    <h2>Checklist de higiene <span>digital mínima</span></h2>
+    <p>
+      Não precisas de ser técnico. Estas medidas cobrem 90% dos vectores de ataque mais comuns.
+      Clica para marcar o que já tens feito.
+    </p>
+
+    <div class="hygiene-list">
+      <div class="hygiene-item" onclick="this.classList.toggle('done')">
+        <div class="hygiene-check"></div>
+        <div>
+          <div class="hygiene-text">Ativar autenticação de dois fatores (2FA) no email principal</div>
+          <div class="hygiene-sub">O email é a chave mestra de todas as contas. Se o perdes, perdes tudo.</div>
+        </div>
+        <span class="hygiene-priority p-critico">CRÍTICO</span>
+      </div>
+      <div class="hygiene-item" onclick="this.classList.toggle('done')">
+        <div class="hygiene-check"></div>
+        <div>
+          <div class="hygiene-text">Usar password diferente em cada serviço importante</div>
+          <div class="hygiene-sub">Usa um gestor de passwords: Bitwarden (gratuito), 1Password ou KeePass.</div>
+        </div>
+        <span class="hygiene-priority p-critico">CRÍTICO</span>
+      </div>
+      <div class="hygiene-item" onclick="this.classList.toggle('done')">
+        <div class="hygiene-check"></div>
+        <div>
+          <div class="hygiene-text">Ativar 2FA na conta do banco e nas apps financeiras</div>
+          <div class="hygiene-sub">Preferencialmente por app autenticadora (Google Authenticator, Authy) — não por SMS se possível.</div>
+        </div>
+        <span class="hygiene-priority p-critico">CRÍTICO</span>
+      </div>
+      <div class="hygiene-item" onclick="this.classList.toggle('done')">
+        <div class="hygiene-check"></div>
+        <div>
+          <div class="hygiene-text">Verificar se os teus dados foram expostos em breaches</div>
+          <div class="hygiene-sub">Vai a haveibeenpwned.com e insere o teu email. Gratuito.</div>
+        </div>
+        <span class="hygiene-priority p-alto">ALTO</span>
+      </div>
+      <div class="hygiene-item" onclick="this.classList.toggle('done')">
+        <div class="hygiene-check"></div>
+        <div>
+          <div class="hygiene-text">Nunca clicar em links de SMS ou email sem verificar o domínio</div>
+          <div class="hygiene-sub">Vai diretamente ao site pelo browser, não pelo link da mensagem.</div>
+        </div>
+        <span class="hygiene-priority p-alto">ALTO</span>
+      </div>
+      <div class="hygiene-item" onclick="this.classList.toggle('done')">
+        <div class="hygiene-check"></div>
+        <div>
+          <div class="hygiene-text">Configurar alertas de transação no banco (SMS/email por cada movimento)</div>
+          <div class="hygiene-sub">Deteta uso fraudulento em tempo real. Normalmente gratuito.</div>
+        </div>
+        <span class="hygiene-priority p-alto">ALTO</span>
+      </div>
+      <div class="hygiene-item" onclick="this.classList.toggle('done')">
+        <div class="hygiene-check"></div>
+        <div>
+          <div class="hygiene-text">Manter o sistema operativo e o browser atualizados</div>
+          <div class="hygiene-sub">A maioria dos malwares exploram vulnerabilidades já corrigidas em updates.</div>
+        </div>
+        <span class="hygiene-priority p-alto">ALTO</span>
+      </div>
+      <div class="hygiene-item" onclick="this.classList.toggle('done')">
+        <div class="hygiene-check"></div>
+        <div>
+          <div class="hygiene-text">Não instalar software de "assistência remota" (AnyDesk, TeamViewer) por pedido não solicitado</div>
+          <div class="hygiene-sub">Suporte técnico legítimo nunca contacta proativamente a pedir acesso ao teu computador.</div>
+        </div>
+        <span class="hygiene-priority p-medio">MÉDIO</span>
+      </div>
+      <div class="hygiene-item" onclick="this.classList.toggle('done')">
+        <div class="hygiene-check"></div>
+        <div>
+          <div class="hygiene-text">Combinar uma palavra-código familiar para pedidos urgentes de dinheiro</div>
+          <div class="hygiene-sub">Defesa contra golpe "é o filho". A palavra confirma que a pessoa é quem diz ser.</div>
+        </div>
+        <span class="hygiene-priority p-medio">MÉDIO</span>
+      </div>
+      <div class="hygiene-item" onclick="this.classList.toggle('done')">
+        <div class="hygiene-check"></div>
+        <div>
+          <div class="hygiene-text">Rever permissões de apps no telemóvel (microfone, câmara, localização, contactos)</div>
+          <div class="hygiene-sub">Apps de lanterna não precisam de acesso a contactos. Vai a Definições → Aplicações → Permissões.</div>
+        </div>
+        <span class="hygiene-priority p-medio">MÉDIO</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 4. SE FORES VÍTIMA ── -->
+  <div class="section-block" id="vitima">
+    <div class="s-label"><span class="s-num">04 /</span> Se Já Fores Vítima</div>
+    <h2>Os primeiros <span>30 minutos</span> importam</h2>
+    <p>
+      Velocidade é o factor crítico. Cada minuto conta para travar transferências e limitar o dano.
+      Segue esta sequência — sem exceções.
+    </p>
+
+    <!-- SVG flow diagram: victim response -->
+    <div class="diagram-wrap">
+      <div class="diagram-title">Fluxo de resposta a fraude digital — sequência de ações</div>
+      <svg viewBox="0 0 660 200" width="100%" xmlns="http://www.w3.org/2000/svg" font-family="'IBM Plex Mono', monospace">
+        <rect width="660" height="200" fill="#141414"/>
+        <!-- Steps -->
+        <!-- Step 1 -->
+        <rect x="10" y="70" width="110" height="60" fill="#1f0e0e" stroke="#c0392b" stroke-width="1.5"/>
+        <text x="65" y="96" text-anchor="middle" fill="#c0392b" font-size="9" letter-spacing="0.5">PASSO 1</text>
+        <text x="65" y="110" text-anchor="middle" fill="#d4cfc8" font-size="9">Bloquear</text>
+        <text x="65" y="122" text-anchor="middle" fill="#d4cfc8" font-size="9">cartões/conta</text>
+        <!-- Arrow -->
+        <line x1="120" y1="100" x2="138" y2="100" stroke="#2a2a2a" stroke-width="1.5" marker-end="url(#arrowg)"/>
+        <!-- Step 2 -->
+        <rect x="138" y="70" width="110" height="60" fill="#1a1510" stroke="#e8c547" stroke-width="1.5"/>
+        <text x="193" y="96" text-anchor="middle" fill="#e8c547" font-size="9" letter-spacing="0.5">PASSO 2</text>
+        <text x="193" y="110" text-anchor="middle" fill="#d4cfc8" font-size="9">Ligar ao banco</text>
+        <text x="193" y="122" text-anchor="middle" fill="#d4cfc8" font-size="9">— nº de fraudes</text>
+        <!-- Arrow -->
+        <line x1="248" y1="100" x2="266" y2="100" stroke="#2a2a2a" stroke-width="1.5" marker-end="url(#arrowg)"/>
+        <!-- Step 3 -->
+        <rect x="266" y="70" width="110" height="60" fill="#1a1510" stroke="#e8c547" stroke-width="1.5"/>
+        <text x="321" y="96" text-anchor="middle" fill="#e8c547" font-size="9" letter-spacing="0.5">PASSO 3</text>
+        <text x="321" y="110" text-anchor="middle" fill="#d4cfc8" font-size="9">Guardar prints</text>
+        <text x="321" y="122" text-anchor="middle" fill="#d4cfc8" font-size="9">de tudo</text>
+        <!-- Arrow -->
+        <line x1="376" y1="100" x2="394" y2="100" stroke="#2a2a2a" stroke-width="1.5" marker-end="url(#arrowg)"/>
+        <!-- Step 4 -->
+        <rect x="394" y="70" width="110" height="60" fill="#0e1218" stroke="#5b9bd5" stroke-width="1.5"/>
+        <text x="449" y="96" text-anchor="middle" fill="#5b9bd5" font-size="9" letter-spacing="0.5">PASSO 4</text>
+        <text x="449" y="110" text-anchor="middle" fill="#d4cfc8" font-size="9">Queixa PSP /</text>
+        <text x="449" y="122" text-anchor="middle" fill="#d4cfc8" font-size="9">Polícia Civil</text>
+        <!-- Arrow -->
+        <line x1="504" y1="100" x2="522" y2="100" stroke="#2a2a2a" stroke-width="1.5" marker-end="url(#arrowg)"/>
+        <!-- Step 5 -->
+        <rect x="522" y="70" width="120" height="60" fill="#0b180e" stroke="#2ecc71" stroke-width="1.5"/>
+        <text x="582" y="96" text-anchor="middle" fill="#2ecc71" font-size="9" letter-spacing="0.5">PASSO 5</text>
+        <text x="582" y="110" text-anchor="middle" fill="#d4cfc8" font-size="9">Mudar passwords</text>
+        <text x="582" y="122" text-anchor="middle" fill="#d4cfc8" font-size="9">em device limpo</text>
+
+        <!-- Time indicator -->
+        <text x="10" y="155" fill="#6b6560" font-size="8">← primeiros 10 min</text>
+        <text x="200" y="155" fill="#6b6560" font-size="8">← primeiros 30 min</text>
+        <text x="430" y="155" fill="#6b6560" font-size="8">← nas horas seguintes</text>
+
+        <!-- Time brackets -->
+        <line x1="10" y1="148" x2="248" y2="148" stroke="#6b6560" stroke-width="0.5"/>
+        <line x1="248" y1="148" x2="514" y2="148" stroke="#6b6560" stroke-width="0.5" stroke-dasharray="3,2"/>
+        <line x1="514" y1="148" x2="642" y2="148" stroke="#6b6560" stroke-width="0.5" stroke-dasharray="3,2"/>
+
+        <defs>
+          <marker id="arrowg" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
+            <path d="M0,0 L6,3 L0,6 Z" fill="#2a2a2a"/>
+          </marker>
+        </defs>
+      </svg>
+    </div>
+
+    <div class="timeline">
+      <div class="timeline-step">
+        <div class="t-time">0–5<small>MIN</small></div>
+        <div class="t-content">
+          <div class="t-title">Bloquear imediatamente o acesso bancário</div>
+          <div class="t-body">No app do banco, bloqueia cartões e desativa transferências. Se não consegues aceder ao app, liga para a linha de urgência (número no verso do cartão ou no site oficial que já tens guardado — <em>não procures agora pelo Google</em>, pode estar envenenado).</div>
+        </div>
+      </div>
+      <div class="timeline-step">
+        <div class="t-time">5–15<small>MIN</small></div>
+        <div class="t-content">
+          <div class="t-title">Registar o caso com o banco e obter número de referência</div>
+          <div class="t-body">Liga para a linha de fraudes do banco — pede o número de registo da ocorrência. Este número é essencial para qualquer reclamação futura. Em PT: podes pedir chargeback no prazo legal se houver transação não autorizada. Em BR: o banco tem 5 dias para responder à contestação de fraude.</div>
+        </div>
+      </div>
+      <div class="timeline-step">
+        <div class="t-time">15–30<small>MIN</small></div>
+        <div class="t-content">
+          <div class="t-title">Documentar tudo antes de qualquer limpeza</div>
+          <div class="t-body">Screenshots de mensagens, emails, transferências, a página fraudulenta (URL completo visível). <strong>Não apagues nada ainda</strong> — as provas são necessárias para a queixa. Guarda em local separado (nuvem pessoal ou email diferente).</div>
+        </div>
+      </div>
+      <div class="timeline-step">
+        <div class="t-time">1–4<small>HRS</small></div>
+        <div class="t-content">
+          <div class="t-title">Apresentar queixa às autoridades</div>
+          <div class="t-body">🇵🇹 PSP online (participação eletrónica em psp.pt) ou presencialmente. 🇧🇷 Delegacia de Crimes Cibernéticos (online ou presencialmente) + Procon se for golpe comercial. Leva prints, valores, datas e dados do suspeito.</div>
+        </div>
+      </div>
+      <div class="timeline-step">
+        <div class="t-time">24<small>HRS</small></div>
+        <div class="t-content">
+          <div class="t-title">Higienização completa do dispositivo e contas</div>
+          <div class="t-body">Muda passwords de email, banco, redes sociais e serviços críticos — a partir de um dispositivo diferente ou em modo seguro. Ativa 2FA em tudo. Faz scan de malware (Malwarebytes gratuito). Avisa contactos próximos se o teu email/WhatsApp foi comprometido.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout-danger callout">
+      <strong>Atenção após fraude:</strong> Nas horas e dias seguintes, é comum receber novas tentativas
+      de golpe — "recuperadores de dinheiro" que cobram adiantado para recuperar o que perdeste.
+      É outro golpe. Não existe serviço legítimo de recuperação de transferências fraudulentas pago antecipadamente.
+    </div>
+  </div>
+
+  <!-- ── 5. CONTACTOS ── -->
+  <div class="section-block" id="contactos">
+    <div class="s-label"><span class="s-num">05 /</span> Onde Reportar</div>
+    <h2>Contactos para <span>reportar fraude</span></h2>
+    <p>Cada entidade tem o seu âmbito. Reportar às autoridades corretas aumenta a probabilidade de recuperação e ajuda a alertar outras vítimas.</p>
+
+    <div class="contacts-grid">
+      <div class="contact-col">
+        <div class="contact-country"><span>🇵🇹</span> Portugal</div>
+        <div class="contact-item">
+          <div class="contact-name">CNCS / CERT.PT</div>
+          <div class="contact-detail">Centro Nacional de Cibersegurança — reporta incidentes digitais<br><a href="https://www.cncs.gov.pt" target="_blank" rel="noopener">cncs.gov.pt</a> · <a href="https://www.cert.pt" target="_blank" rel="noopener">cert.pt</a></div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-name">Banco de Portugal</div>
+          <div class="contact-detail">Fraudes bancárias e aviso de entidades não autorizadas<br><a href="https://www.bportugal.pt/avisos-ao-publico" target="_blank" rel="noopener">bportugal.pt/avisos-ao-publico</a></div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-name">PSP — Participação Eletrónica</div>
+          <div class="contact-detail">Queixa online por crime informático<br><a href="https://www.psp.pt" target="_blank" rel="noopener">psp.pt</a> ou presencialmente na esquadra</div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-name">DECO ProTeste</div>
+          <div class="contact-detail">Apoio ao consumidor lesado — fraudes comerciais<br><a href="https://www.deco.proteste.pt" target="_blank" rel="noopener">deco.proteste.pt</a></div>
+        </div>
+      </div>
+      <div class="contact-col">
+        <div class="contact-country"><span>🇧🇷</span> Brasil</div>
+        <div class="contact-item">
+          <div class="contact-name">BACEN — Banco Central do Brasil</div>
+          <div class="contact-detail">Fraudes financeiras, golpes Pix, entidades irregulares<br><a href="https://www.bcb.gov.br" target="_blank" rel="noopener">bcb.gov.br</a> · Registrato</div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-name">Procon (SP) / Consumidor.gov.br</div>
+          <div class="contact-detail">Reclamações contra empresas e fraudes comerciais<br><a href="https://consumidor.gov.br" target="_blank" rel="noopener">consumidor.gov.br</a></div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-name">Polícia Civil — Delegacia Cibernética</div>
+          <div class="contact-detail">Boletim de ocorrência por crime digital<br>Online em estados como SP: <a href="https://www.delegaciaeletronica.policiacivil.sp.gov.br" target="_blank" rel="noopener">delegaciaeletronica.policiacivil.sp.gov.br</a></div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-name">SaferNet Brasil</div>
+          <div class="contact-detail">Crimes de ódio e fraudes online — canal de denúncia<br><a href="https://www.safernet.org.br" target="_blank" rel="noopener">safernet.org.br</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 6. SECÇÃO VIVA ── -->
+  <div class="section-block" id="destaque">
+    <div class="s-label"><span class="s-num">06 /</span> Secção Viva</div>
+    <h2>Golpe em Destaque <span>Este Mês</span></h2>
+    <p>Esta secção é atualizada mensalmente. Reflete o golpe com maior atividade reportada nas fontes oficiais no período corrente.</p>
+
+    <div class="live-section">
+      <div class="live-header">
+        <div class="live-dot"></div>
+        <div class="live-label">Alerta Ativo</div>
+        <div class="live-date">Abril 2026</div>
+      </div>
+      <div class="live-title">🇵🇹 Phishing IRS 2026 — SMS e emails falsos da Autoridade Tributária</div>
+      <div class="live-body">
+        <p>Com a época de entrega do IRS a decorrer (março–junho), está em alta uma campanha massiva de <strong>phishing que imita a Autoridade Tributária (AT)</strong>. Os ataques chegam via SMS e email, alegando reembolsos pendentes ou dívidas urgentes, com links para páginas idênticas ao Portal das Finanças.</p>
+        <p><strong>O que fazer:</strong> Nunca cliques em links de SMS ou email da AT. Acede sempre diretamente a <strong>portaldasfinancas.gov.pt</strong> no browser. A AT nunca envia links a pedir dados pessoais ou bancários.</p>
+        <p>Fonte: CNCS / cert.pt · Última verificação: Abril 2026</p>
+      </div>
+    </div>
+
+    <div class="live-section" style="margin-top: 16px; border-color: #1a3d1a;">
+      <div class="live-header" style="border-bottom-color: #1a3d1a;">
+        <div class="live-dot" style="background: var(--accent3);"></div>
+        <div class="live-label" style="color: var(--accent3);">Alerta Ativo</div>
+        <div class="live-date">Abril 2026</div>
+      </div>
+      <div class="live-title" style="color: var(--accent3);">🇧🇷 Golpe Pix + CPF — desvio da restituição do Imposto de Renda</div>
+      <div class="live-body">
+        <p>Criminosos estão a <strong>registar CPFs de terceiros como chave Pix</strong> em contas digitais abertas com documentos vazados. A restituição do IR, que é enviada para a chave Pix cadastrada na declaração, vai parar na conta do golpista.</p>
+        <p><strong>O que fazer:</strong> Acede ao app do teu banco e verifica qual conta está associada ao teu CPF como chave Pix. Se não reconheces a conta, solicita ao banco a remoção imediata da chave. Verifica também no Registrato do Banco Central (registrato.bcb.gov.br).</p>
+        <p>Fonte: Banco Central do Brasil · Última verificação: Abril 2026</p>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /content-wrap -->
+
+<div class="ch-footer">
+  <div class="ch-footer-back">
+    <a href="cap1.html">← Cap. 1 — Dinheiro sob Pressão</a>
+  </div>
+  <div class="ch-footer-next">
+    PRÓXIMO CAPÍTULO
+    <span>03 — Planejamento Financeiro (em construção)</span>
+  </div>
+</div>
+
+<div class="ch-disclaimer">
+  Última revisão: Abril 2026 &nbsp;|&nbsp; Conteúdo educacional — não constitui aconselhamento jurídico &nbsp;|&nbsp; CC BY-SA 4.0 &nbsp;|&nbsp;
+  Secção viva atualizada manualmente. Verifica sempre nas fontes oficiais listadas.
+</div>
+
+<script>
+  window.addEventListener('scroll', () => {
+    const doc = document.documentElement;
+    const scrollTop = doc.scrollTop || document.body.scrollTop;
+    const scrollHeight = doc.scrollHeight - doc.clientHeight;
+    const pct = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+    document.getElementById('progress-bar').style.width = pct + '%';
+  });
+</script>
+</body>
+</html>
