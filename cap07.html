@@ -67,6 +67,22 @@ footer{border-top:1px solid var(--border);padding:40px;max-width:1100px;margin:0
 .footer-logo{font-family:var(--display);font-size:18px;letter-spacing:0.08em;color:var(--text-dim)}
 .footer-meta{font-family:var(--mono);font-size:10px;color:var(--text-dim);letter-spacing:0.1em;text-align:right;line-height:1.8}
 @media(max-width:900px){nav{padding:0 20px}.nav-links{display:none}.ch-hero{padding:60px 20px 40px}.ch-num{font-size:80px}.ch-content{padding:40px 20px}.tips-grid{grid-template-columns:1fr}.ch-nav-inner{flex-direction:column;align-items:flex-start}.ch-nav-link.next{text-align:left}footer{flex-direction:column;gap:20px;text-align:center;padding:40px 20px}.footer-meta{text-align:center}}
+
+.checklist-box{border:1px solid var(--border);padding:32px;margin:24px 0;background:var(--bg2)}
+.checklist-title{font-family:var(--display);font-size:28px;letter-spacing:0.05em;color:var(--accent);margin-bottom:8px}
+.checklist-sub{font-family:var(--mono);font-size:10px;letter-spacing:0.15em;color:var(--text-dim);text-transform:uppercase;margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.cl-counter{color:var(--accent3);font-size:11px;text-transform:none;letter-spacing:0}
+.check-item{display:flex;gap:14px;padding:10px 0;border-bottom:1px solid #1e1e1e;align-items:flex-start;cursor:pointer;transition:all 0.15s}
+.check-item:last-of-type{border-bottom:none}
+.check-item:hover{padding-left:6px}
+.check-box{width:16px;height:16px;border:1px solid var(--border);flex-shrink:0;margin-top:3px;transition:all 0.2s;position:relative}
+.check-item.done .check-box{background:var(--accent3);border-color:var(--accent3)}
+.check-item.done .check-box::after{content:'✓';position:absolute;top:-2px;left:2px;font-size:11px;color:#0d0d0d;font-weight:bold}
+.check-item.done .check-text{text-decoration:line-through;color:var(--text-dim)}
+.check-text{font-size:13px;color:var(--text);line-height:1.5}
+.check-priority{font-family:var(--mono);font-size:9px;color:var(--accent2);letter-spacing:0.1em;margin-top:2px}
+.cl-reset{margin-top:20px;font-family:var(--mono);font-size:10px;letter-spacing:0.12em;text-transform:uppercase;background:none;border:1px solid var(--border);color:var(--text-dim);padding:8px 16px;cursor:pointer;transition:all 0.2s;display:block}
+.cl-reset:hover{border-color:var(--accent);color:var(--accent)}
 </style>
 </head>
 <body>
@@ -250,6 +266,40 @@ footer{border-top:1px solid var(--border);padding:40px;max-width:1100px;margin:0
       <div class="callout-text">Usa Google Drive ou iCloud numa pasta chamada "Documentos Críticos". Activa autenticação a dois factores na conta. Faz também backup numa pen USB guardada em sítio diferente da tua casa (casa de familiar, por exemplo). Nunca guardes palavras-passe nos mesmos documentos digitalizados.</div>
     </div>
   </div>
+  <div class="ch-section">
+    <div class="section-title">Bloqueio Bancário — Primeiras 2 Horas</div>
+    <div class="section-label">Actua rápido — cada minuto importa</div>
+    <div class="checklist-box" id="cl-bloqueio-bancario">
+      <div class="checklist-title">Bloqueio Bancário — Primeiras 2 Horas</div>
+      <div class="checklist-sub">Clica para marcar cada item <span class="cl-counter">0/6 concluídos</span></div>
+      <div class="check-item" onclick="toggleCheck(this, 'cl-bloqueio-bancario')">
+        <div class="check-box"></div>
+        <div><div class="check-text">Ligar ao banco imediatamente (ter o número de emergência gravado no telemóvel já hoje)</div>
+          <div class="check-priority">URGENTE</div></div>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this, 'cl-bloqueio-bancario')">
+        <div class="check-box"></div>
+        <div><div class="check-text">Verificar se é bloqueio por suspeita de fraude ou de origem judicial — são situações diferentes</div></div>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this, 'cl-bloqueio-bancario')">
+        <div class="check-box"></div>
+        <div><div class="check-text">Se for fraude: pedir desbloqueio imediato, trocar passwords e activar 2FA em dispositivo limpo</div></div>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this, 'cl-bloqueio-bancario')">
+        <div class="check-box"></div>
+        <div><div class="check-text">Pedir confirmação do bloqueio e motivo por escrito (email ou carta) — é um direito</div></div>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this, 'cl-bloqueio-bancario')">
+        <div class="check-box"></div>
+        <div><div class="check-text">Ter conta alternativa activa (Revolut, N26, Nubank) como backup para situações de emergência</div></div>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this, 'cl-bloqueio-bancario')">
+        <div class="check-box"></div>
+        <div><div class="check-text">Guardar extracto bancário do último mês antes do bloqueio como prova</div></div>
+      </div>
+      <button class="cl-reset" onclick="resetChecklist('cl-bloqueio-bancario')">↺ Resetar checklist</button>
+    </div>
+  </div>
 
 </div>
 
@@ -270,5 +320,27 @@ footer{border-top:1px solid var(--border);padding:40px;max-width:1100px;margin:0
   <div class="footer-logo">GUIA DE SOBREVIVÊNCIA URBANA</div>
   <div class="footer-meta">Sem publicidade · Sem afiliados · Sem agenda<br>Conteúdo licenciado sob CC BY-SA 4.0<br>Última revisão: Abril 2026</div>
 </footer>
+
+<script>
+function toggleCheck(el, boxId) {
+  el.classList.toggle('done');
+  updateCounter(boxId);
+}
+function updateCounter(boxId) {
+  var box = document.getElementById(boxId);
+  if (!box) return;
+  var total = box.querySelectorAll('.check-item').length;
+  var done = box.querySelectorAll('.check-item.done').length;
+  var counter = box.querySelector('.cl-counter');
+  if (counter) counter.textContent = done + '/' + total + ' concluídos';
+}
+function resetChecklist(boxId) {
+  var box = document.getElementById(boxId);
+  if (!box) return;
+  box.querySelectorAll('.check-item').forEach(function(i){ i.classList.remove('done'); });
+  updateCounter(boxId);
+}
+</script>
+
 </body>
 </html>

@@ -70,6 +70,22 @@ footer{border-top:1px solid var(--border);padding:40px;max-width:1100px;margin:0
 .footer-logo{font-family:var(--display);font-size:18px;letter-spacing:0.08em;color:var(--text-dim)}
 .footer-meta{font-family:var(--mono);font-size:10px;color:var(--text-dim);letter-spacing:0.1em;text-align:right;line-height:1.8}
 @media(max-width:900px){nav{padding:0 20px}.nav-links{display:none}.ch-hero{padding:60px 20px 40px}.ch-num{font-size:80px}.ch-content{padding:40px 20px}.compare{grid-template-columns:1fr}.compare-panel:first-child{border-right:none;border-bottom:1px solid var(--border)}.ch-nav-inner{flex-direction:column;align-items:flex-start}.ch-nav-link.next{text-align:left}footer{flex-direction:column;gap:20px;text-align:center;padding:40px 20px}.footer-meta{text-align:center}}
+
+.checklist-box{border:1px solid var(--border);padding:32px;margin:24px 0;background:var(--bg2)}
+.checklist-title{font-family:var(--display);font-size:28px;letter-spacing:0.05em;color:var(--accent);margin-bottom:8px}
+.checklist-sub{font-family:var(--mono);font-size:10px;letter-spacing:0.15em;color:var(--text-dim);text-transform:uppercase;margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.cl-counter{color:var(--accent3);font-size:11px;text-transform:none;letter-spacing:0}
+.check-item{display:flex;gap:14px;padding:10px 0;border-bottom:1px solid #1e1e1e;align-items:flex-start;cursor:pointer;transition:all 0.15s}
+.check-item:last-of-type{border-bottom:none}
+.check-item:hover{padding-left:6px}
+.check-box{width:16px;height:16px;border:1px solid var(--border);flex-shrink:0;margin-top:3px;transition:all 0.2s;position:relative}
+.check-item.done .check-box{background:var(--accent3);border-color:var(--accent3)}
+.check-item.done .check-box::after{content:'✓';position:absolute;top:-2px;left:2px;font-size:11px;color:#0d0d0d;font-weight:bold}
+.check-item.done .check-text{text-decoration:line-through;color:var(--text-dim)}
+.check-text{font-size:13px;color:var(--text);line-height:1.5}
+.check-priority{font-family:var(--mono);font-size:9px;color:var(--accent2);letter-spacing:0.1em;margin-top:2px}
+.cl-reset{margin-top:20px;font-family:var(--mono);font-size:10px;letter-spacing:0.12em;text-transform:uppercase;background:none;border:1px solid var(--border);color:var(--text-dim);padding:8px 16px;cursor:pointer;transition:all 0.2s;display:block}
+.cl-reset:hover{border-color:var(--accent);color:var(--accent)}
 </style>
 </head>
 <body>
@@ -206,6 +222,65 @@ footer{border-top:1px solid var(--border);padding:40px;max-width:1100px;margin:0
       </div>
     </div>
   </div>
+  <div class="ch-section">
+    <div class="section-title">Fundo de Emergência</div>
+    <div class="section-label">Construir a base — antes de qualquer investimento</div>
+    <div class="checklist-box" id="cl-fundo-emergencia">
+      <div class="checklist-title">Fundo de Emergência</div>
+      <div class="checklist-sub">Clica para marcar cada item <span class="cl-counter">0/5 concluídos</span></div>
+      <div class="check-item" onclick="toggleCheck(this, 'cl-fundo-emergencia')">
+        <div class="check-box"></div>
+        <div><div class="check-text">Calcular as despesas mensais fixas totais (renda + comida + transportes + utilities)</div></div>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this, 'cl-fundo-emergencia')">
+        <div class="check-box"></div>
+        <div><div class="check-text">Definir meta: 3 meses de despesas mínimas (valor concreto em €/R$)</div></div>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this, 'cl-fundo-emergencia')">
+        <div class="check-box"></div>
+        <div><div class="check-text">Abrir conta separada exclusivamente para emergências</div></div>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this, 'cl-fundo-emergencia')">
+        <div class="check-box"></div>
+        <div><div class="check-text">Configurar transferência automática mensal (mesmo que seja 20€/R$100)</div></div>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this, 'cl-fundo-emergencia')">
+        <div class="check-box"></div>
+        <div><div class="check-text">Nunca tocar neste dinheiro excepto em emergência real</div></div>
+      </div>
+      <button class="cl-reset" onclick="resetChecklist('cl-fundo-emergencia')">↺ Resetar checklist</button>
+    </div>
+  </div>
+
+  <div class="ch-section">
+    <div class="section-title">Sair das Dívidas</div>
+    <div class="section-label">Método avalanche — paga menos juros no total</div>
+    <div class="checklist-box" id="cl-dividas">
+      <div class="checklist-title">Sair das Dívidas</div>
+      <div class="checklist-sub">Clica para marcar cada item <span class="cl-counter">0/5 concluídos</span></div>
+      <div class="check-item" onclick="toggleCheck(this, 'cl-dividas')">
+        <div class="check-box"></div>
+        <div><div class="check-text">Listar todas as dívidas com respectiva taxa de juro anual</div></div>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this, 'cl-dividas')">
+        <div class="check-box"></div>
+        <div><div class="check-text">Pagar mínimo em todas + valor extra na de maior taxa (método avalanche)</div></div>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this, 'cl-dividas')">
+        <div class="check-box"></div>
+        <div><div class="check-text">Negociar taxa de juro com banco antes de refinanciar noutro lado</div></div>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this, 'cl-dividas')">
+        <div class="check-box"></div>
+        <div><div class="check-text">Cancelar crédito rotativo do cartão — converte para crédito pessoal fixo</div></div>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this, 'cl-dividas')">
+        <div class="check-box"></div>
+        <div><div class="check-text">Definir data-alvo de quitação total para cada dívida</div></div>
+      </div>
+      <button class="cl-reset" onclick="resetChecklist('cl-dividas')">↺ Resetar checklist</button>
+    </div>
+  </div>
 
 </div>
 
@@ -226,5 +301,27 @@ footer{border-top:1px solid var(--border);padding:40px;max-width:1100px;margin:0
   <div class="footer-logo">GUIA DE SOBREVIVÊNCIA URBANA</div>
   <div class="footer-meta">Sem publicidade · Sem afiliados · Sem agenda<br>Conteúdo licenciado sob CC BY-SA 4.0<br>Última revisão: Abril 2026</div>
 </footer>
+
+<script>
+function toggleCheck(el, boxId) {
+  el.classList.toggle('done');
+  updateCounter(boxId);
+}
+function updateCounter(boxId) {
+  var box = document.getElementById(boxId);
+  if (!box) return;
+  var total = box.querySelectorAll('.check-item').length;
+  var done = box.querySelectorAll('.check-item.done').length;
+  var counter = box.querySelector('.cl-counter');
+  if (counter) counter.textContent = done + '/' + total + ' concluídos';
+}
+function resetChecklist(boxId) {
+  var box = document.getElementById(boxId);
+  if (!box) return;
+  box.querySelectorAll('.check-item').forEach(function(i){ i.classList.remove('done'); });
+  updateCounter(boxId);
+}
+</script>
+
 </body>
 </html>
