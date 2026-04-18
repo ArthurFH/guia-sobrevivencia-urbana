@@ -230,6 +230,42 @@
   .chapter-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 16px; }
   .ctag { font-family: var(--mono); font-size: 9px; letter-spacing: 0.1em; padding: 3px 8px; border: 1px solid var(--border); color: var(--text-dim); text-transform: uppercase; }
 
+  /* LOCKED CHAPTER CARDS */
+  .chapter-card-locked {
+    position: relative;
+    cursor: default;
+    pointer-events: none;
+  }
+  .chapter-card-locked .chapter-title,
+  .chapter-card-locked .chapter-desc,
+  .chapter-card-locked .chapter-tags {
+    filter: blur(3.5px);
+    user-select: none;
+  }
+  .chapter-card-locked .chapter-num {
+    filter: blur(1.5px);
+    opacity: 0.25;
+  }
+  .lock-overlay {
+    position: absolute;
+    bottom: 12px;
+    right: 14px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    opacity: 0.32;
+    pointer-events: none;
+  }
+  .lock-overlay svg { display: block; }
+  .lock-overlay span {
+    font-family: var(--mono);
+    font-size: 8px;
+    letter-spacing: 0.15em;
+    color: var(--text-dim);
+    text-transform: uppercase;
+  }
+
   /* CHANGELOG com votos */
   .changelog-section { background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
   .changelog-inner { max-width: 1100px; margin: 0 auto; padding: 80px 40px; animation: fadeUp 0.8s ease 0.4s both; }
@@ -412,68 +448,144 @@
 <div class="section" id="capitulos">
   <div class="section-label">Capítulos</div>
   <div class="chapters-grid">
-    <a href="#" class="chapter-card">
+    <!-- CAP 1 — DISPONÍVEL -->
+    <a href="cap1.html" class="chapter-card">
       <div class="chapter-num">01</div>
       <div class="chapter-title">Dinheiro sob Pressão</div>
       <div class="chapter-desc">Inflação, orçamento de crise, fundo de emergência, dívida boa vs. má.</div>
       <div class="chapter-tags"><span class="ctag">Finanças</span><span class="ctag">🇵🇹 🇧🇷</span></div>
     </a>
-    <a href="#" class="chapter-card">
+
+    <!-- CAP 2–9 — BLOQUEADOS -->
+    <div class="chapter-card chapter-card-locked">
       <div class="chapter-num">02</div>
       <div class="chapter-title">Segurança Digital e Golpes</div>
       <div class="chapter-desc">Os 10 golpes mais comuns explicados por dentro. O que fazer se já fores vítima.</div>
       <div class="chapter-tags"><span class="ctag">Atualizado</span><span class="ctag">🇵🇹 🇧🇷</span></div>
-    </a>
-    <a href="#" class="chapter-card">
+      <div class="lock-overlay">
+        <svg width="22" height="26" viewBox="0 0 22 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="1" y="11" width="20" height="14" rx="1" stroke="#d4cfc8" stroke-width="1.5"/>
+          <path d="M6 11V7a5 5 0 0110 0v4" stroke="#d4cfc8" stroke-width="1.5" stroke-linecap="square"/>
+          <circle cx="11" cy="18" r="2" fill="#d4cfc8"/>
+        </svg>
+        <span>Em breve</span>
+      </div>
+    </div>
+    <div class="chapter-card chapter-card-locked">
       <div class="chapter-num">03</div>
       <div class="chapter-title">Planejamento Financeiro</div>
       <div class="chapter-desc">Regra 50/30/20 adaptada, seguro de saúde, imóvel em contexto instável.</div>
       <div class="chapter-tags"><span class="ctag">Finanças</span><span class="ctag">Longo Prazo</span></div>
-    </a>
-    <a href="#" class="chapter-card">
+      <div class="lock-overlay">
+        <svg width="22" height="26" viewBox="0 0 22 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="1" y="11" width="20" height="14" rx="1" stroke="#d4cfc8" stroke-width="1.5"/>
+          <path d="M6 11V7a5 5 0 0110 0v4" stroke="#d4cfc8" stroke-width="1.5" stroke-linecap="square"/>
+          <circle cx="11" cy="18" r="2" fill="#d4cfc8"/>
+        </svg>
+        <span>Em breve</span>
+      </div>
+    </div>
+    <div class="chapter-card chapter-card-locked">
       <div class="chapter-num">04</div>
       <div class="chapter-title">Carreira em Mercado Difícil</div>
       <div class="chapter-desc">Skills transferíveis, freelance, reputação online, trabalho remoto internacional.</div>
       <div class="chapter-tags"><span class="ctag">Carreira</span><span class="ctag">Freelance</span></div>
-    </a>
-    <a href="#" class="chapter-card">
+      <div class="lock-overlay">
+        <svg width="22" height="26" viewBox="0 0 22 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="1" y="11" width="20" height="14" rx="1" stroke="#d4cfc8" stroke-width="1.5"/>
+          <path d="M6 11V7a5 5 0 0110 0v4" stroke="#d4cfc8" stroke-width="1.5" stroke-linecap="square"/>
+          <circle cx="11" cy="18" r="2" fill="#d4cfc8"/>
+        </svg>
+        <span>Em breve</span>
+      </div>
+    </div>
+    <div class="chapter-card chapter-card-locked">
       <div class="chapter-num">05</div>
       <div class="chapter-title">Conhecimento que Não se Perde</div>
       <div class="chapter-desc">Línguas, skills duráveis, onde estudar de graça ou quase.</div>
       <div class="chapter-tags"><span class="ctag">Educação</span><span class="ctag">Línguas</span></div>
-    </a>
-    <a href="#" class="chapter-card">
+      <div class="lock-overlay">
+        <svg width="22" height="26" viewBox="0 0 22 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="1" y="11" width="20" height="14" rx="1" stroke="#d4cfc8" stroke-width="1.5"/>
+          <path d="M6 11V7a5 5 0 0110 0v4" stroke="#d4cfc8" stroke-width="1.5" stroke-linecap="square"/>
+          <circle cx="11" cy="18" r="2" fill="#d4cfc8"/>
+        </svg>
+        <span>Em breve</span>
+      </div>
+    </div>
+    <div class="chapter-card chapter-card-locked">
       <div class="chapter-num">06</div>
       <div class="chapter-title">Noções Jurídicas de Sobrevivência</div>
       <div class="chapter-desc">Direitos do trabalhador, contratos, despejo, execução fiscal, apoio gratuito.</div>
       <div class="chapter-tags"><span class="ctag">Direito</span><span class="ctag">🇵🇹 🇧🇷</span></div>
-    </a>
-    <a href="#" class="chapter-card">
+      <div class="lock-overlay">
+        <svg width="22" height="26" viewBox="0 0 22 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="1" y="11" width="20" height="14" rx="1" stroke="#d4cfc8" stroke-width="1.5"/>
+          <path d="M6 11V7a5 5 0 0110 0v4" stroke="#d4cfc8" stroke-width="1.5" stroke-linecap="square"/>
+          <circle cx="11" cy="18" r="2" fill="#d4cfc8"/>
+        </svg>
+        <span>Em breve</span>
+      </div>
+    </div>
+    <div class="chapter-card chapter-card-locked">
       <div class="chapter-num">07</div>
       <div class="chapter-title">Casa e Vida Doméstica</div>
       <div class="chapter-desc">Negociar renda, cozinha de crise, reparos básicos, documentos digitalizados.</div>
       <div class="chapter-tags"><span class="ctag">Casa</span><span class="ctag">Prático</span></div>
-    </a>
-    <a href="#" class="chapter-card">
+      <div class="lock-overlay">
+        <svg width="22" height="26" viewBox="0 0 22 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="1" y="11" width="20" height="14" rx="1" stroke="#d4cfc8" stroke-width="1.5"/>
+          <path d="M6 11V7a5 5 0 0110 0v4" stroke="#d4cfc8" stroke-width="1.5" stroke-linecap="square"/>
+          <circle cx="11" cy="18" r="2" fill="#d4cfc8"/>
+        </svg>
+        <span>Em breve</span>
+      </div>
+    </div>
+    <div class="chapter-card chapter-card-locked">
       <div class="chapter-num">08</div>
       <div class="chapter-title">Saúde quando o Sistema Aperta</div>
       <div class="chapter-desc">SNS e SUS na prática, genéricos, saúde mental em crise, primeiros socorros.</div>
       <div class="chapter-tags"><span class="ctag">Saúde</span><span class="ctag">🇵🇹 🇧🇷</span></div>
-    </a>
-    <a href="#" class="chapter-card">
+      <div class="lock-overlay">
+        <svg width="22" height="26" viewBox="0 0 22 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="1" y="11" width="20" height="14" rx="1" stroke="#d4cfc8" stroke-width="1.5"/>
+          <path d="M6 11V7a5 5 0 0110 0v4" stroke="#d4cfc8" stroke-width="1.5" stroke-linecap="square"/>
+          <circle cx="11" cy="18" r="2" fill="#d4cfc8"/>
+        </svg>
+        <span>Em breve</span>
+      </div>
+    </div>
+    <div class="chapter-card chapter-card-locked">
       <div class="chapter-num">09</div>
       <div class="chapter-title">Empreender Pequeno</div>
       <div class="chapter-desc">Side hustle realista, recibo verde / MEI, precificação, plataformas sem investimento.</div>
       <div class="chapter-tags"><span class="ctag">Negócio</span><span class="ctag">Freelance</span></div>
-    </a>
-    <a href="#protocolos" class="chapter-card" style="grid-column: span 3; display: flex; align-items: center; justify-content: space-between; padding: 28px;">
+      <div class="lock-overlay">
+        <svg width="22" height="26" viewBox="0 0 22 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="1" y="11" width="20" height="14" rx="1" stroke="#d4cfc8" stroke-width="1.5"/>
+          <path d="M6 11V7a5 5 0 0110 0v4" stroke="#d4cfc8" stroke-width="1.5" stroke-linecap="square"/>
+          <circle cx="11" cy="18" r="2" fill="#d4cfc8"/>
+        </svg>
+        <span>Em breve</span>
+      </div>
+    </div>
+
+    <!-- CAP 10 — BLOQUEADO (span 3) -->
+    <div class="chapter-card chapter-card-locked" style="grid-column: span 3; display: flex; align-items: center; justify-content: space-between; padding: 28px;">
       <div>
         <div class="chapter-num" style="font-size: 32px; margin-bottom: 4px;">10</div>
         <div class="chapter-title" style="font-size: 17px;">Protocolos de Emergência — Checklists por Cenário</div>
         <div class="chapter-desc">Demissão, fraude, bloqueio bancário, saída do país.</div>
       </div>
-      <span style="font-family: var(--display); font-size: 40px; color: var(--accent); opacity: 0.4;">→</span>
-    </a>
+      <div class="lock-overlay" style="position: relative; bottom: auto; right: auto; opacity: 0.32; display: flex; flex-direction: column; align-items: center; gap: 4px;">
+        <svg width="22" height="26" viewBox="0 0 22 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="1" y="11" width="20" height="14" rx="1" stroke="#d4cfc8" stroke-width="1.5"/>
+          <path d="M6 11V7a5 5 0 0110 0v4" stroke="#d4cfc8" stroke-width="1.5" stroke-linecap="square"/>
+          <circle cx="11" cy="18" r="2" fill="#d4cfc8"/>
+        </svg>
+        <span style="font-family: 'IBM Plex Mono', monospace; font-size: 8px; letter-spacing: 0.15em; color: #6b6560; text-transform: uppercase;">Em breve</span>
+      </div>
+    </div>
   </div>
 </div>
 
